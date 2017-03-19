@@ -11,49 +11,40 @@ function Player:new( group, options )
 	local height = options.height or 100
 	
 	if group then	
+		--self.cat = display.newImage( group, "images/cathand.png", x, y )
 		self.spriteinstance = display.newRect( group, x, y, width, height )
 	else	
+		--self.cat = display.newImage( "images/cathand.png", x, y )
 		self.spriteinstance = display.newRect( x, y, width, height )
 	end
 	
+	--self.spriteinstance.alpha = 0
+	--self.cat:scale( -1, 1 )
+	--self.cat.alpha = 0.7
+
 	self.spriteinstance:setFillColor( unpack( colors.white ) )	
-	self.spriteinstance.anchorX = 0 
-	self.spriteinstance.anchorY = 0
+	--self.spriteinstance.anchorX = 0 
+	--self.spriteinstance.anchorY = 0
 
 	self.width = width
 	self.height = height
+	self.spriteinstance.lastX = 0
+	self.spriteinstance.lastY = 0
 end	
 
--- touch listener function
-function Player.drag( event )
 
-	local self = event.target
-	if ( event.phase == "began" ) then
-		-- first we set the focus on the object
-		display.getCurrentStage():setFocus( self, event.id )
-		self.isFocus = true
+function Player:tail( dt )
+	local tail = display.newLine( self.spriteinstance.lastX, self.spriteinstance.lastY, self.spriteinstance.x, self.spriteinstance.y )
+	--transition.to( tail, {alpha=0, time=1000, xScale=0, yScale=0, onComplete=display.remove} )
+	self.spriteinstance.lastX = self.spriteinstance.x
+	self.spriteinstance.lastY = self.spriteinstance.y
 
-		-- then we store the original x and y position
-		--self.markX = self.x
-		self.markY = self.y
-	elseif ( self.isFocus ) then
-		if ( event.phase == "moved" ) then
-		  -- then drag our object
-		  --self.x = event.x - event.xStart + self.markX
-		  self.y = event.y - event.yStart + self.markY
-		elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
-		  -- we end the movement by removing the focus from the object
-		  display.getCurrentStage():setFocus( self, nil )
-		  self.isFocus = false
-		end
- 	end
- 
-	-- return true so Corona knows that the touch event was handled propertly
-	return true
-end
 
-function Player:addDrag( )
-	self.spriteinstance:addEventListener("touch", self.drag)
+	tail.alpha = 0.8
+	tail:setStrokeColor(0.25,0.25,0.25)
+	tail:toBack()
+	tail.strokeWidth = self.spriteinstance.contentWidth
+	transition.to( tail, { alpha = 0.05, strokeWidth = 1, time = 500, onComplete = display.remove })
 end	
 
 return Player

@@ -65,6 +65,7 @@ local locals = {
     mCos = math.cos,
     mPi = math.pi,
     mSqrt = math.sqrt,
+    mExp = math.exp,
     mRandom = math.random,
     tInsert = table.insert,
     tRemove = table.remove,
