@@ -77,7 +77,10 @@ function Computer:update( ball, dt )
 			local delta = ( desty - self.spriteinstance.y ) * 0.1
 			delta = mMin( delta, 170 ) * dt
 			--print( dt )
-			self.spriteinstance.y = self.spriteinstance.y + delta 
+			if ( self.spriteinstance.y + delta > self.spriteinstance.height * self.spriteinstance.yScale * self.spriteinstance.anchorY and 
+            self.spriteinstance.y + delta < _H - self.spriteinstance.height * ( 1 - self.spriteinstance.anchorY ) * self.spriteinstance.yScale ) then
+				self.spriteinstance.y = self.spriteinstance.y + delta 
+			end	
 		end	
 	elseif self.enemyId == 2 then
 		if ( ball.spriteinstance.x > 200 and ball.velX > 0 ) then

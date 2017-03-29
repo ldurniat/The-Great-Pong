@@ -23,6 +23,7 @@ function Player:new( group, options )
 	--self.cat.alpha = 0.7
 
 	self.spriteinstance:setFillColor( unpack( colors.white ) )	
+
 	--self.spriteinstance.anchorX = 0 
 	--self.spriteinstance.anchorY = 0
 

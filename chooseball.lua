@@ -2,6 +2,7 @@ local composer = require( "composer" )
 local app      = require( "lib.app" )
 local colors   = require( "lib.colors" )
 local Ball     = require( "ball" )
+local dt = require( "lib.deltatime" )
 
 local scene = composer.newScene()
  
@@ -33,31 +34,21 @@ local RIGHT = _W - ( 2 * xLeftArrow + 0.5 * 200 )
 local isTransitioning = false
 local itemIndex = 2
 
-local getTimer = system.getTimer
-local lastTime = getTimer( )
 local player, computer
 ---------------------------------------------------------------------------------
- 
-local function getDelta( )
-   local curTime = getTimer()
-
-   local dt = curTime - lastTime
-   dt = dt / ( 1000 / display.fps)
-
-   lastTime = curTime
-
-   return dt
-end
 
 local function onTransitionComplete( event )
     isTransitioning = false
 end
 
 local function enterFrame(event)
-   local dt = getDelta( )
+   dt.setDeltaTime( )
+   local deltatime = dt.getDeltaTime( )
 
    for i=1, #items do
-      items[i].ball:update( player, computer, dt)
+      if ( itemIndex - 2 < i and i < 2 + itemIndex ) then
+         items[i].ball:update( deltatime )
+      end
    end
 end
 
@@ -121,13 +112,6 @@ function scene:create( event )
 
    rightArrow.xScale = -1
 
-   -- Prostokątna granica wokół menu wyboru
-   local border = display.newRect( sceneGroup, _CX, _CY, _W - 4 * xLeftArrow, _H * 0.8 )
-   border:setFillColor( colors.black )
-   border.strokeWidth = 3 
-
-   border.alpha = 0 
-
    player = {}
    player.spriteinstance = {}
    player.spriteinstance.x = 10
@@ -136,6 +120,8 @@ function scene:create( event )
    player.spriteinstance.width = 10
    player.height = 10
    player.width = 10
+   player.anchorX = 0.5
+   player.anchorY = 0.5
 
 
    computer = {}
@@ -146,8 +132,25 @@ function scene:create( event )
    computer.spriteinstance.width = 10
    computer.height = 10
    computer.width = 10
+   computer.anchorX = 0.5
+   computer.anchorY = 0.5
 
-   for i=1, 6 do
+   local update = function( self, dt )  
+      self:tail( dt )
+      self:rotate( dt )
+
+      self.x = self.x + self.velX * dt
+      self.y = self.y + self.velY * dt
+      
+      self.spriteinstance.x = self.x 
+      self.spriteinstance.y = self.y
+
+      self:checkCollisionWithScreenEdges( )
+   end
+
+   local tails = { 'lines', 'rects', 'circles', 'rectsRandomColors', 'circlesRandomColors', 'linesRandomColors' }
+
+   for i=1, #tails do
       local group = display.newGroup( )
 
       local text = display.newText( group, "Ball " .. i, smallSizeRect * 0.5, -50, native.systemFont, 30 )
@@ -159,9 +162,9 @@ function scene:create( event )
       rect.anchorY = 0
       rect.strokeWidth = 5
 
-      local ball = Ball( group, {widthLimit=smallSizeRect, heightLimit=smallSizeRect, speed=10} )
-      ball.tailId = i
-      ball:serve(1, player, computer)
+      local ball = Ball( group, {screenWidth=smallSizeRect, screenHeight=smallSizeRect, speed=10, update=update, tail=tails[i]} )
+      --ball.tailId = i
+      ball:serve()
 
       group.anchorChildren = true
       group.anchorX = 0.5

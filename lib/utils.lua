@@ -85,6 +85,10 @@ function math.round(num, idp)
   return math.floor(num + 0.5)
 end
 
+function math.sign( num )
+  return num > 0 and 1 or num < 0 and -1 or 0
+end
+
 function app.saveFile(strFilename, strValue, dir)
     local path = system.pathForFile(strFilename, dir or system.DocumentsDirectory)
     local file = io.open( path, "w+" )
