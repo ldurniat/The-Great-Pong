@@ -1,23 +1,21 @@
-local M = { }
-
 local getTimer = system.getTimer
 local lastTime = 0
 
-M.deltatime = 0 
+local M = {}
 
-function M.setDeltaTime( )
-   local curTime = getTimer()
+function M.getDeltaTime()
+	local dt = 0
 
-   local dt = curTime - lastTime
-   dt = dt / ( 1000 / display.fps)
+	if lastTime == 0 then
+		lastTime = getTimer()
+	else	
+		local curTime = getTimer()
+		dt = curTime - lastTime
+		dt = dt / ( 1000 / display.fps)
+		lastTime = curTime			
+	end	
 
-   lastTime = curTime
-
-  M.deltatime = dt
-end
-
-function M.getDeltaTime( )
-	return M.deltatime
+	return dt
 end	
 
 return M

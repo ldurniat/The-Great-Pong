@@ -1,26 +1,16 @@
-local composer = require( 'composer' )
-local app      = require( 'lib.app' )
+local composer  = require( 'composer' )
+local app       = require( 'lib.app' )
 local collision = require( 'lib.collision' )
-local effects = require( 'lib.effects' )
-local Ball     = require( 'ball' )
-local Player   = require( 'player' )
-local Computer = require( 'computer' )
-local utils = require( "lib.utils" ) 
+local effects   = require( 'lib.effects' )
+local utils     = require( 'lib.utils' ) 
+local dt        = require( 'lib.deltatime' )
+local Ball      = require( 'ball' )
+local Paddle    = require( 'paddle' )
 
-local dt = require( "lib.deltatime" )
-
-local ball 
-local player 
-local computer
+local ball, player, computer
 
 local _W, _H, _CX, _CY
-
-local mRandom 
-local mPi
-local mSin
-local mCos
-local mAbs
-local mClamp = math.clamp
+local mClamp, mRandom, mPi, mSin, mCos, mAbs = math.clamp 
 
 -- Nadaj odpowiednie wartości predefinowanym zmiennym (_W, _H, ...) 
 app.setLocals( )
@@ -41,32 +31,18 @@ math.randomseed( os.time() )
  
 -- local forward references should go here
  
----------------------------------------------------------------------------------
- 
-local function init( )
-   local offset = 120
-
-   player.spriteinstance.x = player.width + offset
-   player.spriteinstance.y = ( _H - player.height ) * 0.5
-   computer.spriteinstance.x = _W - ( player.width + computer.width ) - offset
-   computer.spriteinstance.y = ( _H - computer.height ) * 0.5
-
-   ball:serve()
-end   
+---------------------------------------------------------------------------------  
 
 local function loop( )
-   dt.setDeltaTime( )
-   local deltatime = dt.getDeltaTime( )
+   local deltatime = dt.getDeltaTime()
 
    ball:update( deltatime )
    computer:update( ball, deltatime )
-   player:tail( deltatime )
 end
 
 local function drag( event )
-   local self = player.spriteinstance
+   local self = player.img
 
-   --local self = event.target
    if ( event.phase == "began" ) then
       -- first we set the focus on the object
       display.getCurrentStage():setFocus( self, event.id )
@@ -78,14 +54,9 @@ local function drag( event )
    elseif ( self.isFocus ) then
       if ( event.phase == "moved" ) then
         -- then drag our object
-        --self.x = event.x - event.xStart + self.markX
-         if ( event.y - event.yStart + self.markY > self.height * self.yScale * self.anchorY and 
-            event.y - event.yStart + self.markY < _H - self.height * ( 1 - self.anchorY ) * self.yScale ) then
-            self.y = event.y - event.yStart + self.markY
-            --player.cat.y = self.y + self.height * 0.5
-         else
-            self.y = mClamp(self.y, self.height * self.yScale * self.yScale + 1, _H - self.height * ( 1 - self.yScale ) * self.yScale - 1 )
-         end
+         self.y = mClamp( event.y - event.yStart + self.markY, 
+            self.height * self.yScale * self.anchorY, 
+            _H - self.height * ( 1 - self.anchorY ) * self.yScale )
       elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
         -- we end the movement by removing the focus from the object
         display.getCurrentStage():setFocus( self, nil )
@@ -98,67 +69,74 @@ local function drag( event )
 end   
 
 local function shrink( event )
-   player.spriteinstance:scale( 1, shrinkScale )
+   player.img:scale( 1, shrinkScale )
 end   
 
 local function scoreup( event )
    score.text = tostring(score.text) + 1
 end 
 
--- "scene:create()"
-function scene:create( event )
- 
+local function collisionWithEdge( event )
+   local edge = event.edge
+
+   if edge == 'left' then
+      shrink()
+   elseif edge == 'right' then
+      scoreup()
+   end   
+end
+
+function scene:create( event ) 
    local sceneGroup = self.view
+   local offset = 120
   
    -- Initialize the scene here.
    -- Example: add display objects to "sceneGroup", add touch listeners, etc.
 
-   player = Player( nil, {} )
-   computer = Computer( nil, {} )
+   player = Paddle.new()
+   player.img.x = player.img.width + offset
+   player.img.y = _CY
 
-   local update = function( self, dt )  
-      self:tail( dt )
+   computer = Paddle.new()
+   computer.img.x = _W - offset
+   computer.img.y = _CY
+   
+   local update = function( self, dt ) 
+      local img = self.img
+      img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
+
+      effects.addTail( self, {dt=dt, name='circlesRandomColors'} )
       self:rotate( dt )
-
-      self.x = self.x + self.velX * dt
-      self.y = self.y + self.velY * dt
+      self:collision()
       
-      self.spriteinstance.x = self.x 
-      self.spriteinstance.y = self.y
-
-      self:checkCollisionWithScreenEdges( lineWidth )
+      local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
       
-      local pdle = self.x < self.screenWidth * 0.5 and player or computer
-      
-      if ( collision.AABBIntersect( pdle.spriteinstance, self.spriteinstance ) ) then
-         self.x = pdle.spriteinstance.x + ( self.velX > 0 and -1 or 1 ) * pdle.spriteinstance.width * 0.5
+      if ( collision.AABBIntersect( pdle, img ) ) then
+         img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
         
+         local mSign = math.sign        
          local i = pdle == player and -1 or 1
-         local x1 = 0.5 * ( pdle.spriteinstance.height + self.side )
-         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.spriteinstance.y - self.y ) + ( x1 / ( 2 * x1 ) )
+         local x1 = 0.5 * ( pdle.height + img.side )
+         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
          local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
          local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
-
-         local mSign = math.sign
         
-         self.velX = - mSign( self.velX ) * smash  * self.speed * mCos( phi )
-         self.velY = smash * mSign( self.velY ) * self.speed * mAbs( mSin( phi ) )
+         img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
+         img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
       end
    end   
    
-   ball = Ball( nil, {x=_CX, y=_CY, update=update, tail='linesRandomColors'} )
+   ball = Ball.new( {update=update} )
+   ball:serve()
+
+   sceneGroup:insert( ball )
+   sceneGroup:insert( computer )
+   sceneGroup:insert( player )
 
    score = display.newText( sceneGroup, '0', _CX - 100, 100, native.systemFont, 70 )
-   --computer.enemyId = 5
-
-   init()
-
-   listen( 'collisionedgewest', shrink)
-   listen( 'collisionedgeeast', scoreup)
 end
 
 function scene:show( event )
-
    local sceneGroup = self.view
    local phase = event.phase
  
@@ -177,6 +155,7 @@ function scene:show( event )
          line.strokeWidth = lineWidth
       end   
 
+      --[[
       local verticles = 
        { {0 , 0}, 
          {_W, 0},
@@ -187,20 +166,23 @@ function scene:show( event )
       for i=1, #verticles - 1 do
          local line = display.newLine( sceneGroup, verticles[i][1], verticles[i][2], verticles[i + 1][1], verticles[i + 1][2] )
          line.strokeWidth = lineWidth * 2
-      end  
+      end 
+      --]] 
       -- Called when the scene is still off screen (but is about to come on screen).
    elseif ( phase == "did" ) then
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
+      listen( 'edgeCollision', collisionWithEdge )
+      --listen( 'collision', scoreup)
 
-      Runtime:addEventListener( "enterFrame", loop )
-      Runtime:addEventListener( "touch", drag )
+      --Runtime:addEventListener( "enterFrame", loop )
+      --Runtime:addEventListener( "touch", drag )
+      app.addRtEvents( {'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge} )
    end
 end
  
 function scene:hide( event )
- 
    local sceneGroup = self.view
    local phase = event.phase
  
@@ -210,14 +192,20 @@ function scene:hide( event )
       -- Example: stop timers, stop animation, stop audio, etc.
    elseif ( phase == "did" ) then
       -- Called immediately after scene goes off screen.
-      Runtime:removeEventListener( "enterFrame", loop )
-      Runtime:removeEventListener( "touch", drag )
+      app.removeAllRtEvents()
+      --Runtime:removeEventListener( "enterFrame", loop )
+      --Runtime:removeEventListener( "touch", drag )
+      --ignore( 'edgeCollision', collisionWithEdge)
+      --ignore( 'reachrightedge', scoreup)
    end
 end
  
 function scene:destroy( event )
- 
-   local sceneGroup = self.view
+   --Runtime:removeEventListener( "enterFrame", loop )
+   --Runtime:removeEventListener( "touch", drag )
+   app.removeAllRtEvents()
+   --ignore( 'reachleftedge', shrink)
+   --ignore( 'reachrightedge', scoreup)
  
    -- Called prior to the removal of scene's view ("sceneGroup").
    -- Insert code here to clean up the scene.

@@ -318,6 +318,7 @@ end
 function _M.nextFrame(f)
     timer.performWithDelay(1, f)
 end
+
 function _M.enterFrame()
     for i = 1, #_M.enterFrameFunctions do
         _M.enterFrameFunctions[i]()
@@ -347,6 +348,50 @@ function _M.extend(target, source)
     for k, v in pairs(source) do
         target[k] = v
     end
+end
+
+-- Stop everything
+function _M.eachFrameRemoveAll()  
+    Runtime:removeEventListener('enterFrame', _M.enterFrame)
+    _M.enterFrameFunctions = nil
+end
+
+function _M.addRtEvents( name, listener )
+    local events = name  
+    if type( name ) == 'string' then   
+        events = {name, listener}
+    end
+
+    for i=1, #events * 0.5 do
+        local name = events[ 2 * i - 1 ]
+        local listener = events[ 2 * i ]
+        print( name, tostring(listener) )    
+        if not _M.RtEventTable then
+            _M.RtEventTable = {}
+        end
+        Runtime:addEventListener( name, listener )
+        table.insert( _M.RtEventTable, {name, listener} )
+    end    
+end
+
+function _M.removeRtEvents( name, listener )
+    if not listener or not _M.RtEventTable then return end
+    local ind = table.indexOf( _M.RtEventTable, {name=name, listener=listener} )
+    if ind then
+        table.remove( _M.RtEventTable, ind )
+        Runtime:removeEventListener( name, listener )
+    end
+end
+
+-- Stop everything
+function _M.removeAllRtEvents()  
+    for i=1, #_M.RtEventTable do
+        local name = _M.RtEventTable[ i ].name
+        local listener = _M.RtEventTable[ i ].listener
+            
+        Runtime:removeEventListener('enterFrame', _M.enterFrame)
+    end  
+    _M.RtEventTable = nil
 end
 
 return _M

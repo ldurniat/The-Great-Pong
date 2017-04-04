@@ -1,6 +1,7 @@
 local M = { }
 
--- Punkt anchor jest w lewym górnym wierzchołku
+-- Funkcja sprawdza czy dwa prostokąty pokrywają się. 
+-- Współrzędne punktów leżą w górnym lewym rogu prostokąta.
 function M.AABBIntersect( rect1, rect2 )
 	local x1, y1 = rect1.x, rect1.y
 	local width1, height1 = rect1.width * rect1.xScale, rect1.height * rect1.yScale

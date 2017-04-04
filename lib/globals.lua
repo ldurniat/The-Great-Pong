@@ -1,9 +1,18 @@
--- Zmienne i funkcję, które mają być dostepnie globalnie
+-- Zmienne i funkcję, które mają być dostepne globalnie
+
+local app = require( 'lib.app' )
+
 local getTimer = system.getTimer
 local pairs = _G.pairs
 
-_G.listen = function( name, listener ) Runtime:addEventListener( name, listener ) end
-_G.ignore = function( name, listener ) Runtime:removeEventListener( name, listener ) end
+_G.listen = function( name, listener ) 
+	--Runtime:addEventListener( name, listener ) 
+	app.addRtEvents( name, listener )
+	end
+_G.ignore = function( name, listener ) 
+	--Runtime:removeEventListener( name, listener ) 
+	app.removeRtEvents( name, listener )
+	end
 _G.post = function( name, params )
    local params = params or {}
    local event = { name = name }

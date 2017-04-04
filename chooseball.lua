@@ -1,8 +1,9 @@
 local composer = require( "composer" )
 local app      = require( "lib.app" )
+local effects  = require( 'lib.effects' )
 local colors   = require( "lib.colors" )
 local Ball     = require( "ball" )
-local dt = require( "lib.deltatime" )
+local dt       = require( "lib.deltatime" )
 
 local scene = composer.newScene()
  
@@ -13,8 +14,7 @@ local scene = composer.newScene()
  
 -- local forward references should go here
 local _W, _H, _CX, _CY
-local mSin, mCos, mPi
-local mRandom
+local mSin, mCos, mPi, mRandom
 
 -- Nadaj odpowiednie wartości predefinowanym zmiennym (_W, _H, ...) 
 app.setLocals( )
@@ -34,7 +34,7 @@ local RIGHT = _W - ( 2 * xLeftArrow + 0.5 * 200 )
 local isTransitioning = false
 local itemIndex = 2
 
-local player, computer
+--local player, computer
 ---------------------------------------------------------------------------------
 
 local function onTransitionComplete( event )
@@ -42,8 +42,7 @@ local function onTransitionComplete( event )
 end
 
 local function enterFrame(event)
-   dt.setDeltaTime( )
-   local deltatime = dt.getDeltaTime( )
+   local deltatime = dt.getDeltaTime()
 
    for i=1, #items do
       if ( itemIndex - 2 < i and i < 2 + itemIndex ) then
@@ -87,9 +86,7 @@ local function handleSwipe( event )
     return true
 end
 
--- "scene:create()"
 function scene:create( event )
- 
    local sceneGroup = self.view
  
    -- Initialize the scene here.
@@ -112,58 +109,25 @@ function scene:create( event )
 
    rightArrow.xScale = -1
 
-   player = {}
-   player.spriteinstance = {}
-   player.spriteinstance.x = 10
-   player.spriteinstance.y = 10
-   player.spriteinstance.height = 10
-   player.spriteinstance.width = 10
-   player.height = 10
-   player.width = 10
-   player.anchorX = 0.5
-   player.anchorY = 0.5
-
-
-   computer = {}
-   computer.spriteinstance = {}
-   computer.spriteinstance.x = 10
-   computer.spriteinstance.y = 10
-   computer.spriteinstance.height = 10
-   computer.spriteinstance.width = 10
-   computer.height = 10
-   computer.width = 10
-   computer.anchorX = 0.5
-   computer.anchorY = 0.5
-
-   local update = function( self, dt )  
-      self:tail( dt )
-      self:rotate( dt )
-
-      self.x = self.x + self.velX * dt
-      self.y = self.y + self.velY * dt
-      
-      self.spriteinstance.x = self.x 
-      self.spriteinstance.y = self.y
-
-      self:checkCollisionWithScreenEdges( )
-   end
-
    local tails = { 'lines', 'rects', 'circles', 'rectsRandomColors', 'circlesRandomColors', 'linesRandomColors' }
 
    for i=1, #tails do
       local group = display.newGroup( )
-
       local text = display.newText( group, "Ball " .. i, smallSizeRect * 0.5, -50, native.systemFont, 30 )
-
       local rect = display.newRect( group, 0, 0, smallSizeRect, smallSizeRect )
-      rect:setFillColor(0,0,0 )
-      --rect.alpha = 0.1
-      rect.anchorX = 0
-      rect.anchorY = 0
-      rect.strokeWidth = 5
+      rect:setFillColor( 0,0,0 )
+      rect.anchorX, rect.anchorY, rect.strokeWidth  = 0, 0, 5
 
-      local ball = Ball( group, {screenWidth=smallSizeRect, screenHeight=smallSizeRect, speed=10, update=update, tail=tails[i]} )
-      --ball.tailId = i
+      local update = function( self, dt )  
+         local img = self.img
+         img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
+
+         effects.addTail( self, {dt=dt, name=tails[ i ]} )
+         self:rotate( dt )
+         self:collision()
+      end
+
+      local ball = Ball.new( {width=smallSizeRect, height=smallSizeRect, speed=10, update=update} )
       ball:serve()
 
       group.anchorChildren = true
@@ -176,22 +140,14 @@ function scene:create( event )
       group.ball = ball
       group:scale( xScaleSmallRect, xScaleSmallRect )
 
+      group:insert( ball )
       sceneGroup:insert( group )
    end   
 
---[[
-   items = {}
-   items[1] = display.newRect( sceneGroup, LEFT, _CY, smallSizeRect, smallSizeRect )   
-   items[2] = display.newRect( sceneGroup, CENTER, _CY, smallSizeRect, smallSizeRect )   
-   items[3] = display.newRect( sceneGroup, RIGHT, _CY, smallSizeRect, smallSizeRect )   
-   items[4] = display.newRect( sceneGroup, RIGHT, _CY, smallSizeRect, smallSizeRect )  
-   items[5] = display.newRect( sceneGroup, RIGHT, _CY, smallSizeRect, smallSizeRect ) 
---]]
    items[1].x = LEFT
    items[2].x = CENTER
 
    for i=1, #items do
-      --items[i]:setFillColor(  mRandom(), mRandom(), mRandom() )
       if itemIndex + 1 < i then
          items[i].alpha = 0
       end
@@ -203,7 +159,6 @@ function scene:create( event )
    Runtime:addEventListener( "touch", handleSwipe )
 end
  
--- "scene:show()"
 function scene:show( event )
  
    local sceneGroup = self.view
@@ -219,7 +174,6 @@ function scene:show( event )
    end
 end
  
--- "scene:hide()"
 function scene:hide( event )
  
    local sceneGroup = self.view
@@ -234,7 +188,6 @@ function scene:hide( event )
    end
 end
  
--- "scene:destroy()"
 function scene:destroy( event )
  
    local sceneGroup = self.view
