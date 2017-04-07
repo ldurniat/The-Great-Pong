@@ -6,6 +6,8 @@ local utils     = require( 'lib.utils' )
 local dt        = require( 'lib.deltatime' )
 local Ball      = require( 'ball' )
 local Paddle    = require( 'paddle' )
+local sparks    = require( 'lib.sparks' )
+local colors    = require( 'lib.colors' ) 
 
 local ball, player, computer
 
@@ -26,7 +28,7 @@ local scene = composer.newScene( )
 math.randomseed( os.time() ) 
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
--- unless "composer.removeScene()" is called.
+-- unless 'composer.removeScene()' is called.
 ---------------------------------------------------------------------------------
  
 -- local forward references should go here
@@ -43,7 +45,7 @@ end
 local function drag( event )
    local self = player.img
 
-   if ( event.phase == "began" ) then
+   if ( event.phase == 'began' ) then
       -- first we set the focus on the object
       display.getCurrentStage():setFocus( self, event.id )
       self.isFocus = true
@@ -52,12 +54,12 @@ local function drag( event )
       --self.markX = self.x
       self.markY = self.y
    elseif ( self.isFocus ) then
-      if ( event.phase == "moved" ) then
+      if ( event.phase == 'moved' ) then
         -- then drag our object
          self.y = mClamp( event.y - event.yStart + self.markY, 
             self.height * self.yScale * self.anchorY, 
             _H - self.height * ( 1 - self.anchorY ) * self.yScale )
-      elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
+      elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
         -- we end the movement by removing the focus from the object
         display.getCurrentStage():setFocus( self, nil )
         self.isFocus = false
@@ -78,6 +80,12 @@ end
 
 local function collisionWithEdge( event )
    local edge = event.edge
+   local x = event.x
+   local y = event.y
+
+   --vents:move( edge , x, y )
+   --vents:start( edge )
+   sparks.start(edge, x, y )
 
    if edge == 'left' then
       shrink()
@@ -91,7 +99,7 @@ function scene:create( event )
    local offset = 120
   
    -- Initialize the scene here.
-   -- Example: add display objects to "sceneGroup", add touch listeners, etc.
+   -- Example: add display objects to 'sceneGroup', add touch listeners, etc.
 
    player = Paddle.new()
    player.img.x = player.img.width + offset
@@ -129,6 +137,20 @@ function scene:create( event )
    ball = Ball.new( {update=update} )
    ball:serve()
 
+   sparks.new( 'left', { physics = {
+         gravityX = -0.5,
+         gravityY = 0,
+      } } ) 
+   sparks.new( 'right' ) 
+   sparks.new( 'top' , { physics = {
+         gravityX = 0,
+         gravityY = -0.5,
+      } } ) 
+   sparks.new( 'bottom' , { physics = {
+         gravityX = 0,
+         gravityY = 0.5,
+      } } )  
+
    sceneGroup:insert( ball )
    sceneGroup:insert( computer )
    sceneGroup:insert( player )
@@ -140,7 +162,7 @@ function scene:show( event )
    local sceneGroup = self.view
    local phase = event.phase
  
-   if ( phase == "will" ) then
+   if ( phase == 'will' ) then
       -- Rysuje krótkie linie na środku ekranu
       local round = math.round
       local lineLenght = 20 
@@ -153,32 +175,13 @@ function scene:show( event )
       for i=startY, _H,  2 * lineLenght do
          local line = display.newLine( sceneGroup, _CX, i, _CX, i + lineLenght )
          line.strokeWidth = lineWidth
-      end   
-
-      --[[
-      local verticles = 
-       { {0 , 0}, 
-         {_W, 0},
-         {_W, _H},
-         {0 , _H},
-         {0 , 0}, }
-
-      for i=1, #verticles - 1 do
-         local line = display.newLine( sceneGroup, verticles[i][1], verticles[i][2], verticles[i + 1][1], verticles[i + 1][2] )
-         line.strokeWidth = lineWidth * 2
-      end 
-      --]] 
+      end    
       -- Called when the scene is still off screen (but is about to come on screen).
-   elseif ( phase == "did" ) then
+   elseif ( phase == 'did' ) then
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
-      listen( 'edgeCollision', collisionWithEdge )
-      --listen( 'collision', scoreup)
-
-      --Runtime:addEventListener( "enterFrame", loop )
-      --Runtime:addEventListener( "touch", drag )
-      app.addRtEvents( {'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge} )
+      app.addRtEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
    end
 end
  
@@ -186,39 +189,32 @@ function scene:hide( event )
    local sceneGroup = self.view
    local phase = event.phase
  
-   if ( phase == "will" ) then
+   if ( phase == 'will' ) then
       -- Called when the scene is on screen (but is about to go off screen).
-      -- Insert code here to "pause" the scene.
+      -- Insert code here to 'pause' the scene.
       -- Example: stop timers, stop animation, stop audio, etc.
-   elseif ( phase == "did" ) then
+   elseif ( phase == 'did' ) then
       -- Called immediately after scene goes off screen.
       app.removeAllRtEvents()
-      --Runtime:removeEventListener( "enterFrame", loop )
-      --Runtime:removeEventListener( "touch", drag )
-      --ignore( 'edgeCollision', collisionWithEdge)
-      --ignore( 'reachrightedge', scoreup)
    end
 end
  
 function scene:destroy( event )
-   --Runtime:removeEventListener( "enterFrame", loop )
-   --Runtime:removeEventListener( "touch", drag )
-   app.removeAllRtEvents()
-   --ignore( 'reachleftedge', shrink)
-   --ignore( 'reachrightedge', scoreup)
- 
-   -- Called prior to the removal of scene's view ("sceneGroup").
+   -- Called prior to the removal of scene's view ('sceneGroup').
    -- Insert code here to clean up the scene.
    -- Example: remove display objects, save state, etc.
+   app.removeAllRtEvents()
+   sparks.removeAll()
+   sparks = nil
 end
  
 ---------------------------------------------------------------------------------
  
 -- Listener setup
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
+scene:addEventListener( 'create', scene )
+scene:addEventListener( 'show', scene )
+scene:addEventListener( 'hide', scene )
+scene:addEventListener( 'destroy', scene )
  
 ---------------------------------------------------------------------------------
  
