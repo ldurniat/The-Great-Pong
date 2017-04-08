@@ -1,6 +1,6 @@
 local composer = require( 'composer' )
 local app      = require( 'lib.app' )
 
-require( 'lib.globals' )
+--require( 'lib.globals' )
 
-composer.gotoScene( 'game' )
+composer.gotoScene( 'scene.game' )

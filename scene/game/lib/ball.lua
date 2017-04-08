@@ -34,24 +34,24 @@ function M.new( options )
 			img.velY = mAbs( img.velY )
 			img.y = 0
 
-			post( 'edgeCollision', {edge='top', x=img.x, y=0}  )	
+			app.post( 'edgeCollision', {edge='top', x=img.x, y=0}  )	
 		elseif ( img.y > bounds.height ) then 
 			img.velY = -mAbs( img.velY )
 			img.y = bounds.height
 
-			post( 'edgeCollision', {edge='bottom', x=img.x, y=bounds.height}  )
+			app.post( 'edgeCollision', {edge='bottom', x=img.x, y=bounds.height}  )
 		end
 
 		if ( img.x < 0 ) then 
 			img.velX = mAbs( img.velX )
 			img.x = 0
 
-			post( 'edgeCollision', {edge='left', x=0, y=img.y} )	
+			app.post( 'edgeCollision', {edge='left', x=0, y=img.y} )	
 		elseif ( img.x > bounds.width ) then 
 			img.velX = -mAbs( img.velX )
 			img.x = bounds.width
 
-			post( 'edgeCollision', {edge='right', x=bounds.width, y=img.y}  )
+			app.post( 'edgeCollision', {edge='right', x=bounds.width, y=img.y}  )
 		end
 	end	
 

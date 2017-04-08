@@ -1,3 +1,6 @@
+local getTimer = system.getTimer
+local pairs = _G.pairs
+
 local _M = {} 
 
 _M.deviceID = system.getInfo('deviceID')
@@ -393,5 +396,25 @@ function _M.removeAllRtEvents()
     end  
     _M.RtEventTable = nil
 end
+
+-- Funkcję do obsługi zdarzeń generowanych przez programistę
+function _M.listen( name, listener ) 
+    M.addRtEvents( name, listener )
+end  
+
+function _M.ignore( name, listener ) 
+    M.removeRtEvents( name, listener )
+end   
+
+function _M.post( name, params ) 
+   local params = params or {}
+   local event = { name = name }
+   for k,v in pairs( params ) do
+      event[k] = v
+   end
+   if ( not event.time ) then event.time = getTimer() end
+   Runtime:dispatchEvent( event )
+end 
+-----------------------------------------------------------
 
 return _M
