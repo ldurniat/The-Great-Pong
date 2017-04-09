@@ -18,6 +18,8 @@ elseif platform == 'iPhone OS' then
     _M.isiOS = true
 end
 
+-- Disabled for now
+--[[
 if _M.isSimulator then
     -- Prevent global missuse
     local mt = getmetatable(_G)
@@ -46,7 +48,7 @@ if _M.isSimulator then
       return rawget(t, n)
     end
 end
-
+--]]
 local locals = {
     _W = display.contentWidth,
     _H = display.contentHeight,
