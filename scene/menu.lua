@@ -26,7 +26,8 @@ function scene:create( event )
    menu = tiled.new( uiData, "scene/menu/ui" )
    menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
 
-   --menu.extensions = "scene.menu.lib."
+   menu.extensions = "scene.menu.lib."
+   menu:extend("button")
 end
  
 -- "scene:show()"
