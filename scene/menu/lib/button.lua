@@ -24,7 +24,6 @@ function M.new(instance)
 
   -- remember inital scale
   instance._xScale, instance._yScale = instance.xScale, instance.yScale
-  instance._rotation = instance.rotation 
  
   function instance:touch(event)
     local phase = event.phase
