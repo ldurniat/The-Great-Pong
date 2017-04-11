@@ -21,10 +21,11 @@ local menu
 function scene:create( event )
  
    local sceneGroup = self.view
-
+ 
    -- Initialize the scene here.
    -- Example: add display objects to "sceneGroup", add touch listeners, etc.
-   local uiData = json.decodeFile( system.pathForFile( "scene/menu/ui/title.json", system.ResourceDirectory ) )
+
+   local uiData = json.decodeFile( system.pathForFile( "scene/menu/ui/buttons.json", system.ResourceDirectory ) )
    menu = tiled.new( uiData, "scene/menu/ui" )
    menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
 
@@ -37,9 +38,9 @@ function scene:create( event )
       print (phase, name)
       if phase == "released" then
          --audio.play(buttonSound)
-         if name == "play" then
+         if name == "endless" then
             fx.fadeOut( function()
-                  composer.gotoScene( "scene.mode", { params = {} } )
+                  composer.gotoScene( "scene.game", { params = {} } )
                end )
          end
       end
@@ -61,7 +62,6 @@ function scene:show( event )
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
-      -- add UI listener
       app.addRtEvents( { 'ui', ui } )
    end
 end
