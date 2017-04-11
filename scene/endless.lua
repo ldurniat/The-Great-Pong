@@ -4,8 +4,8 @@ local collision = require( 'lib.collision' )
 local effects   = require( 'lib.effects' )
 local utils     = require( 'lib.utils' ) 
 local dt        = require( 'lib.deltatime' )
-local Ball      = require( 'scene.game.lib.ball' )
-local Paddle    = require( 'scene.game.lib.paddle' )
+local Ball      = require( 'scene.endless.lib.ball' )
+local Paddle    = require( 'scene.endless.lib.paddle' )
 local sparks    = require( 'lib.sparks' )
 local colors    = require( 'lib.colors' ) 
 
@@ -21,14 +21,14 @@ app.setLocals( )
 local lineWidth = 4
 local shrinkScale = 0.85
 
-local score
+local score, collisionWithEdge
 
 local scene = composer.newScene( )
 
-math.randomseed( os.time() ) 
+math.randomseed( os.time( ) ) 
 ---------------------------------------------------------------------------------
 -- All code outside of the listener functions will only be executed ONCE
--- unless 'composer.removeScene()' is called.
+-- unless 'composer.removeScene( )' is called.
 ---------------------------------------------------------------------------------
  
 -- local forward references should go here
@@ -36,7 +36,7 @@ math.randomseed( os.time() )
 ---------------------------------------------------------------------------------  
 
 local function loop( )
-   local deltatime = dt.getDeltaTime()
+   local deltatime = dt.getDeltaTime( )
 
    ball:update( deltatime )
    computer:update( ball, deltatime )
@@ -47,7 +47,7 @@ local function drag( event )
 
    if ( event.phase == 'began' ) then
       -- first we set the focus on the object
-      display.getCurrentStage():setFocus( self, event.id )
+      display.getCurrentStage( ):setFocus( self, event.id )
       self.isFocus = true
 
       -- then we store the original x and y position
@@ -61,7 +61,7 @@ local function drag( event )
             _H - self.height * ( 1 - self.anchorY ) * self.yScale )
       elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
         -- we end the movement by removing the focus from the object
-        display.getCurrentStage():setFocus( self, nil )
+        display.getCurrentStage( ):setFocus( self, nil )
         self.isFocus = false
       end
    end
@@ -78,19 +78,31 @@ local function scoreup( event )
    score.text = tostring(score.text) + 1
 end 
 
-local function collisionWithEdge( event )
+local function gameover( event )
+   local edge = event.edge
+
+   app.removeRtEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
+   transition.pause( ) 
+   sparks.stop( edge )  
+   effects.shake( )
+end   
+
+function collisionWithEdge( event )
    local edge = event.edge
    local x = event.x
    local y = event.y
 
-   --vents:move( edge , x, y )
-   --vents:start( edge )
-   sparks.start(edge, x, y )
+   sparks.start( edge, x, y )
 
    if edge == 'left' then
-      shrink()
+      print( 'player.xScale=', player.img.yScale )
+      if player.img.yScale < 1 then
+         gameover( event )
+      else   
+         shrink( )
+      end   
    elseif edge == 'right' then
-      scoreup()
+      scoreup( )
    end   
 end
 
@@ -101,11 +113,11 @@ function scene:create( event )
    -- Initialize the scene here.
    -- Example: add display objects to 'sceneGroup', add touch listeners, etc.
 
-   player = Paddle.new()
+   player = Paddle.new( )
    player.img.x = player.img.width + offset
    player.img.y = _CY
 
-   computer = Paddle.new()
+   computer = Paddle.new( )
    computer.img.x = _W - offset
    computer.img.y = _CY
    
@@ -115,7 +127,7 @@ function scene:create( event )
 
       effects.addTail( self, {dt=dt, name='circlesRandomColors'} )
       self:rotate( dt )
-      self:collision()
+      self:collision( )
       
       local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
       
@@ -135,7 +147,7 @@ function scene:create( event )
    end   
    
    ball = Ball.new( {update=update} )
-   ball:serve()
+   ball:serve( )
 
    sparks.new( 'left', { physics = {
          gravityX = -0.5,
@@ -195,7 +207,7 @@ function scene:hide( event )
       -- Example: stop timers, stop animation, stop audio, etc.
    elseif ( phase == 'did' ) then
       -- Called immediately after scene goes off screen.
-      app.removeAllRtEvents()
+      app.removeAllRtEvents( )
    end
 end
  
@@ -203,8 +215,8 @@ function scene:destroy( event )
    -- Called prior to the removal of scene's view ('sceneGroup').
    -- Insert code here to clean up the scene.
    -- Example: remove display objects, save state, etc.
-   app.removeAllRtEvents()
-   sparks.removeAll()
+   app.removeAllRtEvents( )
+   sparks.removeAll( )
    sparks = nil
 end
  

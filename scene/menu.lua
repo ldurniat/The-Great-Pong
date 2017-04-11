@@ -34,7 +34,7 @@ function scene:create( event )
    function ui(event)
       local phase = event.phase
       local name = event.buttonName
-      print (phase, name)
+      
       if phase == "released" then
          --audio.play(buttonSound)
          if name == "play" then
@@ -76,6 +76,7 @@ function scene:hide( event )
       -- Called when the scene is on screen (but is about to go off screen).
       -- Insert code here to "pause" the scene.
       -- Example: stop timers, stop animation, stop audio, etc.
+     app.removeAllRtEvents()
    elseif ( phase == "did" ) then
       -- Called immediately after scene goes off screen.
    end
@@ -89,6 +90,7 @@ function scene:destroy( event )
    -- Called prior to the removal of scene's view ("sceneGroup").
    -- Insert code here to clean up the scene.
    -- Example: remove display objects, save state, etc.
+   app.removeAllRtEvents()
 end
  
 ---------------------------------------------------------------------------------
