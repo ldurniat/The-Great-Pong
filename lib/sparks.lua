@@ -60,5 +60,16 @@ function M.start( name , x, y )
 		return false
 	end	
 end
+
+function M.stop( name , x, y )
+	local spark = sparks[ name ]
+	if spark then	
+		spark:stop()
+
+		return true
+	else	
+		return false
+	end	
+end
 		
 return M
