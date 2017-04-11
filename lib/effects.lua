@@ -108,7 +108,6 @@ local shakes = {
 		-- Start the shake
 		startShake()
 		 
-		-- Stop it in 1/2 second.
 		timer.performWithDelay( time, stopShake )
 	end	
 }
@@ -202,15 +201,17 @@ local tails = {
 	end,					
 }
 
-function M.shake(self, options)
+function M.shake( options )
 	local options = options or {}
 	local name = options.name or 'roaminggamer'
 	local object = options.object or display.getCurrentStage()
+	local onComplete = options.onComplete or function() end
 	local time = options.time or 300
 	shakes[name]( object, time )
+	timer.performWithDelay( time, onComplete )
 end	
 
-function M.addTail(self, options)
+function M.addTail( self, options )
 	local options = options or {}
 	local name = options.name or 'lines'
 	local dt = options.dt or 1
