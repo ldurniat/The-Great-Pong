@@ -361,51 +361,57 @@ function _M.eachFrameRemoveAll()
     _M.enterFrameFunctions = nil
 end
 
-function _M.addRtEvents( name, listener )
-    local events = name  
-    if type( name ) == 'string' then   
-        events = {name, listener}
+function _M.addRtEvents( events )
+     if not _M.RtEventTable then
+        _M.RtEventTable = { listeners={}, names={} }
     end
 
     for i=1, #events * 0.5 do
         local name = events[ 2 * i - 1 ]
         local listener = events[ 2 * i ]
-        print( name, tostring(listener) )    
-        if not _M.RtEventTable then
-            _M.RtEventTable = {}
-        end
+         
         Runtime:addEventListener( name, listener )
-        table.insert( _M.RtEventTable, {name, listener} )
+        table.insert( _M.RtEventTable.listeners, listener )
+        table.insert( _M.RtEventTable.names, name )
     end    
 end
 
-function _M.removeRtEvents( name, listener )
-    if not listener or not _M.RtEventTable then return end
-    local ind = table.indexOf( _M.RtEventTable, {name=name, listener=listener} )
-    if ind then
-        table.remove( _M.RtEventTable, ind )
-        Runtime:removeEventListener( name, listener )
-    end
+function _M.removeRtEvents( events )
+    for i=1, #events * 0.5 do
+        local name = events[ 2 * i - 1 ]
+        local listener = events[ 2 * i ]
+
+        if not listener or not _M.RtEventTable then break end
+        local ind = table.indexOf( _M.RtEventTable.listeners, listener )
+   
+        if ind then
+            table.remove( _M.RtEventTable.listeners, ind )
+            table.remove( _M.RtEventTable.names, ind )
+            Runtime:removeEventListener( name, listener )
+        end
+    end    
 end
 
 -- Stop everything
 function _M.removeAllRtEvents()  
-    for i=1, #_M.RtEventTable do
-        local name = _M.RtEventTable[ i ].name
-        local listener = _M.RtEventTable[ i ].listener
+    for i=1, #_M.RtEventTable.listeners do
+        local name = _M.RtEventTable.names[ i ]
+        local listener = _M.RtEventTable.listeners[ i ]
             
-        Runtime:removeEventListener('enterFrame', _M.enterFrame)
+        Runtime:removeEventListener( name, listener )
     end  
-    _M.RtEventTable = nil
+    _M.RtEventTable.listeners = nil
+    _M.RtEventTable.names     = nil
+     _M.RtEventTable          = nil
 end
 
 -- Funkcję do obsługi zdarzeń generowanych przez programistę
 function _M.listen( name, listener ) 
-    M.addRtEvents( name, listener )
+    M.addRtEvents( { name, listener } )
 end  
 
 function _M.ignore( name, listener ) 
-    M.removeRtEvents( name, listener )
+    M.removeRtEvents( { name, listener } )
 end   
 
 function _M.post( name, params ) 
