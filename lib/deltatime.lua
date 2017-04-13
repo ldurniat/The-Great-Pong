@@ -18,4 +18,8 @@ function M.getDeltaTime()
 	return dt
 end	
 
+function M.restart()
+	lastTime = 0
+end	
+
 return M
