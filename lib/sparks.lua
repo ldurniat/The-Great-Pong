@@ -42,8 +42,8 @@ function M.remove( name )
 end	
 
 function M.removeAll()
-	for key, value in pairs( sparks ) do
-		sparks[ key ].remove()
+	for name, value in pairs( sparks ) do
+		M.remove( name )
 	end
 end
 
