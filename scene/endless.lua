@@ -75,16 +75,21 @@ local function shrink( event )
 end   
 
 local function scoreup( event )
-   score.text = tostring(score.text) + 1
+   score.text = tostring(score.text) + 1 
 end 
 
 local function gameover( event )
    local edge = event.edge
+   local newScore = tonumber( score.text )
 
    app.removeRtEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
    transition.pause( ) 
-   sparks.stop( edge )  
-   effects.shake( )
+   --sparks.stop( edge ) 
+   --transition.blink( ball, {time=200} ) 
+   effects.shake( {time=500} )
+   timer.performWithDelay( 500, function() 
+      composer.showOverlay("scene.hiscore", { isModal = true, effect = "fromTop",  params = {newScore=newScore} } )
+      end )
 end   
 
 function collisionWithEdge( event )
@@ -92,10 +97,10 @@ function collisionWithEdge( event )
    local x = event.x
    local y = event.y
 
+   print( 'edge name=', edge )
    sparks.start( edge, x, y )
 
    if edge == 'left' then
-      print( 'player.xScale=', player.img.yScale )
       if player.img.yScale < 1 then
          gameover( event )
       else   
@@ -122,8 +127,12 @@ function scene:create( event )
    computer.img.y = _CY
    
    local update = function( self, dt ) 
+      print( 'update : ball.img.x=', ball.img.x, ' ball.img.y=', ball.img.y, ' dt=', dt )
+
       local img = self.img
       img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
+
+      print( 'update 2 : ball.img.x=', ball.img.x, ' ball.img.y=', ball.img.y )
 
       effects.addTail( self, {dt=dt, name='circlesRandomColors'} )
       self:rotate( dt )
@@ -148,6 +157,8 @@ function scene:create( event )
    
    ball = Ball.new( {update=update} )
    ball:serve( )
+
+   print( 'serve : ball.img.x=', ball.img.x, ' ball.img.y=', ball.img.y )
 
    sparks.new( 'left', { physics = {
          gravityX = -0.5,
@@ -193,6 +204,7 @@ function scene:show( event )
       -- Called when the scene is now on screen.
       -- Insert code here to make the scene come alive.
       -- Example: start timers, begin animation, play audio, etc.
+      dt.restart()
       app.addRtEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
    end
 end

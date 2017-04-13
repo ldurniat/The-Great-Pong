@@ -20,7 +20,7 @@ end
 
 function M.new(instance)
 
-  if not instance then error("ERROR: Expected display object") end
+  if not instance then error('ERROR: Expected display object') end
 
   -- remember inital scale
   instance._xScale, instance._yScale = instance.xScale, instance.yScale
@@ -29,24 +29,24 @@ function M.new(instance)
     local phase = event.phase
     local name = event.name
     -- press in animation
-    if phase=="began" then
+    if phase=='began' then
       if event.id then stage:setFocus(event.target, event.id) end
       self.isFocus = true
       instance.xScale, instance.yScale = instance.xScale * 0.95, instance.yScale * 0.95
-      local uiEvent = {name = "ui", phase = "pressed", buttonName = self.name or "none"}
+      local uiEvent = {name = 'ui', phase = 'pressed', buttonName = self.name or 'none'}
       Runtime:dispatchEvent(uiEvent)
-    elseif phase == "moved" and self.isFocus then
+    elseif phase == 'moved' and self.isFocus then
       if inBounds(event, self) then -- inside
         self.xScale, self.yScale = self._xScale * 0.95, self._yScale * 0.95
       else -- outside
         self.xScale, self.yScale = self._xScale, self._yScale
       end        
     -- release animation
-    elseif phase == "ended" or phase == "canceled" then
+    elseif phase == 'ended' or phase == 'canceled' then
       if event.id then stage:setFocus(nil, event.id) end
       self.isFocus = false
       if inBounds(event, self) then -- inside
-        local uiEvent = {name = "ui", phase = "released", buttonName = self.name or "none"}
+        local uiEvent = {name = 'ui', phase = 'released', buttonName = self.name or 'none'}
         Runtime:dispatchEvent(uiEvent)
       end        
       self.xScale, self.yScale = self._xScale, self._yScale
@@ -54,7 +54,7 @@ function M.new(instance)
     return true  
   end
 
-  instance:addEventListener("touch")
+  instance:addEventListener('touch')
 
   return instance
 end
