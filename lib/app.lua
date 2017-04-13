@@ -383,7 +383,7 @@ function _M.removeRtEvents( events )
 
         if not listener or not _M.RtEventTable then break end
         local ind = table.indexOf( _M.RtEventTable.listeners, listener )
-   
+    
         if ind then
             table.remove( _M.RtEventTable.listeners, ind )
             table.remove( _M.RtEventTable.names, ind )
@@ -393,16 +393,18 @@ function _M.removeRtEvents( events )
 end
 
 -- Stop everything
-function _M.removeAllRtEvents()  
-    for i=1, #_M.RtEventTable.listeners do
-        local name = _M.RtEventTable.names[ i ]
-        local listener = _M.RtEventTable.listeners[ i ]
-            
-        Runtime:removeEventListener( name, listener )
-    end  
-    _M.RtEventTable.listeners = nil
-    _M.RtEventTable.names     = nil
-     _M.RtEventTable          = nil
+function _M.removeAllRtEvents() 
+    if ( _M.RtEventTable and _M.RtEventTable.listeners ) then
+        for i=1, #_M.RtEventTable.listeners do
+            local name = _M.RtEventTable.names[ i ]
+            local listener = _M.RtEventTable.listeners[ i ]
+
+            Runtime:removeEventListener( name, listener )
+        end  
+        _M.RtEventTable.listeners = nil
+        _M.RtEventTable.names     = nil
+        _M.RtEventTable           = nil
+    end    
 end
 
 -- Funkcję do obsługi zdarzeń generowanych przez programistę
