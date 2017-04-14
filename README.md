@@ -15,6 +15,8 @@ Used modules
 * [CBEffects](https://github.com/ldurniat/CBEffects) - The ultimate Corona SDK particle effects engine.
 * [ponytiled](https://github.com/ponywolf/ponytiled) - PonyTiled a simple Tiled Map Loader for Corona SDK.
 
+My blog: [Mój #gamedev blog](https://ldurniat.wordpress.com)
+
 # Klon gry Ping Pong 
 
 Gra jest stworzona przy użyciu narzędzia [Corona SDK](https://coronalabs.com/corona-sdk/) oraz języka Lua.
@@ -31,3 +33,5 @@ Skorzystałem z modułów
 
 * [CBEffects](https://github.com/ldurniat/CBEffects) - System cząsteczkowy dla Corony SDK. 
 * [ponytiled](https://github.com/ponywolf/ponytiled) - Prosty moduł wczytujący mapy stworzone w programie Tiled dla Corony SDK.
+
+Mój blog: [Mój #gamedev blog](https://ldurniat.wordpress.com)
