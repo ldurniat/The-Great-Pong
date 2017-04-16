@@ -1,45 +1,39 @@
-local composer = require( "composer" )
-local tiled    = require( "com.ponywolf.ponytiled" )
-local json     = require( "json" )
+--
+-- Scena z głównym menu
+--
+-- Wymagane moduły
+local composer = require( 'composer' )
+local tiled    = require( 'com.ponywolf.ponytiled' )
+local json     = require( 'json' )
 local app      = require( 'lib.app' )
-local fx       = require( "com.ponywolf.ponyfx" )
+local fx       = require( 'com.ponywolf.ponyfx' )
 
-local scene = composer.newScene()
- 
----------------------------------------------------------------------------------
--- All code outside of the listener functions will only be executed ONCE
--- unless "composer.removeScene()" is called.
----------------------------------------------------------------------------------
- 
--- local forward references should go here
- 
+-- Lokalne zmienne
+local scene = composer.newScene() 
 local menu
 
----------------------------------------------------------------------------------
- 
--- "scene:create()"
 function scene:create( event )
- 
+
    local sceneGroup = self.view
 
-   -- Initialize the scene here.
-   -- Example: add display objects to "sceneGroup", add touch listeners, etc.
-   local uiData = json.decodeFile( system.pathForFile( "scene/menu/ui/title.json", system.ResourceDirectory ) )
-   menu = tiled.new( uiData, "scene/menu/ui" )
+   -- Wczytanie mapy
+   local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/title.json', system.ResourceDirectory ) )
+   menu = tiled.new( uiData, 'scene/menu/ui' )
    menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
 
-   menu.extensions = "scene.menu.lib."
-   menu:extend("button")
+   -- Obsługa przycisków
+   menu.extensions = 'scene.menu.lib.'
+   menu:extend('button')
 
    function ui(event)
       local phase = event.phase
       local name = event.buttonName
       
-      if phase == "released" then
+      if phase == 'released' then
          --audio.play(buttonSound)
-         if name == "play" then
+         if name == 'play' then
             fx.fadeOut( function()
-                  composer.gotoScene( "scene.mode", { params = {} } )
+                  composer.gotoScene( 'scene.mode', { params = {} } )
                end )
          end
       end
@@ -49,58 +43,38 @@ function scene:create( event )
    sceneGroup:insert( menu )
 end
  
--- "scene:show()"
 function scene:show( event )
  
    local sceneGroup = self.view
    local phase = event.phase
  
-   if ( phase == "will" ) then
-      -- Called when the scene is still off screen (but is about to come on screen).
-   elseif ( phase == "did" ) then
-      -- Called when the scene is now on screen.
-      -- Insert code here to make the scene come alive.
-      -- Example: start timers, begin animation, play audio, etc.
-      -- add UI listener
-      app.addRtEvents( { 'ui', ui } )
+   if ( phase == 'will' ) then
+      
+   elseif ( phase == 'did' ) then
+      app.addRtEvents( {'ui', ui} )
    end
 end
  
--- "scene:hide()"
 function scene:hide( event )
  
    local sceneGroup = self.view
    local phase = event.phase
  
-   if ( phase == "will" ) then
-      -- Called when the scene is on screen (but is about to go off screen).
-      -- Insert code here to "pause" the scene.
-      -- Example: stop timers, stop animation, stop audio, etc.
+   if ( phase == 'will' ) then
      app.removeAllRtEvents()
-   elseif ( phase == "did" ) then
-      -- Called immediately after scene goes off screen.
+   elseif ( phase == 'did' ) then
    end
 end
  
--- "scene:destroy()"
 function scene:destroy( event )
  
    local sceneGroup = self.view
- 
-   -- Called prior to the removal of scene's view ("sceneGroup").
-   -- Insert code here to clean up the scene.
-   -- Example: remove display objects, save state, etc.
    app.removeAllRtEvents()
 end
  
----------------------------------------------------------------------------------
- 
--- Listener setup
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
- 
----------------------------------------------------------------------------------
+scene:addEventListener( 'create', scene )
+scene:addEventListener( 'show', scene )
+scene:addEventListener( 'hide', scene )
+scene:addEventListener( 'destroy', scene )
  
 return scene

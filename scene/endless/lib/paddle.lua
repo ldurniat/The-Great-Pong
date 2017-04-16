@@ -1,14 +1,20 @@
---local Class  = require( "lib.class" )
-local colors = require( "lib.colors" )
-local app    = require( "lib.app" ) 
+--
+-- Moduł reprezentujący paletkę 
+--
+-- Wymagane moduły
+local colors = require( 'lib.colors' )
+local app    = require( 'lib.app' ) 
 
-require( "lib.utils" ) 
+require( 'lib.utils' ) 
 
+-- Deklaracja modułu
 local M = {}
 
+-- Lokalne zmienne
 local _H, _W 
 local mClamp, mMin, mMax, mExp = math.clamp
 
+-- Nadaje wartość pomocniczym zmiennym powyżej
 app.setLocals()
 
 function M.new( options )
@@ -17,7 +23,6 @@ function M.new( options )
 	local height = options.height or 100
 	
 	local instance = display.newGroup()
-
 	instance.img = display.newRect( instance, 0, 0, width, height )
 	instance.img:setFillColor( unpack( colors.white ) )	
 	instance.img.width = width
@@ -26,11 +31,11 @@ function M.new( options )
 	instance.img.lastX = 0
 	instance.img.lastY = 0	
 	
-	-- touch listener function
 	function instance:update( ball, dt )
 		local imgb = ball.img
 		local imgc = self.img
 
+		-- Logika komputerowego przeciwnika
 		if imgc.enemyId == 1 then
 			if ( imgb.x > 400 and imgb.velX > 0 ) then
 				-- calculate ideal position
@@ -61,7 +66,7 @@ function M.new( options )
 			end		
 		end	
 
-		-- keep the paddle inside of the canvas
+		-- Utrzymuje obiekt w obrębie ekranu
 		imgc.y = mMax( mMin( imgc.y, _H - height ), 0 )
 	end
 

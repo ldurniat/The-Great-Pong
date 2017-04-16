@@ -1,7 +1,8 @@
 local M = { }
 
--- Funkcja sprawdza czy dwa prostokąty pokrywają się. 
--- Współrzędne punktów leżą w górnym lewym rogu prostokąta.
+-- Funkcja sprawdza czy dwa prostokąty nachodzą na siebie. 
+-- Poprawność obliczeń nie zależy anchor points oraz skali 
+-- obu prostokątów. 
 function M.AABBIntersect( rect1, rect2 )
 	local x1, y1 = rect1.x, rect1.y
 	local width1, height1 = rect1.width * rect1.xScale, rect1.height * rect1.yScale

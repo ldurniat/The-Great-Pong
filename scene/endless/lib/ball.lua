@@ -1,12 +1,19 @@
+--
+-- Moduł reprezentujący piłkę 
+--
+-- Wymagane moduły
 local app     = require( 'lib.app' )
 local colors  = require( 'lib.colors' ) 
 local effects = require( 'lib.effects' )
 
+-- Deklaracja modułu
 local M = {}
 
+-- Lokalne zmienne
 local _W, _H, _CX, _CY
 local mRandom, mPi, mSin, mCos, mAbs  
 
+-- Nadaje wartość pomocniczym zmiennym powyżej
 app.setLocals()
 
 function M.new( options )
@@ -17,7 +24,6 @@ function M.new( options )
 	local bounds = { width=options.width or _W, height=options.height or _H }
 	
 	local instance = display.newGroup()
-
 	instance.img = display.newRect( instance, 0, 0, side, side )
 	instance.img:setFillColor( unpack( colors.white ) )	
 	instance.img.side = side
@@ -27,6 +33,7 @@ function M.new( options )
 	instance.img.bounds = bounds
 	instance.update = options.update or function() end 	
 
+	-- Wykrywanie kolizji z krawędziami
 	function instance:collision()
 		local img = self.img
 		

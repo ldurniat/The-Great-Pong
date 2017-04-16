@@ -1,7 +1,14 @@
-local loadsave = require( 'lib.loadsave')
+--
+-- Moduł do zapisu/odczytu danych w formacie json. 
+--
+-- Wymagane moduły
+local loadsave = require( 'lib.loadsave' )
 
+-- Deklaracja modułu
 local M = {}
 
+-- Tablica przechowująca wszelkie ustawienia dotyczące gry
+-- w tym wynik użytkownika itp.
 M.settings = {}
 
 function M:save()
@@ -19,7 +26,8 @@ end
 function M:load()
 	local settings = loadsave.loadTable( 'settings.json' )
 	
-	if settings == nil then
+	if ( settings == nil ) then
+		-- Ustawienia domyślne
 		self:set( 'highScoreEndlessMode', 0 )
 		self:set( 'highScoreMatchMode', 0 )
 

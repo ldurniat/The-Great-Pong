@@ -11,7 +11,7 @@ function M.getDeltaTime()
 	else	
 		local curTime = getTimer()
 		dt = curTime - lastTime
-		dt = dt / ( 1000 / display.fps)
+		dt = dt / ( 1000 / display.fps )
 		lastTime = curTime			
 	end	
 
