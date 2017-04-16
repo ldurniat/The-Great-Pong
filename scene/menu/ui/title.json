@@ -3,67 +3,19 @@
         {
          "draworder":"topdown",
          "height":26,
-         "name":"buttons",
+         "name":"title",
          "objects":[
                 {
-                 "gid":11,
-                 "height":71,
-                 "id":8,
-                 "name":"rate",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":99,
-                 "x":408,
-                 "y":760
-                }, 
-                {
                  "gid":8,
-                 "height":71,
-                 "id":9,
-                 "name":"gpgs",
+                 "height":158,
+                 "id":7,
+                 "name":"",
                  "rotation":0,
-                 "type":"button",
+                 "type":"",
                  "visible":true,
-                 "width":99,
-                 "x":544,
-                 "y":760
-                }, 
-                {
-                 "gid":9,
-                 "height":72,
-                 "id":10,
-                 "name":"settings",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":238,
-                 "x":480,
-                 "y":440
-                }, 
-                {
-                 "gid":12,
-                 "height":71,
-                 "id":11,
-                 "name":"achievements",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":99,
-                 "x":688,
-                 "y":768
-                }, 
-                {
-                 "gid":13,
-                 "height":71,
-                 "id":12,
-                 "name":"play",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":237,
-                 "x":480,
-                 "y":352
+                 "width":326,
+                 "x":472,
+                 "y":240
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -75,30 +27,78 @@
         {
          "draworder":"topdown",
          "height":26,
-         "name":"title",
+         "name":"buttons",
          "objects":[
                 {
-                 "gid":7,
-                 "height":159,
-                 "id":3,
-                 "name":"logo",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":323,
-                 "x":448,
-                 "y":256
-                }, 
-                {
-                 "gid":3,
-                 "height":72,
-                 "id":4,
+                 "gid":2,
+                 "height":69,
+                 "id":1,
                  "name":"donate",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":240,
-                 "x":480,
+                 "width":267,
+                 "x":472,
+                 "y":616
+                }, 
+                {
+                 "gid":7,
+                 "height":69,
+                 "id":2,
+                 "name":"achievements",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":79,
+                 "x":432,
+                 "y":744
+                }, 
+                {
+                 "gid":3,
+                 "height":69,
+                 "id":3,
+                 "name":"gpgs",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":79,
+                 "x":544,
+                 "y":744
+                }, 
+                {
+                 "gid":4,
+                 "height":69,
+                 "id":4,
+                 "name":"play",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":472,
+                 "y":448
+                }, 
+                {
+                 "gid":5,
+                 "height":69,
+                 "id":5,
+                 "name":"rate",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":79,
+                 "x":672,
+                 "y":744
+                }, 
+                {
+                 "gid":6,
+                 "height":69,
+                 "id":6,
+                 "name":"settings",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":472,
                  "y":528
                 }],
          "opacity":1,
@@ -108,7 +108,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":14,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -120,39 +120,39 @@
          "name":"ui",
          "spacing":0,
          "tilecount":7,
-         "tileheight":159,
+         "tileheight":158,
          "tiles":
             {
-             "10":
+             "1":
                 {
-                 "image":"buttonRate.png"
-                },
-             "11":
-                {
-                 "image":"buttonAchievements.png"
-                },
-             "12":
-                {
-                 "image":"butonPlay.png"
+                 "image":"donateButton.png"
                 },
              "2":
                 {
-                 "image":"buttonDonate.png"
+                 "image":"gpgsButton.png"
+                },
+             "3":
+                {
+                 "image":"playButton.png"
+                },
+             "4":
+                {
+                 "image":"rateButton.png"
+                },
+             "5":
+                {
+                 "image":"settingsButton.png"
                 },
              "6":
                 {
-                 "image":"title.png"
+                 "image":"achievementsButton.png"
                 },
              "7":
                 {
-                 "image":"butonGpgs.png"
-                },
-             "8":
-                {
-                 "image":"butonSettings.png"
+                 "image":"title.png"
                 }
             },
-         "tilewidth":323
+         "tilewidth":326
         }],
  "tilewidth":32,
  "version":1,

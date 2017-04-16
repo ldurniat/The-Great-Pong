@@ -1,56 +1,54 @@
-{ "height":26,
+{ "height":20,
  "layers":[
         {
          "draworder":"topdown",
-         "height":26,
+         "height":20,
          "name":"buttons",
          "objects":[
                 {
                  "gid":1,
-                 "height":71,
+                 "height":69,
                  "id":1,
                  "name":"endless",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":237,
-                 "x":512,
-                 "y":312
+                 "width":267,
+                 "x":192,
+                 "y":288
                 }, 
                 {
                  "gid":2,
-                 "height":71,
-                 "id":3,
+                 "height":69,
+                 "id":2,
                  "name":"match",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":237,
-                 "x":512,
-                 "y":456
+                 "width":267,
+                 "x":192,
+                 "y":128
                 }, 
                 {
                  "gid":3,
-                 "height":71,
-                 "id":5,
+                 "height":69,
+                 "id":3,
                  "name":"menu",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":237,
-                 "x":504,
-                 "y":680
+                 "width":267,
+                 "x":184,
+                 "y":592
                 }],
-         "offsetx":24,
-         "offsety":-104,
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":38,
+         "width":20,
          "x":0,
          "y":0
         }],
- "nextobjectid":7,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -62,25 +60,25 @@
          "name":"ui",
          "spacing":0,
          "tilecount":3,
-         "tileheight":71,
+         "tileheight":69,
          "tiles":
             {
              "0":
                 {
-                 "image":"..\/..\/mode\/ui\/butonEndless.png"
+                 "image":"endlessButton.png"
                 },
              "1":
                 {
-                 "image":"..\/..\/mode\/ui\/butonMatch.png"
+                 "image":"matchButton.png"
                 },
              "2":
                 {
-                 "image":"..\/..\/mode\/ui\/butonMenu.png"
+                 "image":"menuButton.png"
                 }
             },
-         "tilewidth":237
+         "tilewidth":267
         }],
  "tilewidth":32,
  "version":1,
- "width":38
+ "width":20
 }

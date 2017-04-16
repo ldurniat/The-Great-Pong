@@ -17,8 +17,8 @@ function scene:create( event )
    local sceneGroup = self.view
  
    -- Wczytanie mapy
-   local uiData = json.decodeFile( system.pathForFile( "scene/menu/ui/buttons.json", system.ResourceDirectory ) )
-   menu = tiled.new( uiData, "scene/menu/ui" )
+   local uiData = json.decodeFile( system.pathForFile( "scene/mode/ui/mode.json", system.ResourceDirectory ) )
+   menu = tiled.new( uiData, "scene/mode/ui" )
    menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
 
    -- Obsługa przycisków

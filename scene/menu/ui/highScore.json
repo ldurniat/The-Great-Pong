@@ -7,15 +7,15 @@
          "objects":[
                 {
                  "gid":1,
-                 "height":628,
+                 "height":593,
                  "id":1,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":628,
-                 "x":8,
-                 "y":632
+                 "width":593,
+                 "x":32,
+                 "y":608
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -31,26 +31,38 @@
          "objects":[
                 {
                  "gid":2,
-                 "height":71,
+                 "height":69,
                  "id":2,
                  "name":"restart",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":237,
-                 "x":192,
-                 "y":576
-                }, 
+                 "width":267,
+                 "x":176,
+                 "y":552
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":20,
+         "name":"labels",
+         "objects":[
                 {
-                 "height":72,
+                 "height":80,
                  "id":3,
-                 "name":"gameOver",
+                 "name":"yourScore",
                  "properties":
                     {
                      "font":"",
-                     "size":42,
+                     "size":36,
                      "strokeColor":"#ffffffff",
-                     "text":"GAME OVER"
+                     "text":"Your score:"
                     },
                  "propertytypes":
                     {
@@ -62,49 +74,24 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":344,
-                 "x":144,
+                 "width":368,
+                 "x":152,
                  "y":56
                 }, 
                 {
-                 "height":72,
+                 "height":80,
                  "id":4,
-                 "name":"yourScore",
-                 "properties":
-                    {
-                     "file":"",
-                     "size":42,
-                     "strokeColor":"#ffffffff",
-                     "text":"Your Score:"
-                    },
-                 "propertytypes":
-                    {
-                     "file":"string",
-                     "size":"int",
-                     "strokeColor":"color",
-                     "text":"string"
-                    },
-                 "rotation":0,
-                 "type":"label",
-                 "visible":true,
-                 "width":344,
-                 "x":144,
-                 "y":168
-                }, 
-                {
-                 "height":72,
-                 "id":6,
                  "name":"myScore",
                  "properties":
                     {
-                     "file":"",
-                     "size":42,
+                     "font":"",
+                     "size":36,
                      "strokeColor":"#ffffffff",
                      "text":""
                     },
                  "propertytypes":
                     {
-                     "file":"string",
+                     "font":"string",
                      "size":"int",
                      "strokeColor":"color",
                      "text":"string"
@@ -112,24 +99,74 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":344,
-                 "x":144,
-                 "y":240
+                 "width":368,
+                 "x":152,
+                 "y":136
                 }, 
                 {
-                 "height":48,
+                 "height":80,
                  "id":7,
+                 "name":"highScore",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":36,
+                     "strokeColor":"#ffffffff",
+                     "text":"High score:"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":368,
+                 "x":152,
+                 "y":256
+                }, 
+                {
+                 "height":80,
+                 "id":8,
+                 "name":"myHighScore",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":36,
+                     "strokeColor":"#ffffffff",
+                     "text":""
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":368,
+                 "x":152,
+                 "y":336
+                }, 
+                {
+                 "height":40,
+                 "id":9,
                  "name":"restart",
                  "properties":
                     {
-                     "file":"",
-                     "size":42,
+                     "font":"",
+                     "size":36,
                      "strokeColor":"#ffffffff",
                      "text":"Restart"
                     },
                  "propertytypes":
                     {
-                     "file":"string",
+                     "font":"string",
                      "size":"int",
                      "strokeColor":"color",
                      "text":"string"
@@ -137,59 +174,9 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":208,
-                 "x":208,
-                 "y":512
-                }, 
-                {
-                 "height":72,
-                 "id":10,
-                 "name":"myHighScore",
-                 "properties":
-                    {
-                     "file":"",
-                     "size":42,
-                     "strokeColor":"#ffffffff",
-                     "text":""
-                    },
-                 "propertytypes":
-                    {
-                     "file":"string",
-                     "size":"int",
-                     "strokeColor":"color",
-                     "text":"string"
-                    },
-                 "rotation":0,
-                 "type":"label",
-                 "visible":true,
-                 "width":344,
-                 "x":144,
-                 "y":384
-                }, 
-                {
-                 "height":72,
-                 "id":11,
-                 "name":"bestScore",
-                 "properties":
-                    {
-                     "file":"",
-                     "size":42,
-                     "strokeColor":"#ffffffff",
-                     "text":"Best Score:"
-                    },
-                 "propertytypes":
-                    {
-                     "file":"string",
-                     "size":"int",
-                     "strokeColor":"color",
-                     "text":"string"
-                    },
-                 "rotation":0,
-                 "type":"label",
-                 "visible":true,
-                 "width":344,
-                 "x":144,
-                 "y":312
+                 "width":192,
+                 "x":216,
+                 "y":496
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -198,7 +185,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":12,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -210,19 +197,19 @@
          "name":"ui",
          "spacing":0,
          "tilecount":2,
-         "tileheight":628,
+         "tileheight":593,
          "tiles":
             {
              "0":
                 {
-                 "image":"..\/..\/endless\/ui\/background.png"
+                 "image":"background.png"
                 },
              "1":
                 {
-                 "image":"..\/..\/endless\/ui\/butonRestart.png"
+                 "image":"button.png"
                 }
             },
-         "tilewidth":628
+         "tilewidth":593
         }],
  "tilewidth":32,
  "version":1,
