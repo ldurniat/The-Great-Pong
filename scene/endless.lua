@@ -9,32 +9,22 @@ local Paddle    = require( 'scene.endless.lib.paddle' )
 local sparks    = require( 'lib.sparks' )
 local colors    = require( 'lib.colors' ) 
 
-local ball, player, computer
+math.randomseed( os.time( ) )  
 
+-- Lokalne zmienne
 local _W, _H, _CX, _CY
 local mClamp, mRandom, mPi, mSin, mCos, mAbs = math.clamp 
 
 -- Nadaj odpowiednie wartości predefinowanym zmiennym (_W, _H, ...) 
 app.setLocals( )
 
-
-local lineWidth = 4
-local shrinkScale = 0.85
-
+-- Lokalne zmienne
+local ball, player, computer
+local lineWidth, shrinkScale = 4, 0.85
 local score, collisionWithEdge
-
 local scene = composer.newScene( )
 
-math.randomseed( os.time( ) ) 
----------------------------------------------------------------------------------
--- All code outside of the listener functions will only be executed ONCE
--- unless 'composer.removeScene( )' is called.
----------------------------------------------------------------------------------
- 
--- local forward references should go here
- 
----------------------------------------------------------------------------------  
-
+-- Główna pętla gry 
 local function loop( )
    local deltatime = dt.getDeltaTime( )
 
@@ -97,16 +87,15 @@ function collisionWithEdge( event )
    local x = event.x
    local y = event.y
 
-   print( 'edge name=', edge )
    sparks.start( edge, x, y )
 
-   if edge == 'left' then
+   if ( edge == 'left' ) then
       if player.img.yScale < 1 then
          gameover( event )
       else   
          shrink( )
       end   
-   elseif edge == 'right' then
+   elseif ( edge == 'right' ) then
       scoreup( )
    end   
 end
@@ -114,9 +103,6 @@ end
 function scene:create( event ) 
    local sceneGroup = self.view
    local offset = 120
-  
-   -- Initialize the scene here.
-   -- Example: add display objects to 'sceneGroup', add touch listeners, etc.
 
    player = Paddle.new( )
    player.img.x = player.img.width + offset
@@ -127,12 +113,8 @@ function scene:create( event )
    computer.img.y = _CY
    
    local update = function( self, dt ) 
-      print( 'update : ball.img.x=', ball.img.x, ' ball.img.y=', ball.img.y, ' dt=', dt )
-
       local img = self.img
       img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
-
-      print( 'update 2 : ball.img.x=', ball.img.x, ' ball.img.y=', ball.img.y )
 
       effects.addTail( self, {dt=dt, name='circlesRandomColors'} )
       self:rotate( dt )
@@ -157,8 +139,6 @@ function scene:create( event )
    
    ball = Ball.new( {update=update} )
    ball:serve( )
-
-   print( 'serve : ball.img.x=', ball.img.x, ' ball.img.y=', ball.img.y )
 
    sparks.new( 'left', { physics = {
          gravityX = -0.5,
@@ -199,11 +179,7 @@ function scene:show( event )
          local line = display.newLine( sceneGroup, _CX, i, _CX, i + lineLenght )
          line.strokeWidth = lineWidth
       end    
-      -- Called when the scene is still off screen (but is about to come on screen).
    elseif ( phase == 'did' ) then
-      -- Called when the scene is now on screen.
-      -- Insert code here to make the scene come alive.
-      -- Example: start timers, begin animation, play audio, etc.
       dt.restart()
       app.addRtEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
    end
@@ -214,32 +190,21 @@ function scene:hide( event )
    local phase = event.phase
  
    if ( phase == 'will' ) then
-      -- Called when the scene is on screen (but is about to go off screen).
-      -- Insert code here to 'pause' the scene.
-      -- Example: stop timers, stop animation, stop audio, etc.
+   
    elseif ( phase == 'did' ) then
-      -- Called immediately after scene goes off screen.
       app.removeAllRtEvents( )
    end
 end
  
 function scene:destroy( event )
-   -- Called prior to the removal of scene's view ('sceneGroup').
-   -- Insert code here to clean up the scene.
-   -- Example: remove display objects, save state, etc.
    app.removeAllRtEvents( )
    sparks.removeAll( )
    sparks = nil
 end
  
----------------------------------------------------------------------------------
- 
--- Listener setup
 scene:addEventListener( 'create', scene )
 scene:addEventListener( 'show', scene )
 scene:addEventListener( 'hide', scene )
 scene:addEventListener( 'destroy', scene )
- 
----------------------------------------------------------------------------------
  
 return scene

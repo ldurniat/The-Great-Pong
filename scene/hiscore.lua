@@ -1,4 +1,7 @@
--- Requirements
+--
+-- Ekran z końcowym wynikiem
+--
+-- Wymagane moduły
 local app      = require( 'lib.app' )
 local composer = require( 'composer' )
 local fx       = require( 'com.ponywolf.ponyfx' ) 
@@ -6,6 +9,8 @@ local tiled    = require( 'com.ponywolf.ponytiled' )
 local json     = require( 'json' ) 
 local preference = require( 'preference' ) 
 
+-- Lokalne zmienne
+local scene = composer.newScene()
 local hiscore, scores, ui
 
 local function saveScore( newScore )
@@ -16,24 +21,21 @@ local function saveScore( newScore )
     preference:save()
 end  
 
--- Variables local to scene
-local scene = composer.newScene()
-
 function scene:create( event )
-  local sceneGroup = self.view -- add display objects to this group
-  --local parent = composer.getScene('scene.game')
+  local sceneGroup = self.view 
 
-  -- Load our highscore tiled map
+  -- Wczytanie mapy
   local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/highScore.json', system.ResourceDirectory ) )
   hiscore = tiled.new( uiData, 'scene/menu/ui' )
   hiscore.x, hiscore.y = display.contentCenterX - hiscore.designedWidth/2, display.contentCenterY - hiscore.designedHeight/2
+  
+  -- Obsługa przycisków
   hiscore.extensions = 'scene.menu.lib.'
-  hiscore:extend('button', 'label')
+  hiscore:extend( 'button', 'label' )
 
   function ui( event )
     local phase = event.phase
     local name = event.buttonName
-    --print (phase, name)
     if phase == 'released' then 
       if name == 'restart' then
 				--audio.play(parent.sounds.bail)		
