@@ -3,6 +3,7 @@
 --
 -- Wymagane moduły
 local loadsave = require( 'lib.loadsave' )
+local app      = require( 'lib.app' )
 
 -- Deklaracja modułu
 local M = {}
@@ -16,6 +17,9 @@ function M:save()
 end	
 
 function M:get( name )
+	--print( '...ccccccccccccccccccccccccccccccc' )
+	--app.pprint(self.settings, 1, ' ')
+	--print( '...ccccccccccccccccccccccccccccccc' )
 	return self.settings[ name ]
 end	
 
@@ -32,9 +36,9 @@ function M:load()
 		self:set( 'highScoreMatchMode', 0 )
 
 		loadsave.saveTable( self.settings, 'settings.json' )
+	else
+		self.settings = settings	
 	end
-
-	self.settings = settings
 end	
 
 return M

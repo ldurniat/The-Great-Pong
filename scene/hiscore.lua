@@ -13,7 +13,7 @@ local preference = require( 'preference' )
 local scene = composer.newScene()
 local hiscore, scores, ui
 
-local function saveScore( newScore )
+local function saveHighScore( newScore )
     if  preference:get( 'highScoreEndlessMode' ) < newScore then
       preference:set( 'highScoreEndlessMode', newScore )
     end   
@@ -58,7 +58,7 @@ function scene:show( event )
   if ( phase == 'will' ) then
     local newScore = params.newScore
 
-    saveScore( newScore )
+    saveHighScore( newScore )
 
     local newHighScore = preference:get( 'highScoreEndlessMode' )
 
