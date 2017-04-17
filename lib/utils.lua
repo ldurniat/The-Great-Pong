@@ -229,3 +229,13 @@ end
 function table.removeByRef(t, obj)
     table.remove(t, table.indexOf(t, obj))
 end
+
+function transition.chain(object, params, ...)
+   if params then
+      function params.onComplete() 
+          transition.chain(object, unpack(arg)) 
+      end
+   
+      transition.to(object, params)
+   end
+end
