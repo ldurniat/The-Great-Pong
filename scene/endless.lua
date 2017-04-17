@@ -1,35 +1,38 @@
+--
+-- Scena z rozgrywką endless
+--
+-- Wymagane moduły
 local composer  = require( 'composer' )
 local app       = require( 'lib.app' )
 local collision = require( 'lib.collision' )
 local effects   = require( 'lib.effects' )
-local utils     = require( 'lib.utils' ) 
 local dt        = require( 'lib.deltatime' )
-local Ball      = require( 'scene.endless.lib.ball' )
-local Paddle    = require( 'scene.endless.lib.paddle' )
-local sparks    = require( 'lib.sparks' )
 local colors    = require( 'lib.colors' ) 
+local ball      = require( 'scene.endless.lib.ball' )
+local paddle    = require( 'scene.endless.lib.paddle' )
+local sparks    = require( 'lib.sparks' )
+local scoring   = require( 'scene.endless.lib.score' )
 
 math.randomseed( os.time( ) )  
 
 -- Lokalne zmienne
-local _W, _H, _CX, _CY
+local _W, _H, _CX, _CY, _T
 local mClamp, mRandom, mPi, mSin, mCos, mAbs = math.clamp 
 
 -- Nadaj odpowiednie wartości predefinowanym zmiennym (_W, _H, ...) 
 app.setLocals( )
 
 -- Lokalne zmienne
-local ball, player, computer
-local lineWidth, shrinkScale = 4, 0.85
-local score, collisionWithEdge
+local squareBall, player, computer
+local lineWidth, shrinkScale, collisionWithEdge, score = 4, 0.85
 local scene = composer.newScene( )
 
 -- Główna pętla gry 
 local function loop( )
    local deltatime = dt.getDeltaTime( )
 
-   ball:update( deltatime )
-   computer:update( ball, deltatime )
+   squareBall:update( deltatime )
+   computer:update( squareBall, deltatime )
 end
 
 local function drag( event )
@@ -64,21 +67,16 @@ local function shrink( event )
    player.img:scale( 1, shrinkScale )
 end   
 
-local function scoreup( event )
-   score.text = tostring(score.text) + 1 
-end 
-
 local function gameover( event )
    local edge = event.edge
-   local newScore = tonumber( score.text )
 
    app.removeRuntimeEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
    transition.pause( ) 
    --sparks.stop( edge ) 
-   --transition.blink( ball, {time=200} ) 
+   --transition.blink( squareBall, {time=200} ) 
    effects.shake( {time=500} )
    timer.performWithDelay( 500, function() 
-      composer.showOverlay("scene.hiscore", { isModal = true, effect = "fromTop",  params = {newScore=newScore} } )
+      composer.showOverlay("scene.hiscore", { isModal = true, effect = "fromTop",  params = {newScore=score:get()} } )
       end )
 end   
 
@@ -96,7 +94,7 @@ function collisionWithEdge( event )
          shrink( )
       end   
    elseif ( edge == 'right' ) then
-      scoreup( )
+      score:add( 1 )
    end   
 end
 
@@ -104,13 +102,11 @@ function scene:create( event )
    local sceneGroup = self.view
    local offset = 120
 
-   player = Paddle.new( )
-   player.img.x = player.img.width + offset
-   player.img.y = _CY
+   player = paddle.new( )
+   player.img.x, player.img.y = player.img.width + offset, _CY
 
-   computer = Paddle.new( )
-   computer.img.x = _W - offset
-   computer.img.y = _CY
+   computer = paddle.new( )
+   computer.img.x, computer.img.y = _W - offset, _CY
    
    local update = function( self, dt ) 
       local img = self.img
@@ -137,8 +133,8 @@ function scene:create( event )
       end
    end   
    
-   ball = Ball.new( {update=update} )
-   ball:serve( )
+   squareBall = ball.new( {update=update} )
+   squareBall:serve( )
 
    sparks.new( 'left', { physics = {
          gravityX = -0.5,
@@ -154,11 +150,13 @@ function scene:create( event )
          gravityY = 0.5,
       } } )  
 
-   sceneGroup:insert( ball )
+   score = scoring.new()
+   score.x, score.y = _CX - score.width, _T + 100
+
+   sceneGroup:insert( squareBall )
    sceneGroup:insert( computer )
    sceneGroup:insert( player )
-
-   score = display.newText( sceneGroup, '0', _CX - 100, 100, native.systemFont, 70 )
+   sceneGroup:insert( score )
 end
 
 function scene:show( event )
