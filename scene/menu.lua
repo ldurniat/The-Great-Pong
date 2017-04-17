@@ -51,7 +51,7 @@ function scene:show( event )
    if ( phase == 'will' ) then
       
    elseif ( phase == 'did' ) then
-      app.addRtEvents( {'ui', ui} )
+      app.addRuntimeEvents( {'ui', ui} )
    end
 end
  
@@ -61,7 +61,7 @@ function scene:hide( event )
    local phase = event.phase
  
    if ( phase == 'will' ) then
-     app.removeAllRtEvents()
+     app.removeAllRuntimeEvents()
    elseif ( phase == 'did' ) then
    end
 end
@@ -69,7 +69,7 @@ end
 function scene:destroy( event )
  
    local sceneGroup = self.view
-   app.removeAllRtEvents()
+   app.removeAllRuntimeEvents()
 end
  
 scene:addEventListener( 'create', scene )

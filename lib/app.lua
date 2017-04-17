@@ -361,7 +361,7 @@ function _M.eachFrameRemoveAll()
     _M.enterFrameFunctions = nil
 end
 
-function _M.addRtEvents( events )
+function _M.addRuntimeEvents( events )
      if not _M.RtEventTable then
         _M.RtEventTable = { listeners={}, names={} }
     end
@@ -376,7 +376,7 @@ function _M.addRtEvents( events )
     end    
 end
 
-function _M.removeRtEvents( events )
+function _M.removeRuntimeEvents( events )
     for i=1, #events * 0.5 do
         local name = events[ 2 * i - 1 ]
         local listener = events[ 2 * i ]
@@ -393,7 +393,7 @@ function _M.removeRtEvents( events )
 end
 
 -- Stop everything
-function _M.removeAllRtEvents() 
+function _M.removeAllRuntimeEvents() 
     if ( _M.RtEventTable and _M.RtEventTable.listeners ) then
         for i=1, #_M.RtEventTable.listeners do
             local name = _M.RtEventTable.names[ i ]

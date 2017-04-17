@@ -65,14 +65,14 @@ function scene:show( event )
     hiscore:findObject('myScore').text = newScore
     hiscore:findObject('myHighScore').text = newHighScore
   elseif ( phase == 'did' ) then
-    app.addRtEvents( { 'ui', ui } )		    
+    app.addRuntimeEvents( { 'ui', ui } )		    
   end
 end
 
 function scene:hide( event )
   local phase = event.phase
   if ( phase == 'will' ) then
-    app.removeAllRtEvents( )
+    app.removeAllRuntimeEvents( )
   elseif ( phase == 'did' ) then
 
   end

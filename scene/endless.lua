@@ -72,7 +72,7 @@ local function gameover( event )
    local edge = event.edge
    local newScore = tonumber( score.text )
 
-   app.removeRtEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
+   app.removeRuntimeEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
    transition.pause( ) 
    --sparks.stop( edge ) 
    --transition.blink( ball, {time=200} ) 
@@ -181,7 +181,7 @@ function scene:show( event )
       end    
    elseif ( phase == 'did' ) then
       dt.restart()
-      app.addRtEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
+      app.addRuntimeEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
    end
 end
  
@@ -192,12 +192,12 @@ function scene:hide( event )
    if ( phase == 'will' ) then
    
    elseif ( phase == 'did' ) then
-      app.removeAllRtEvents( )
+      app.removeAllRuntimeEvents( )
    end
 end
  
 function scene:destroy( event )
-   app.removeAllRtEvents( )
+   app.removeAllRuntimeEvents( )
    sparks.removeAll( )
    sparks = nil
 end
