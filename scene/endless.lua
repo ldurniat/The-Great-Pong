@@ -98,6 +98,11 @@ function collisionWithEdge( event )
    end   
 end
 
+function scene:resumeGame()
+   dt.restart()
+   app.addRuntimeEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
+end   
+
 function scene:create( event ) 
    local sceneGroup = self.view
    local offset = 120
@@ -178,8 +183,7 @@ function scene:show( event )
          line.strokeWidth = lineWidth
       end    
    elseif ( phase == 'did' ) then
-      dt.restart()
-      app.addRuntimeEvents( { 'enterFrame', loop, 'touch', drag, 'edgeCollision', collisionWithEdge } )
+      composer.showOverlay( "scene.start", { isModal = true, effect = "fromTop",  params = { } } )
    end
 end
  
