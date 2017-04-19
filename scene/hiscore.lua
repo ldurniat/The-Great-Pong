@@ -36,12 +36,17 @@ function scene:create( event )
   function ui( event )
     local phase = event.phase
     local name = event.buttonName
-    if phase == 'released' then 
-      if name == 'restart' then
+    if ( phase == 'released' ) then 
+      if ( name == 'restart' ) then
 				--audio.play(parent.sounds.bail)		
         fx.fadeOut( function()
             composer.hideOverlay()
             composer.gotoScene( 'scene.refresh', { params = {} } )
+          end )
+      elseif ( name == 'menu' ) then
+          fx.fadeOut( function()
+            composer.hideOverlay()
+            composer.gotoScene( 'scene.refresh', { params = { nextScene='scene.menu' } } )
           end )
       end
     end

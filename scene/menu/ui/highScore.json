@@ -38,7 +38,19 @@
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":176,
+                 "x":56,
+                 "y":552
+                }, 
+                {
+                 "gid":2,
+                 "height":69,
+                 "id":11,
+                 "name":"menu",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":328,
                  "y":552
                 }],
          "opacity":1,
@@ -175,7 +187,32 @@
                  "type":"label",
                  "visible":true,
                  "width":192,
-                 "x":216,
+                 "x":88,
+                 "y":496
+                }, 
+                {
+                 "height":40,
+                 "id":10,
+                 "name":"menu",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":36,
+                     "strokeColor":"#ffffffff",
+                     "text":"Menu"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":192,
+                 "x":368,
                  "y":496
                 }],
          "opacity":1,
@@ -185,7 +222,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":10,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

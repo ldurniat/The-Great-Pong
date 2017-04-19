@@ -12,12 +12,13 @@ function scene:show( event )
 
   local phase = event.phase
   local options = { params = event.params }
+  local nextScene = options.params.nextScene or prevScene
 
-  -- Przekierowuję do poprzedniej sceny
+  -- Przekierowuję do następnej sceny (domyślnie jest nią poprzednia scena)
   if ( phase == 'will' ) then
-    composer.removeScene(prevScene)
+    composer.removeScene( prevScene )
   elseif ( phase == 'did' ) then
-    composer.gotoScene( prevScene, options )      
+    composer.gotoScene( nextScene, options )      
   end
 end
 

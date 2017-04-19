@@ -38,7 +38,7 @@
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":184,
+                 "x":192,
                  "y":288
                 }],
          "opacity":1,
@@ -75,7 +75,7 @@
                  "type":"label",
                  "visible":true,
                  "width":232,
-                 "x":200,
+                 "x":208,
                  "y":232
                 }, 
                 {
@@ -110,7 +110,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":7,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

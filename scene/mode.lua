@@ -33,6 +33,7 @@ function scene:create( event )
          --audio.play(buttonSound)
          if name == "endless" then
             fx.fadeOut( function()
+                  composer.removeScene( 'scene.menu' )
                   composer.gotoScene( "scene.endless", { params = {} } )
                end )
          end

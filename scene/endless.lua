@@ -162,6 +162,8 @@ function scene:create( event )
    sceneGroup:insert( computer )
    sceneGroup:insert( player )
    sceneGroup:insert( score )
+
+   composer.removeScene( 'scene.mode' )
 end
 
 function scene:show( event )
