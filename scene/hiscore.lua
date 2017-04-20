@@ -46,7 +46,7 @@ function scene:create( event )
       elseif ( name == 'menu' ) then
           fx.fadeOut( function()
             composer.hideOverlay()
-            composer.gotoScene( 'scene.refresh', { params = { nextScene='scene.menu' } } )
+            composer.gotoScene( 'scene.menu', { params = {} } )
           end )
       end
     end
@@ -54,7 +54,6 @@ function scene:create( event )
   end
 
   sceneGroup:insert(hiscore)
-
 end
 
 function scene:show( event )

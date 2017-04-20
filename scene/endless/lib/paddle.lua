@@ -18,7 +18,9 @@ local mClamp, mMin, mMax, mExp = math.clamp
 app.setLocals()
 
 function M.new( options )
-	local options = options or {}
+	
+	-- Domyślne opcje
+	options = options or {}
 	local width = options.width or 20
 	local height = options.height or 100
 	

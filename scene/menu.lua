@@ -15,7 +15,12 @@ local menu
 function scene:create( event )
 
    local sceneGroup = self.view
-
+   local prevScene = composer.getSceneName( 'previous' ) 
+   
+   if prevScene then  
+      composer.removeScene( prevScene )
+   end
+      
    -- Wczytanie mapy
    local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/title.json', system.ResourceDirectory ) )
    menu = tiled.new( uiData, 'scene/menu/ui' )

@@ -2,9 +2,10 @@
 -- Moduł reprezentujący piłkę 
 --
 -- Wymagane moduły
-local app     = require( 'lib.app' )
-local colors  = require( 'lib.colors' ) 
-local effects = require( 'lib.effects' )
+local app      = require( 'lib.app' )
+local colors   = require( 'lib.colors' ) 
+local effects  = require( 'lib.effects' )
+local composer = require( 'composer' )
 
 -- Deklaracja modułu
 local M = {}
@@ -17,7 +18,10 @@ local mRandom, mPi, mSin, mCos, mAbs
 app.setLocals()
 
 function M.new( options )
-	local options = options or {}
+	local scene = composer.getScene(composer.getSceneName("current"))
+
+	-- Domyślne opcje
+	options = options or {}
 	local side = options.side or 20
 	local speed = options.speed or 20
 	local rotationSpeed = options.rotationSpeed or 5
@@ -37,28 +41,43 @@ function M.new( options )
 	function instance:collision()
 		local img = self.img
 		
+		-- górna krawędź
 		if ( img.y < 0 ) then 
 			img.velY = mAbs( img.velY )
 			img.y = 0
 
-			app.post( 'edgeCollision', {edge='top', x=img.x, y=0}  )	
+			scene.sparks.start( 'top', img.x, 0 )
+		-- dolna krawędź	
 		elseif ( img.y > bounds.height ) then 
 			img.velY = -mAbs( img.velY )
 			img.y = bounds.height
 
-			app.post( 'edgeCollision', {edge='bottom', x=img.x, y=bounds.height}  )
+			scene.sparks.start( 'bottom', img.x, bounds.height )
 		end
 
+		-- lewa krawędź
 		if ( img.x < 0 ) then 
 			img.velX = mAbs( img.velX )
 			img.x = 0
 
-			app.post( 'edgeCollision', {edge='left', x=0, y=img.y} )	
+			scene.sparks.start( 'left', 0, img.y )
+			if ( scene.lives:damage( 1 ) == 0 ) then
+				app.removeAllRuntimeEvents()
+				transition.pause( ) 
+				--sparks.stop( edge ) 
+				--transition.blink( squareBall, {time=200} ) 
+				effects.shake( {time=500} )
+				timer.performWithDelay( 500, function() 
+				  composer.showOverlay("scene.hiscore", { isModal = true, effect = "fromTop",  params = {newScore=scene.score:get()} } )
+				  end )
+			end	
+		-- prawa krawędź	
 		elseif ( img.x > bounds.width ) then 
 			img.velX = -mAbs( img.velX )
 			img.x = bounds.width
 
-			app.post( 'edgeCollision', {edge='right', x=bounds.width, y=img.y}  )
+			scene.sparks.start( 'right', bounds.width, img.y )
+			scene.score:add( 1 )
 		end
 	end	
 
