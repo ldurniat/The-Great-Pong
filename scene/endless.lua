@@ -6,7 +6,7 @@ local composer  = require( 'composer' )
 local app       = require( 'lib.app' )
 local collision = require( 'lib.collision' )
 local effects   = require( 'lib.effects' )
-local dt        = require( 'lib.deltatime' )
+local deltatime = require( 'lib.deltatime' )
 local colors    = require( 'lib.colors' ) 
 local ball      = require( 'scene.endless.lib.ball' )
 local paddle    = require( 'scene.endless.lib.paddle' )
@@ -30,10 +30,10 @@ local scene = composer.newScene()
 
 -- Główna pętla gry 
 local function loop()
-   local deltatime = dt.getDeltaTime()
+   local dt = deltatime.getTime()
 
-   squareBall:update( deltatime )
-   computer:update( squareBall, deltatime )
+   squareBall:update( dt )
+   computer:update( squareBall, dt )
 end
 
 -- Obsługa ruchu paletki gracza
@@ -61,7 +61,7 @@ end
 
 -- rozpocznij grę od nowa
 function scene:resumeGame()
-   dt.restart()
+   deltatime.restart()
    app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag} )
 end   
 

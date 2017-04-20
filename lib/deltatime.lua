@@ -3,7 +3,7 @@ local lastTime = 0
 
 local M = {}
 
-function M.getDeltaTime()
+function M.getTime() 
 	local dt = 0
 
 	if lastTime == 0 then
