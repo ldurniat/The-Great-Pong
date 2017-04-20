@@ -136,6 +136,7 @@ function scene:create( event )
    sceneGroup:insert( computer )
    sceneGroup:insert( player )
    sceneGroup:insert( score )
+   sceneGroup:insert( live )
 end
 
 function scene:show( event )

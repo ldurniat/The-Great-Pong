@@ -61,11 +61,10 @@ function M.new( options )
 			img.x = 0
 
 			scene.sparks.start( 'left', 0, img.y )
+			-- gracz przegrał?
 			if ( scene.lives:damage( 1 ) == 0 ) then
 				app.removeAllRuntimeEvents()
 				transition.pause( ) 
-				--sparks.stop( edge ) 
-				--transition.blink( squareBall, {time=200} ) 
 				effects.shake( {time=500} )
 				timer.performWithDelay( 500, function() 
 				  composer.showOverlay("scene.hiscore", { isModal = true, effect = "fromTop",  params = {newScore=scene.score:get()} } )

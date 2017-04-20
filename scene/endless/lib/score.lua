@@ -32,8 +32,6 @@ function M.new( options )
 	function score:add( points )
 		score.num = score.num + ( points or 0 )
 		score.text = label .. " " .. ( score.num or 0 )
-
-		transition.chain( score, {time=300, xScale=1.1, yScale=1.1}, {time=300, xScale=1, yScale=1} )
 	end
   
 	function score:get() return score.num or 0 end
