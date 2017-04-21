@@ -6,8 +6,7 @@ local composer   = require( 'composer' )
 local app        = require( 'lib.app' )
 local collision  = require( 'lib.collision' )
 local effects    = require( 'lib.effects' )
-local deltatime  = require( 'lib.deltatime' )
-local colors     = require( 'lib.colors' ) 
+local deltatime  = require( 'lib.deltatime' ) 
 local ball       = require( 'scene.endless.lib.ball' )
 local paddle     = require( 'scene.endless.lib.paddle' )
 local background = require( 'scene.endless.lib.background' )
@@ -60,7 +59,7 @@ local function drag( event )
    return true
 end   
 
--- rozpocznij grę od nowa
+-- rozpoczyna grę od nowa
 function scene:resumeGame()
    deltatime.restart()
    app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag} )
@@ -123,20 +122,17 @@ function scene:create( event )
    local live = scene.lives
    live.x, live.y = _CX + 100, _T + 100
 
-   -- Ze względu na brak możliwości zmiany własności fizycznych sparks
-   -- tworze 4 na każdą krawędz ekranu
-   scene.sparks = sparks
-   sparks.new( 'left', { physics={ gravityX=-0.5, gravityY=0} } ) 
-   sparks.new( 'right' ) 
-   sparks.new( 'top', { physics={ gravityX=0, gravityY=-0.5 } } ) 
-   sparks.new( 'bottom', { physics={ gravityX=0, gravityY=0.5 } } )  
-
+   -- dodaje efekt cząsteczkowy
+   scene.sparks = sparks.new()
+   local sparks = scene.sparks
+   
    -- dodanie obiektu przechowującego wynik
    scene.score = scoring.new()
    local score = scene.score
    score.x, score.y = _CX - score.width, _T + 100
 
    -- dodanie obiekty do sceny we właściwej kolejności
+   sceneGroup:insert( sparks )
    sceneGroup:insert( board )
    sceneGroup:insert( squareBall )
    sceneGroup:insert( computer )
@@ -152,7 +148,7 @@ function scene:show( event )
    if ( phase == 'will' ) then
       
    elseif ( phase == 'did' ) then
-      composer.showOverlay( "scene.start", { isModal = true, effect = "fromTop",  params = { } } )
+      composer.showOverlay( "scene.start", { isModal=true, effect="fromTop",  params={ } } )
    end
 end
  
@@ -169,8 +165,8 @@ end
  
 function scene:destroy( event )
    app.removeAllRuntimeEvents()
-   sparks.removeAll()
-   sparks = nil
+   scene.sparks:destroy()
+   scene.sparks = nil
 end
  
 scene:addEventListener( 'create', scene )

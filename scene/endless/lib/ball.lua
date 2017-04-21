@@ -46,13 +46,13 @@ function M.new( options )
 			img.velY = mAbs( img.velY )
 			img.y = 0
 
-			scene.sparks.start( 'top', img.x, 0 )
+			scene.sparks:startAt( 'up', img.x, 0 )
 		-- dolna krawędź	
 		elseif ( img.y > bounds.height ) then 
 			img.velY = -mAbs( img.velY )
 			img.y = bounds.height
 
-			scene.sparks.start( 'bottom', img.x, bounds.height )
+			scene.sparks:startAt( 'down', img.x, bounds.height )
 		end
 
 		-- lewa krawędź
@@ -60,22 +60,23 @@ function M.new( options )
 			img.velX = mAbs( img.velX )
 			img.x = 0
 
-			scene.sparks.start( 'left', 0, img.y )
+			scene.sparks:startAt( 'left', 0, img.y )
 			-- gracz przegrał?
 			if ( scene.lives:damage( 1 ) == 0 ) then
 				app.removeAllRuntimeEvents()
 				transition.pause( ) 
 				effects.shake( {time=500} )
 				timer.performWithDelay( 500, function() 
-				  composer.showOverlay("scene.hiscore", { isModal = true, effect = "fromTop",  params = {newScore=scene.score:get()} } )
-				  end )
+					composer.showOverlay("scene.hiscore", { isModal=true,
+				  		effect="fromTop", params={newScore=scene.score:get()} } )
+					end )
 			end	
 		-- prawa krawędź	
 		elseif ( img.x > bounds.width ) then 
 			img.velX = -mAbs( img.velX )
 			img.x = bounds.width
 
-			scene.sparks.start( 'right', bounds.width, img.y )
+			scene.sparks:startAt( 'right', bounds.width, img.y )
 			scene.score:add( 1 )
 		end
 	end	
