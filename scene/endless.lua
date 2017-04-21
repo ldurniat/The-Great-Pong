@@ -2,17 +2,18 @@
 -- Scena z rozgrywką endless
 --
 -- Wymagane moduły
-local composer  = require( 'composer' )
-local app       = require( 'lib.app' )
-local collision = require( 'lib.collision' )
-local effects   = require( 'lib.effects' )
-local deltatime = require( 'lib.deltatime' )
-local colors    = require( 'lib.colors' ) 
-local ball      = require( 'scene.endless.lib.ball' )
-local paddle    = require( 'scene.endless.lib.paddle' )
-local lives     = require( 'scene.endless.lib.liveBar' )
-local sparks    = require( 'lib.sparks' )
-local scoring   = require( 'scene.endless.lib.score' )
+local composer   = require( 'composer' )
+local app        = require( 'lib.app' )
+local collision  = require( 'lib.collision' )
+local effects    = require( 'lib.effects' )
+local deltatime  = require( 'lib.deltatime' )
+local colors     = require( 'lib.colors' ) 
+local ball       = require( 'scene.endless.lib.ball' )
+local paddle     = require( 'scene.endless.lib.paddle' )
+local background = require( 'scene.endless.lib.background' )
+local lives      = require( 'scene.endless.lib.liveBar' )
+local sparks     = require( 'lib.sparks' )
+local scoring    = require( 'scene.endless.lib.score' )
 
 math.randomseed( os.time() )  
 
@@ -73,6 +74,9 @@ function scene:create( event )
    local prevScene = composer.getSceneName( 'previous' ) 
    composer.removeScene( prevScene )
 
+   -- dodaje planszę
+   local board = background.new()
+
    -- dodaje paletkę gracza 
    player = paddle.new()
    player.img.x, player.img.y = player.img.width + offset, _CY
@@ -132,6 +136,7 @@ function scene:create( event )
    score.x, score.y = _CX - score.width, _T + 100
 
    -- dodanie obiekty do sceny we właściwej kolejności
+   sceneGroup:insert( board )
    sceneGroup:insert( squareBall )
    sceneGroup:insert( computer )
    sceneGroup:insert( player )
@@ -144,19 +149,7 @@ function scene:show( event )
    local phase = event.phase
  
    if ( phase == 'will' ) then
-      -- Rysuje krótkie linie na środku ekranu
-      local round = math.round
-      local lineLenght = 20 
-      -- Wyznaczam położenie pierwszej linii od krawędzi ekranu tak aby 
-      -- odległość od obu krawędzi była równa
-      local tmp = round( _H / lineLenght )
-      tmp = tmp % 2 == 0 and tmp - 1 or tmp
-      local startY = round( ( _H - lineLenght * tmp ) * 0.5 )
-
-      for i=startY, _H,  2 * lineLenght do
-         local line = display.newLine( sceneGroup, _CX, i, _CX, i + lineLenght )
-         line.strokeWidth = lineWidth
-      end    
+      
    elseif ( phase == 'did' ) then
       composer.showOverlay( "scene.start", { isModal = true, effect = "fromTop",  params = { } } )
    end
