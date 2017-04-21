@@ -112,6 +112,7 @@ colors['dark_green'] = {0, 0.5, 0}
 colors['res_green'] = {0, 0.3, 0}
 colors['res_red'] = {0.7, 0, 0}
 
+--[[
 local ext = (_M.isAndroid or _M.isSimulator) and '.ogg' or '.m4a'
 
 local sounds = {
@@ -124,6 +125,7 @@ local sounds = {
 }
 
 _M.duration = 200
+--]]
 
 local referencePoints = {
     TopLeft      = {0, 0},
@@ -163,6 +165,7 @@ function _M.setStrokeColor(object, color)
     end
 end
 
+--[[
 function _M.enableRemoteConsole(hostname, port)
     if not hostname then
         error('Hostname is required', 2)
@@ -319,6 +322,7 @@ end
 function _M.saveUser()
     _M.saveFile('user.txt', json.encode(_M.user))
 end
+--]]
 
 function _M.nextFrame(f)
     timer.performWithDelay(1, f)
@@ -361,6 +365,9 @@ function _M.eachFrameRemoveAll()
     _M.enterFrameFunctions = nil
 end
 
+-- Obsługa zdarzeń Runtime 
+--
+-- dodanie zdarzeń
 function _M.addRuntimeEvents( events )
      if not _M.RtEventTable then
         _M.RtEventTable = { listeners={}, names={} }
@@ -376,6 +383,7 @@ function _M.addRuntimeEvents( events )
     end    
 end
 
+-- usunięcie wybranych zdarzeń
 function _M.removeRuntimeEvents( events )
     for i=1, #events * 0.5 do
         local name = events[ 2 * i - 1 ]
@@ -392,7 +400,7 @@ function _M.removeRuntimeEvents( events )
     end    
 end
 
--- Stop everything
+-- usunięcie wszystkich zdarzeń
 function _M.removeAllRuntimeEvents() 
     if ( _M.RtEventTable and _M.RtEventTable.listeners ) then
         for i=1, #_M.RtEventTable.listeners do
@@ -407,15 +415,19 @@ function _M.removeAllRuntimeEvents()
     end    
 end
 
--- Funkcję do obsługi zdarzeń generowanych przez programistę
+-- Generowanie dowolnych zdarzeń
+--
+-- dodanie zdarzenia
 function _M.listen( name, listener ) 
     M.addRtEvents( { name, listener } )
-end  
+end
 
+-- usunięcie zdarzenia
 function _M.ignore( name, listener ) 
     M.removeRtEvents( { name, listener } )
 end   
 
+-- wygenerowanie zdarzenia
 function _M.post( name, params ) 
    local params = params or {}
    local event = { name = name }
@@ -425,6 +437,5 @@ function _M.post( name, params )
    if ( not event.time ) then event.time = getTimer() end
    Runtime:dispatchEvent( event )
 end 
------------------------------------------------------------
 
 return _M
