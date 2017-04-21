@@ -27,7 +27,7 @@ if isSimulator then
   -- show FPS
   local visualMonitor = require( "com.ponywolf.visualMonitor" )
   local visMon = visualMonitor:new()
-  visMon.isVisible = true
+  visMon.isVisible = false
 
   -- show/hide physics
   local function debugKeys( event )

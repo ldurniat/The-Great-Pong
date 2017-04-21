@@ -1,5 +1,7 @@
 # Ping Pong Clone
 
+![Game play from game](http://i.imgur.com/Qxq3Y0c.gif)
+
 The game created in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
 
 Work in progress:) So far I do
