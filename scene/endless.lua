@@ -91,8 +91,9 @@ function scene:create( event )
       img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
 
       -- dodanie różnych efektów dla piłeczki
-      effects.addTail( self, {dt=dt, name='circlesRandomColors'} )
+      self:addTail( dt )
       self:rotate( dt )
+      -- wykrywanie kolizji z krawędziami ekranu
       self:collision()
       
       local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img

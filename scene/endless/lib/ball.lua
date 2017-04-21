@@ -93,7 +93,11 @@ function M.new( options )
 
 	function instance:rotate( dt )
 		local img = self.img
-		img.rotation = ( img.rotation %  360 ) + rotationSpeed * dt
+		img.rotation = ( img.rotation % 360 ) + rotationSpeed * dt
+	end
+
+	function instance:addTail( dt, name )
+		effects.addTail( self, { dt=dt, name=name } )
 	end
 
 	return instance
