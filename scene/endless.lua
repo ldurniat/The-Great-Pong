@@ -24,8 +24,8 @@ local mClamp, mRandom, mPi, mSin, mCos, mAbs = math.clamp
 app.setLocals()
 
 -- Lokalne zmienne
-local squareBall, player, computer
-local lineWidth, shrinkScale, collisionWithEdge = 4, 0.85
+local squareBall, player, computer, spark, score
+local lineWidth, shrinkScale = 4, 0.85
 local scene = composer.newScene()
 
 -- Główna pętla gry 
@@ -59,10 +59,33 @@ local function drag( event )
    return true
 end   
 
+local function touchEdge( event )
+   local edge = event.edge
+   local x = event.x
+   local y = event.y
+
+   spark:startAt( edge, x, y )
+
+   if ( edge == 'right' ) then
+      score:add( 1 )
+   elseif ( edge == 'left' ) then
+      if ( live:damage( 1 ) == 0 ) then
+         app.removeAllRuntimeEvents()
+         transition.pause( ) 
+         effects.shake( {time=500} )
+         timer.performWithDelay( 500, function() 
+            composer.showOverlay("scene.hiscore", { isModal=true,
+               effect="fromTop", params={newScore=score:get()} } )
+            end )
+         end   
+   end   
+
+end   
+
 -- rozpoczyna grę od nowa
 function scene:resumeGame()
    deltatime.restart()
-   app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag} )
+   app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
 end   
 
 function scene:create( event ) 
@@ -118,21 +141,18 @@ function scene:create( event )
    squareBall:serve()
 
    -- dodanie paska z życiem
-   scene.lives = lives.new()
-   local live = scene.lives
+   live = lives.new()
    live.x, live.y = _CX + 100, _T + 100
 
    -- dodaje efekt cząsteczkowy
-   scene.sparks = sparks.new()
-   local sparks = scene.sparks
+   spark = sparks.new()
    
    -- dodanie obiektu przechowującego wynik
-   scene.score = scoring.new()
-   local score = scene.score
+   score = scoring.new()
    score.x, score.y = _CX - score.width, _T + 100
 
    -- dodanie obiekty do sceny we właściwej kolejności
-   sceneGroup:insert( sparks )
+   sceneGroup:insert( spark )
    sceneGroup:insert( board )
    sceneGroup:insert( squareBall )
    sceneGroup:insert( computer )
@@ -165,8 +185,8 @@ end
  
 function scene:destroy( event )
    app.removeAllRuntimeEvents()
-   scene.sparks:destroy()
-   scene.sparks = nil
+   spark:destroy()
+   spark = nil
 end
  
 scene:addEventListener( 'create', scene )
