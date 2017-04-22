@@ -33,12 +33,12 @@
                  "gid":2,
                  "height":69,
                  "id":2,
-                 "name":"start",
+                 "name":"ok",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":192,
+                 "x":200,
                  "y":288
                 }],
          "opacity":1,
@@ -56,13 +56,13 @@
                 {
                  "height":40,
                  "id":5,
-                 "name":"start",
+                 "name":"ok",
                  "properties":
                     {
                      "font":"",
                      "size":36,
                      "strokeColor":"#ffffffff",
-                     "text":"Start"
+                     "text":"Ok"
                     },
                  "propertytypes":
                     {
@@ -75,13 +75,13 @@
                  "type":"label",
                  "visible":true,
                  "width":232,
-                 "x":208,
+                 "x":216,
                  "y":232
                 }, 
                 {
                  "height":128,
                  "id":4,
-                 "name":"howtoplay",
+                 "name":"message",
                  "properties":
                     {
                      "font":"",
@@ -110,7 +110,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":9,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

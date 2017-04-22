@@ -138,6 +138,7 @@ local referencePoints = {
     CenterRight  = {1, 0.5},
     Center       = {0.5, 0.5}
 }
+
 function _M.setRP(object, rp)
     local anchor = referencePoints[rp]
     if anchor then

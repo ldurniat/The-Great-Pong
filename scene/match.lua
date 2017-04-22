@@ -10,7 +10,6 @@ local deltatime  = require( 'lib.deltatime' )
 local ball       = require( 'scene.endless.lib.ball' )
 local paddle     = require( 'scene.endless.lib.paddle' )
 local background = require( 'scene.endless.lib.background' )
-local lives      = require( 'scene.endless.lib.liveBar' )
 local sparks     = require( 'lib.sparks' )
 local scoring    = require( 'scene.endless.lib.score' )
 
@@ -24,7 +23,13 @@ local mClamp, mRandom, mPi, mSin, mCos, mAbs = math.clamp
 app.setLocals()
 
 -- Lokalne zmienne
-local squareBall, player, computer, spark, score
+local squareBall, player, computer 
+local spark, playerScore, computerScore
+local maxScore = 2
+local message = {
+   win = 'You WIN.',
+   lost = 'You lost.'
+}
 local scene = composer.newScene()
 
 -- Główna pętla gry 
@@ -58,6 +63,17 @@ local function drag( event )
    return true
 end   
 
+local function gameOver()
+   local message = playerScore:get() == maxScore and message.win or message.lost
+   app.removeAllRuntimeEvents()
+   transition.pause( ) 
+   effects.shake( {time=500} )
+   timer.performWithDelay( 500, function() 
+      composer.showOverlay("scene.result", { isModal=true,
+         effect="fromTop", params={message=message} } )
+      end ) 
+end   
+
 local function touchEdge( event )
    local edge = event.edge
    local x = event.x
@@ -66,19 +82,15 @@ local function touchEdge( event )
    spark:startAt( edge, x, y )
 
    if ( edge == 'right' ) then
-      score:add( 1 )
+      playerScore:add( 1 )   
    elseif ( edge == 'left' ) then
-      if ( live:damage( 1 ) == 0 ) then
-         app.removeAllRuntimeEvents()
-         transition.pause( ) 
-         effects.shake( {time=500} )
-         timer.performWithDelay( 500, function() 
-            composer.showOverlay("scene.hiscore", { isModal=true,
-               effect="fromTop", params={newScore=score:get()} } )
-            end )
-         end   
+      computerScore:add( 1 )   
    end   
 
+   -- sprawdza czy mecz dobiegł końca
+   if ( computerScore:get() == maxScore or playerScore:get() == maxScore ) then
+      gameOver()
+   end   
 end   
 
 -- rozpoczyna grę od nowa
@@ -139,16 +151,17 @@ function scene:create( event )
    squareBall = ball.new( {update=update} )
    squareBall:serve()
 
-   -- dodanie paska z życiem
-   live = lives.new()
-   live.x, live.y = _CX + 100, _T + 100
-
    -- dodaje efekt cząsteczkowy
    spark = sparks.new()
    
-   -- dodanie obiektu przechowującego wynik
-   score = scoring.new()
-   score.x, score.y = _CX - score.width, _T + 100
+   -- dodanie obiektu przechowującego wynik dla obu graczy
+   playerScore = scoring.new()
+   playerScore.x, playerScore.y = _CX - 100, _T + 100
+   app.setRP( playerScore, 'CenterRight')
+
+   computerScore = scoring.new( {align='left'} )
+   computerScore.x, computerScore.y = _CX + 100, _T + 100
+   app.setRP( computerScore, 'CenterLeft')
 
    -- dodanie obiekty do sceny we właściwej kolejności
    sceneGroup:insert( spark )
@@ -156,8 +169,8 @@ function scene:create( event )
    sceneGroup:insert( squareBall )
    sceneGroup:insert( computer )
    sceneGroup:insert( player )
-   sceneGroup:insert( score )
-   sceneGroup:insert( live )
+   sceneGroup:insert( playerScore )
+   sceneGroup:insert( computerScore )
 end
 
 function scene:show( event )
