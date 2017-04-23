@@ -40,7 +40,7 @@ local function drag( event )
    local self = player.img
 
    if ( event.phase == 'began' ) then
-      display.getCurrentStage():setFocus( self, event.id )
+      display.getCurrentStage():setFocus( self )
       self.isFocus = true
       self.markY = self.y
    elseif ( self.isFocus ) then
@@ -49,7 +49,7 @@ local function drag( event )
             self.height * self.yScale * self.anchorY, 
             _H - self.height * ( 1 - self.anchorY ) * self.yScale )
       elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
-        display.getCurrentStage():setFocus( self, nil )
+        display.getCurrentStage():setFocus( nil )
         self.isFocus = false
       end
    end
@@ -69,13 +69,14 @@ local function touchEdge( event )
    elseif ( edge == 'left' ) then
       if ( live:damage( 1 ) == 0 ) then
          audio.play(scene.sounds.lost)
+         display.getCurrentStage():setFocus( self, nil )
          app.removeAllRuntimeEvents()
          transition.pause( ) 
          effects.shake( {time=500} )
-         timer.performWithDelay( 500, function() 
+         timer.performWithDelay( 700, function() 
             composer.showOverlay('scene.hiscore', { isModal=true,
                effect='fromTop', params={newScore=score:get()} } )
-            end )
+            end, 1 )
          end   
    end   
 end   

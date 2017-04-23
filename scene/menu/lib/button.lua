@@ -28,6 +28,7 @@ function M.new(instance)
   function instance:touch(event)
     local phase = event.phase
     local name = event.name
+ 
     -- press in animation
     if phase=='began' then
       if event.id then stage:setFocus(event.target, event.id) end

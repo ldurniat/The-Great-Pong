@@ -17,6 +17,7 @@ local function decodeTiledColor(hex)
 end
 
 function M.new(instance)
+
   if not instance then error("ERROR: Expected display object") end  
   
   -- remember inital object

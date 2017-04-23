@@ -37,6 +37,7 @@ function scene:create( event )
   function ui( event )
     local phase = event.phase
     local name = event.buttonName
+
     if ( phase == 'released' ) then 
       audio.play( buttonSound )
 
@@ -55,7 +56,7 @@ function scene:create( event )
     return true	
   end
 
-  sceneGroup:insert(hiscore)
+  sceneGroup:insert( hiscore )
 end
 
 function scene:show( event )
@@ -88,9 +89,9 @@ function scene:destroy( event )
   --collectgarbage()
 end
 
-scene:addEventListener('create')
-scene:addEventListener('show')
-scene:addEventListener('hide')
-scene:addEventListener('destroy')
+scene:addEventListener( 'create' )
+scene:addEventListener( 'show' )
+scene:addEventListener( 'hide' )
+scene:addEventListener( 'destroy' )
 
 return scene
