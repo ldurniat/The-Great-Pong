@@ -22,7 +22,8 @@ local function saveHighScore( newScore )
 end  
 
 function scene:create( event )
-  local sceneGroup = self.view 
+  local sceneGroup = self.view
+  local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
 
   -- Wczytanie mapy
   local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/highScore.json', system.ResourceDirectory ) )
@@ -37,8 +38,9 @@ function scene:create( event )
     local phase = event.phase
     local name = event.buttonName
     if ( phase == 'released' ) then 
+      audio.play( buttonSound )
+
       if ( name == 'restart' ) then
-				--audio.play(parent.sounds.bail)		
         fx.fadeOut( function()
             composer.hideOverlay()
             composer.gotoScene( 'scene.refresh', { params = {} } )

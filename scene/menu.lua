@@ -15,7 +15,8 @@ local menu
 function scene:create( event )
 
    local sceneGroup = self.view
-   local prevScene = composer.getSceneName( 'previous' ) 
+   local prevScene = composer.getSceneName( 'previous' )
+   local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
    
    if prevScene then  
       composer.removeScene( prevScene )
@@ -35,7 +36,8 @@ function scene:create( event )
       local name = event.buttonName
       
       if phase == 'released' then
-         --audio.play(buttonSound)
+         audio.play( buttonSound )
+         
          if name == 'play' then
             fx.fadeOut( function()
                   composer.gotoScene( 'scene.mode', { params = {} } )

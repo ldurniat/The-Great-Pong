@@ -15,6 +15,7 @@ local menu
 function scene:create( event )
  
    local sceneGroup = self.view
+   local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
  
    -- Wczytanie mapy
    local uiData = json.decodeFile( system.pathForFile( 'scene/mode/ui/mode.json', system.ResourceDirectory ) )
@@ -30,7 +31,8 @@ function scene:create( event )
       local name = event.buttonName
      
       if phase == 'released' then
-         --audio.play(buttonSound)
+         audio.play( buttonSound )
+         
          if ( name == 'endless' ) then
             fx.fadeOut( function()
                   local prevScene = composer.getSceneName( 'previous' )   

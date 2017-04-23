@@ -25,7 +25,7 @@ app.setLocals()
 -- Lokalne zmienne
 local squareBall, player, computer 
 local spark, playerScore, computerScore
-local maxScore = 2
+local maxScore = 11
 local message = {
    win = 'You WIN.',
    lost = 'You lost.'
@@ -42,7 +42,6 @@ end
 
 -- Obsługa ruchu paletki gracza
 local function drag( event )
-
    local self = player.img
 
    if ( event.phase == 'began' ) then
@@ -64,6 +63,7 @@ local function drag( event )
 end   
 
 local function gameOver()
+   audio.play(scene.sounds.lost)
    local message = playerScore:get() == maxScore and message.win or message.lost
    app.removeAllRuntimeEvents()
    transition.pause( ) 
@@ -103,6 +103,13 @@ function scene:create( event )
    local sceneGroup = self.view
    local offset = 120
 
+   local sndDir = 'scene/endless/sfx/'
+   scene.sounds = {
+      wall = audio.loadSound( sndDir .. 'wall.wav' ),
+      hit  = audio.loadSound( sndDir .. 'hit.wav' ),
+      lost = audio.loadSound( sndDir .. 'lost.wav' )    
+   }
+
    -- usuwa poprzednią scene
    local prevScene = composer.getSceneName( 'previous' ) 
    composer.removeScene( prevScene )
@@ -133,6 +140,8 @@ function scene:create( event )
       
       -- wykrywanie kolizji między piłeczką i paletkami
       if ( collision.AABBIntersect( pdle, img ) ) then
+         audio.play(scene.sounds.hit)
+
          img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
         
          local mSign = math.sign        
@@ -197,6 +206,13 @@ end
  
 function scene:destroy( event )
    app.removeAllRuntimeEvents()
+
+   audio.stop()
+   for s,v in pairs( self.sounds ) do
+      audio.dispose( v )
+      self.sounds[s] = nil
+   end
+
    spark:destroy()
    spark = nil
 end

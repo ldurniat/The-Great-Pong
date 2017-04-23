@@ -14,6 +14,7 @@ local info, ui
 
 function scene:create( event )
   local sceneGroup = self.view  
+  local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
 
   -- Wczytanie mapy
   local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/result.json', system.ResourceDirectory ) )
@@ -29,7 +30,8 @@ function scene:create( event )
     local name = event.buttonName
     if phase == 'released' then 
       if ( name == 'restart' ) then
-        --audio.play(parent.sounds.bail)    
+        audio.play( buttonSound )
+
         fx.fadeOut( function()
             composer.hideOverlay()
             composer.gotoScene( 'scene.refresh', { params = {} } )

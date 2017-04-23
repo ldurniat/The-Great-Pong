@@ -46,14 +46,16 @@ function M.new( options )
 			img.velY = mAbs( img.velY )
 			img.y = 0
 
-			--scene.sparks:startAt( 'up', img.x, 0 )
+			audio.play(scene.sounds.wall)
+
 			app.post( 'touchEdge', {edge='up', x=img.x, y=0} )
 		-- dolna krawędź	
 		elseif ( img.y > bounds.height ) then 
 			img.velY = -mAbs( img.velY )
 			img.y = bounds.height
 
-			--scene.sparks:startAt( 'down', img.x, bounds.height )
+			audio.play(scene.sounds.wall)
+
 			app.post( 'touchEdge', {edge='down',x=img.x, y=bounds.height} )
 		end
 
@@ -62,27 +64,16 @@ function M.new( options )
 			img.velX = mAbs( img.velX )
 			img.x = 0
 
+			audio.play(scene.sounds.wall)
+
 			app.post( 'touchEdge', {edge='left',x=0, y=img.y} )
-			--scene.sparks:startAt( 'left', 0, img.y )
-			-- gracz przegrał?
-			--[[
-			if ( scene.lives:damage( 1 ) == 0 ) then
-				app.removeAllRuntimeEvents()
-				transition.pause( ) 
-				effects.shake( {time=500} )
-				timer.performWithDelay( 500, function() 
-					composer.showOverlay("scene.hiscore", { isModal=true,
-				  		effect="fromTop", params={newScore=scene.score:get()} } )
-					end )
-			end	
-			--]]
 		-- prawa krawędź	
 		elseif ( img.x > bounds.width ) then 
 			img.velX = -mAbs( img.velX )
 			img.x = bounds.width
 
-			--scene.sparks:startAt( 'right', bounds.width, img.y )
-			--scene.score:add( 1 )
+			audio.play(scene.sounds.wall)
+			
 			app.post( 'touchEdge', {edge='right',x=bounds.width, y=img.y} )
 		end
 	end	

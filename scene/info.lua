@@ -14,6 +14,7 @@ local info, ui
 
 function scene:create( event )
   local sceneGroup = self.view  
+  local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
 
   -- Wczytanie mapy
   local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/info.json', system.ResourceDirectory ) )
@@ -27,9 +28,10 @@ function scene:create( event )
   function ui( event )
     local phase = event.phase
     local name = event.buttonName
-    if phase == 'released' then 
-      if name == 'ok' then
-				--audio.play(parent.sounds.bail)		   
+    if phase == 'released' then
+      audio.play( buttonSound )
+       
+      if ( name == 'ok' ) then		   
         composer.hideOverlay( 'slideUp' )
       end
     end

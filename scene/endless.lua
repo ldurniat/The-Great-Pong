@@ -37,7 +37,6 @@ end
 
 -- Obsługa ruchu paletki gracza
 local function drag( event )
-
    local self = player.img
 
    if ( event.phase == 'began' ) then
@@ -69,16 +68,16 @@ local function touchEdge( event )
       score:add( 1 )
    elseif ( edge == 'left' ) then
       if ( live:damage( 1 ) == 0 ) then
+         audio.play(scene.sounds.lost)
          app.removeAllRuntimeEvents()
          transition.pause( ) 
          effects.shake( {time=500} )
          timer.performWithDelay( 500, function() 
-            composer.showOverlay("scene.hiscore", { isModal=true,
-               effect="fromTop", params={newScore=score:get()} } )
+            composer.showOverlay('scene.hiscore', { isModal=true,
+               effect='fromTop', params={newScore=score:get()} } )
             end )
          end   
    end   
-
 end   
 
 -- rozpoczyna grę od nowa
@@ -90,6 +89,13 @@ end
 function scene:create( event ) 
    local sceneGroup = self.view
    local offset = 120
+
+   local sndDir = 'scene/endless/sfx/'
+   scene.sounds = {
+      wall = audio.loadSound( sndDir .. 'wall.wav' ),
+      hit  = audio.loadSound( sndDir .. 'hit.wav' ),
+      lost = audio.loadSound( sndDir .. 'lost.wav' )  
+   }
 
    -- usuwa poprzednią scene
    local prevScene = composer.getSceneName( 'previous' ) 
@@ -121,6 +127,8 @@ function scene:create( event )
       
       -- wykrywanie kolizji między piłeczką i paletkami
       if ( collision.AABBIntersect( pdle, img ) ) then
+         audio.play(scene.sounds.hit)
+
          img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
         
          local mSign = math.sign        
@@ -167,7 +175,7 @@ function scene:show( event )
    if ( phase == 'will' ) then
       
    elseif ( phase == 'did' ) then
-      composer.showOverlay( "scene.info", { isModal=true, effect="fromTop",  params={} } )
+      composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
    end
 end
  
@@ -184,6 +192,13 @@ end
  
 function scene:destroy( event )
    app.removeAllRuntimeEvents()
+
+   audio.stop()
+   for s,v in pairs( self.sounds ) do
+      audio.dispose( v )
+      self.sounds[s] = nil
+   end
+
    spark:destroy()
    spark = nil
 end
