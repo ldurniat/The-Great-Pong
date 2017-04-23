@@ -51,6 +51,8 @@ local function unpackPoints(points)
   return t
 end
 
+local centerX, centerY = display.contentCenterX, display.contentCenterY
+
 function M.new(data, dir)
   local map = display.newGroup()
   dir = dir and (dir .. "/") or "" -- where does the map live?
@@ -89,18 +91,22 @@ function M.new(data, dir)
         table.insert( frames, gid, element )
       end
     end
-    print ("LOADED:", tileset.image)
-    return graphics.newImageSheet(tileset.image, options )
+    print ("LOADED:", dir .. tileset.image)
+    return graphics.newImageSheet(dir .. tileset.image, options )
   end
 
   local function findLast(tileset)
     local last = tileset.firstgid
-    for k,v in pairs(tileset.tiles) do
-      if tonumber(k) + tileset.firstgid > last then
-        last = tonumber(k) + tileset.firstgid
+    if tileset.tiles then 
+      for k,v in pairs(tileset.tiles) do
+        if tonumber(k) + tileset.firstgid > last then
+          last = tonumber(k) + tileset.firstgid
+        end
       end
+      return last
+    elseif tileset.image then
+      return tileset.firstgid + tileset.tilecount
     end
-    return last
   end
 
   local function gidLookup(gid)
@@ -125,7 +131,7 @@ function M.new(data, dir)
           return gid - firstgid + 1, flip, sheets[i]
         else -- collection of images
           for k,v in pairs(tileset.tiles) do
-            if tonumber(k) == (gid - firstgid) then
+            if tonumber(k) == (gid - firstgid + 0 ) then
               return v.image, flip -- may need updating with documents directory
             end
           end
@@ -146,12 +152,13 @@ function M.new(data, dir)
       local item = 0
       for ty=0, data.height-1 do
         for tx=0, data.width-1 do
-          item = (ty * data.width) + tx
+          item = 1 + (ty * data.width) + tx
           local tileNumber = layer.data[item] or 0
           local gid, flip, sheet = gidLookup(tileNumber)
           if gid then
             local image = sheet and display.newImage(objectGroup, sheet, gid, 0, 0) or display.newImage(objectGroup, gid, 0, 0)
             image.anchorX, image.anchorY = 0,1
+            image.gid = tileNumber
             image.x, image.y = (tx-1) * data.tilewidth, (ty+1) * data.tileheight
             centerAnchor(image)
             -- flip it
@@ -183,6 +190,7 @@ function M.new(data, dir)
             image.x, image.y = object.x, object.y
             image.rotation = object.rotation
             image.isVisible = object.visible
+            image.gid = object.gid
             centerAnchor(image)
             -- flip it
             if flip.xy then
@@ -225,7 +233,10 @@ function M.new(data, dir)
           -- simple physics
           if object.properties.bodyType then
             physics.addBody(polygon, object.properties.bodyType, object.properties)
-          end              
+          end  
+          -- name and type
+          polygon.name = object.name
+          polygon.type = object.type 
           -- apply custom properties
           polygon = inherit(polygon, layer.properties)          
           polygon = inherit(polygon, object.properties)
@@ -323,6 +334,19 @@ function M.new(data, dir)
     return false
   end
 
+  function map:centerObject(obj)
+    -- moves the world, so the specified object is on screen
+    if obj == nil then return false end
+    obj = self:findObject(obj)
+    
+    -- easiest way to scroll a map based on a character
+    -- find the difference between the hero and the display center
+    -- and move the world to compensate
+    local objx, objy = obj:localToContent(0,0)
+    objx, objy = centerX - objx, centerY - objy
+    self.x, self.y = self.x + objx, self.y + objy
+  end
+
   local function rightToLeft(a,b)
     return (a.x or 0) + (a.width or 0) * 0.5 > (b.x or 0) + (b.width or 0) * 0.5
   end
@@ -358,7 +382,12 @@ function M.new(data, dir)
 
   -- set the background color to the map background
   if data.backgroundcolor then
-    display.setDefault("background", decodeTiledColor("FF" .. data.backgroundcolor))
+    if type(data.backgroundcolor) == "string" then
+      display.setDefault("background", decodeTiledColor("FF" .. data.backgroundcolor))
+    elseif type(data.backgroundcolor) == "table" then
+      for i = 1, #data.backgroundcolor do data.backgroundcolor[i] = data.backgroundcolor[i] / 255 end
+      display.setDefault("background", unpack(data.backgroundcolor))
+    end
   end
 
   return map
