@@ -63,6 +63,7 @@ local function touchEdge( event )
    local y = event.y
 
    spark:startAt( edge, x, y )
+   audio.play(scene.sounds.wall)
 
    if ( edge == 'right' ) then
       score:add( 1 )
@@ -71,7 +72,7 @@ local function touchEdge( event )
          audio.play(scene.sounds.lost)
          display.getCurrentStage():setFocus( self, nil )
          app.removeAllRuntimeEvents()
-         transition.pause( ) 
+         --transition.pause( ) 
          effects.shake( {time=500} )
          timer.performWithDelay( 700, function() 
             composer.showOverlay('scene.hiscore', { isModal=true,
@@ -151,13 +152,16 @@ function scene:create( event )
    -- dodanie paska z życiem
    live = lives.new()
    live.x, live.y = _CX + 100, _T + 100
+   app.setRP( live, 'CenterLeft')
 
    -- dodaje efekt cząsteczkowy
    spark = sparks.new()
    
    -- dodanie obiektu przechowującego wynik
    score = scoring.new()
-   score.x, score.y = _CX - score.width, _T + 100
+   score.x, score.y = _CX - 100, _T + 100
+   app.setRP( score, 'CenterRight')
+
 
    -- dodanie obiekty do sceny we właściwej kolejności
    sceneGroup:insert( spark )

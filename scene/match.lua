@@ -25,7 +25,7 @@ app.setLocals()
 -- Lokalne zmienne
 local squareBall, player, computer 
 local spark, playerScore, computerScore
-local maxScore = 11
+local maxScore = 1
 local message = {
    win = 'You WIN.',
    lost = 'You lost.'
@@ -79,6 +79,7 @@ local function touchEdge( event )
    local x = event.x
    local y = event.y
 
+   audio.play(scene.sounds.wall)
    spark:startAt( edge, x, y )
 
    if ( edge == 'right' ) then

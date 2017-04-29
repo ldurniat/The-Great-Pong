@@ -46,15 +46,11 @@ function M.new( options )
 			img.velY = mAbs( img.velY )
 			img.y = 0
 
-			audio.play(scene.sounds.wall)
-
 			app.post( 'touchEdge', {edge='up', x=img.x, y=0} )
 		-- dolna krawędź	
 		elseif ( img.y > bounds.height ) then 
 			img.velY = -mAbs( img.velY )
 			img.y = bounds.height
-
-			audio.play(scene.sounds.wall)
 
 			app.post( 'touchEdge', {edge='down', x=img.x, y=bounds.height} )
 		end
@@ -64,15 +60,11 @@ function M.new( options )
 			img.velX = mAbs( img.velX )
 			img.x = 0
 
-			audio.play(scene.sounds.wall)
-
 			app.post( 'touchEdge', {edge='left', x=0, y=img.y} )
 		-- prawa krawędź	
 		elseif ( img.x > bounds.width ) then 
 			img.velX = -mAbs( img.velX )
 			img.x = bounds.width
-
-			audio.play(scene.sounds.wall)
 			
 			app.post( 'touchEdge', {edge='right', x=bounds.width, y=img.y} )
 		end
