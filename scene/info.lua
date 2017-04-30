@@ -2,11 +2,12 @@
 -- Ekran wyświetlający komunikat.
 --
 -- Wymagane moduły
-local app      = require( 'lib.app' )
-local composer = require( 'composer' )
-local fx       = require( 'com.ponywolf.ponyfx' ) 
-local tiled    = require( 'com.ponywolf.ponytiled' )
-local json     = require( 'json' ) 
+local app        = require( 'lib.app' )
+local preference = require( 'preference' )
+local composer   = require( 'composer' )
+local fx         = require( 'com.ponywolf.ponyfx' ) 
+local tiled      = require( 'com.ponywolf.ponytiled' )
+local json       = require( 'json' ) 
 
 -- Lokalne zmienne
 local scene = composer.newScene()
@@ -29,7 +30,7 @@ function scene:create( event )
     local phase = event.phase
     local name = event.buttonName
     if phase == 'released' then
-      audio.play( buttonSound )
+      app.playSound( buttonSound )
        
       if ( name == 'ok' ) then		   
         composer.hideOverlay( 'slideUp' )

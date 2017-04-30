@@ -2,11 +2,12 @@
 -- Ekran z końcowym wynikiem
 --
 -- Wymagane moduły
-local app      = require( 'lib.app' )
-local composer = require( 'composer' )
-local fx       = require( 'com.ponywolf.ponyfx' ) 
-local tiled    = require( 'com.ponywolf.ponytiled' )
-local json     = require( 'json' ) 
+local app        = require( 'lib.app' )
+local preference = require( 'preference' )
+local composer   = require( 'composer' )
+local fx         = require( 'com.ponywolf.ponyfx' ) 
+local tiled      = require( 'com.ponywolf.ponytiled' )
+local json       = require( 'json' ) 
 local preference = require( 'preference' ) 
 
 -- Lokalne zmienne
@@ -39,7 +40,7 @@ function scene:create( event )
     local name = event.buttonName
 
     if ( phase == 'released' ) then 
-      audio.play( buttonSound )
+      app.playSound( buttonSound )
 
       if ( name == 'restart' ) then
         fx.fadeOut( function()

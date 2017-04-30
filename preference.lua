@@ -34,6 +34,8 @@ function M:load()
 		-- Ustawienia domyślne
 		self:set( 'highScoreEndlessMode', 0 )
 		self:set( 'highScoreMatchMode', 0 )
+		self:set( 'music', true )
+		self:set( 'sound', true )
 
 		loadsave.saveTable( self.settings, 'settings.json' )
 	else

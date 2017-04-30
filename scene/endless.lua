@@ -4,6 +4,7 @@
 -- Wymagane moduły
 local composer   = require( 'composer' )
 local app        = require( 'lib.app' )
+local preference = require( 'preference' )
 local collision  = require( 'lib.collision' )
 local effects    = require( 'lib.effects' )
 local deltatime  = require( 'lib.deltatime' ) 
@@ -63,13 +64,13 @@ local function touchEdge( event )
    local y = event.y
 
    spark:startAt( edge, x, y )
-   audio.play(scene.sounds.wall)
+   app.playSound( scene.sounds.wall )
 
    if ( edge == 'right' ) then
       score:add( 1 )
    elseif ( edge == 'left' ) then
       if ( live:damage( 1 ) == 0 ) then
-         audio.play(scene.sounds.lost)
+         app.playSound( scene.sounds.lost )
          display.getCurrentStage():setFocus( self, nil )
          app.removeAllRuntimeEvents()
          --transition.pause( ) 
@@ -129,7 +130,7 @@ function scene:create( event )
       
       -- wykrywanie kolizji między piłeczką i paletkami
       if ( collision.AABBIntersect( pdle, img ) ) then
-         audio.play(scene.sounds.hit)
+         app.playSound(scene.sounds.hit)
 
          img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
         

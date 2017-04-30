@@ -5,12 +5,13 @@
 local composer = require( 'composer' )
 local tiled    = require( 'com.ponywolf.ponytiled' )
 local json     = require( 'json' )
-local app      = require( 'lib.app' )
+local app        = require( 'lib.app' )
+local preference = require( 'preference' )
 local fx       = require( 'com.ponywolf.ponyfx' )
 
 -- Lokalne zmienne
 local scene = composer.newScene()
-local menu
+local menu, ui
 
 function scene:create( event )
  
@@ -31,7 +32,7 @@ function scene:create( event )
       local name = event.buttonName
      
       if phase == 'released' then
-         audio.play( buttonSound )
+         app.playSound( buttonSound )
          
          if ( name == 'endless' ) then
             fx.fadeOut( function()

@@ -52,4 +52,7 @@ end
 -- Ładowanie ustawień z pliku settings.json
 preference:load()
 
+app.sound = preference:get( 'sound' )
+app.music = preference:get( 'music' )
+
 composer.gotoScene( 'scene.menu' )

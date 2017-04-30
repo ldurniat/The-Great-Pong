@@ -3,6 +3,8 @@ local pairs = _G.pairs
 
 local _M = {} 
 
+_M.sound = true
+_M.music = true
 _M.deviceID = system.getInfo('deviceID')
 
 if system.getInfo('environment') ~= 'simulator' then
@@ -165,6 +167,18 @@ function _M.setStrokeColor(object, color)
         error('No such color: ' .. tostring(color), 2)
     end
 end
+
+function _M.playSound( sound )
+    if ( _M.sound and sound ) then
+        audio.play( sound )
+    end    
+end 
+
+function _M.playMusic( music )
+    if ( _M.music and music ) then
+        audio.play( music )
+    end    
+end   
 
 --[[
 function _M.enableRemoteConsole(hostname, port)

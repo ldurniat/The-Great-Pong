@@ -2,15 +2,16 @@
 -- Scena z głównym menu
 --
 -- Wymagane moduły
-local composer = require( 'composer' )
-local tiled    = require( 'com.ponywolf.ponytiled' )
-local json     = require( 'json' )
-local app      = require( 'lib.app' )
-local fx       = require( 'com.ponywolf.ponyfx' )
+local composer   = require( 'composer' )
+local tiled      = require( 'com.ponywolf.ponytiled' )
+local json       = require( 'json' )
+local app        = require( 'lib.app' )
+local preference = require( 'preference' )
+local fx         = require( 'com.ponywolf.ponyfx' )
 
 -- Lokalne zmienne
 local scene = composer.newScene() 
-local menu
+local menu, ui
 
 function scene:create( event )
 
@@ -36,11 +37,15 @@ function scene:create( event )
       local name = event.buttonName
       
       if phase == 'released' then
-         audio.play( buttonSound )
+         app.playSound( buttonSound )
          
-         if name == 'play' then
+         if ( name == 'play' ) then
             fx.fadeOut( function()
                   composer.gotoScene( 'scene.mode', { params = {} } )
+               end )
+         elseif ( name == 'settings' ) then  
+            fx.fadeOut( function()
+                  composer.gotoScene( 'scene.settings', { params = {} } )
                end )
          end
       end
