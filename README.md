@@ -1,16 +1,16 @@
-# Ping Pong Clone
+# My-Pong-Game
+
+*My-Pong-Game* is a clon of [Pong](https://en.wikipedia.org/wiki/Pong) game created in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
 
 ![Game play from game](http://i.imgur.com/Qxq3Y0c.gif)
 
-The game created in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
-
 Work in progress:) So far I do
 
-1. Add main menu with buttons
-1. Add module to save/load settings
-1. Add sparks and tail module
-1. Add paddles and ball
-1. Add endless mode (you can play it)
+- [x] Add main menu, both mode, popup and settings scenes
+- [x] Add module to save/load settings
+- [x] Add effect module
+- [x] Add two mode for game: match and endless (you can play)
+- [x] Add a simple sounds
 
 Used modules or code
 
@@ -22,17 +22,17 @@ Used modules or code
 
 My blog: [Mój #gamedev blog](https://ldurniat.wordpress.com)
 
-# Klon gry Ping Pong 
+# My-Pong-Game 
 
-Gra jest stworzona przy użyciu narzędzia [Corona SDK](https://coronalabs.com/corona-sdk/) oraz języka Lua.
+*My-Pong-Game* to klon gry [Pong](https://pl.wikipedia.org/wiki/Pong) stworzony przy użyciu [Corona SDK](https://coronalabs.com/corona-sdk/) oraz języka Lua.
 
 Praca w toku:) Wykonane do tej pory
 
-1. Dodanie menu głównego z przyciskami
-1. Dodanie modułu do zapisywania/odczytywania ustawień
-1. Dodanie modułu efektów spark oraz tail
-1. Dodanie paletek oraz piłeczki
-1. Dodanie trybu endless (grywalne)
+- [x] Dodanie scen z menu głównym, dwoma trybami, przejściowymi oraz ustawieniami
+- [x] Dodanie modułu do zapisywania/odczytywania ustawień
+- [x] Dodanie modułu efektów
+- [x] Dodanie dwóch trybów: match oraz endless (grywalne)
+- [x] Dodanie prostych dzwięków
 
 Skorzystałem z modułów lub kodu
 
