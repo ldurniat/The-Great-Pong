@@ -46,7 +46,7 @@ local function drag( event )
    local self = player.img
 
    if ( event.phase == 'began' ) then
-      display.getCurrentStage():setFocus( self, event.id )
+      display.getCurrentStage():setFocus( self )
       self.isFocus = true
       self.markY = self.y
    elseif ( self.isFocus ) then
@@ -55,7 +55,7 @@ local function drag( event )
             self.height * self.yScale * self.anchorY, 
             _H - self.height * ( 1 - self.anchorY ) * self.yScale )
       elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
-        display.getCurrentStage():setFocus( self, nil )
+        display.getCurrentStage():setFocus( nil )
         self.isFocus = false
       end
    end
