@@ -1,6 +1,6 @@
 # My-Pong-Game
 
-*My-Pong-Game* is a clon of [Pong](https://en.wikipedia.org/wiki/Pong) game created in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
+*My-Pong-Game* is a clon of [Pong](https://en.wikipedia.org/wiki/Pong) game developed by Atari. A game is creating in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
 
 ![Game play from game](http://i.imgur.com/Qxq3Y0c.gif)
 
