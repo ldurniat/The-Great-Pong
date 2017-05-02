@@ -38,8 +38,8 @@
                  "type":"",
                  "visible":true,
                  "width":99,
-                 "x":592,
-                 "y":264
+                 "x":584,
+                 "y":200
                 }, 
                 {
                  "gid":1,
@@ -50,8 +50,8 @@
                  "type":"",
                  "visible":true,
                  "width":99,
-                 "x":56,
-                 "y":376
+                 "x":64,
+                 "y":312
                 }, 
                 {
                  "gid":3,
@@ -62,8 +62,57 @@
                  "type":"",
                  "visible":true,
                  "width":239,
-                 "x":200,
-                 "y":448
+                 "x":208,
+                 "y":376
+                }, 
+                {
+                 "gid":4,
+                 "height":69,
+                 "id":10,
+                 "name":"ok",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":184,
+                 "y":576
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":20,
+         "name":"labels",
+         "objects":[
+                {
+                 "height":40,
+                 "id":12,
+                 "name":"",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":40,
+                     "strokeColor":"#ffffffff",
+                     "text":"OK"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":224,
+                 "x":208,
+                 "y":520
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -72,7 +121,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":6,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -83,7 +132,7 @@
          "margin":0,
          "name":"ui",
          "spacing":0,
-         "tilecount":3,
+         "tilecount":4,
          "tileheight":593,
          "tiles":
             {
@@ -98,6 +147,10 @@
              "2":
                 {
                  "image":"border.png"
+                },
+             "3":
+                {
+                 "image":"button.png"
                 }
             },
          "tilewidth":593
