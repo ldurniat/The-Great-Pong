@@ -38,8 +38,28 @@
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":200,
-                 "y":288
+                 "x":48,
+                 "y":280
+                }, 
+                {
+                 "gid":2,
+                 "height":69,
+                 "id":11,
+                 "name":"chooseball",
+                 "properties":
+                    {
+                     "text":"Choose Ball"
+                    },
+                 "propertytypes":
+                    {
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":328,
+                 "y":280
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -75,8 +95,8 @@
                  "type":"label",
                  "visible":true,
                  "width":232,
-                 "x":216,
-                 "y":232
+                 "x":64,
+                 "y":224
                 }, 
                 {
                  "height":128,
@@ -102,6 +122,31 @@
                  "width":528,
                  "x":56,
                  "y":48
+                }, 
+                {
+                 "height":40,
+                 "id":12,
+                 "name":"chooseball",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":36,
+                     "strokeColor":"#ffffffff",
+                     "text":"Choose Ball"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":232,
+                 "x":344,
+                 "y":224
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -110,7 +155,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":11,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

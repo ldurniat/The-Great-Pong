@@ -12,6 +12,7 @@ local json       = require( 'json' )
 -- Lokalne zmienne
 local scene = composer.newScene()
 local info, ui 
+local resumeGame = false  
 
 function scene:create( event )
   local sceneGroup = self.view  
@@ -26,42 +27,49 @@ function scene:create( event )
   info.extensions = 'scene.menu.lib.'
   info:extend( 'button', 'label' )
 
-  function ui( event )
-    local phase = event.phase
-    local name = event.buttonName
-    if phase == 'released' then
-      app.playSound( buttonSound )
-       
-      if ( name == 'ok' ) then		   
-        composer.hideOverlay( 'slideUp' )
-      end
+    function ui( event )
+        local phase = event.phase
+        local name = event.buttonName
+
+        if phase == 'released' then
+          app.playSound( buttonSound )
+           
+            if ( name == 'ok' ) then	
+                resumeGame = true	   
+                composer.hideOverlay( 'slideUp' )
+            elseif ( name == 'chooseball' ) then
+                composer.showOverlay('scene.chooseball', { isModal=true,
+                   effect='fromTop', params={} } )
+            end
+        end
+        
+        return true	
     end
-    return true	
-  end
 
   sceneGroup:insert( info )
 end
 
 function scene:show( event )
-  local phase = event.phase
-  
-  if ( phase == 'will' ) then
-   
-  elseif ( phase == 'did' ) then
-    app.addRuntimeEvents( {'ui', ui} )		    
-  end
+    local phase = event.phase
+
+    if ( phase == 'will' ) then
+
+    elseif ( phase == 'did' ) then
+        app.addRuntimeEvents( {'ui', ui} )		    
+    end
 end
 
 function scene:hide( event )
-  local phase = event.phase
-  local previousScene = event.parent
-  
-  if ( phase == 'will' ) then
-    app.removeAllRuntimeEvents()
-    previousScene:resumeGame()
-  elseif ( phase == 'did' ) then
+    local phase = event.phase
+    local previousScene = event.parent
 
-  end
+    if ( phase == 'will' ) then
+        app.removeAllRuntimeEvents()
+    elseif ( phase == 'did' ) then
+        if resumeGame then
+            previousScene:resumeGame()
+        end  
+    end
 end
 
 function scene:destroy( event )

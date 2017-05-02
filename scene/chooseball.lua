@@ -1,24 +1,27 @@
+--
+-- Okno z wyborem piłeczki 
+--
+-- Wymagane moduły
 local composer = require( "composer" )
 local app      = require( "lib.app" )
+local tiled    = require( 'com.ponywolf.ponytiled' )
+local json     = require( 'json' )
+local fx       = require( 'com.ponywolf.ponyfx' ) 
 local effects  = require( 'lib.effects' )
-local colors   = require( "lib.colors" )
-local Ball     = require( "ball" )
-local dt       = require( "lib.deltatime" )
+local ball     = require( 'scene.endless.lib.ball' )
 
-local scene = composer.newScene()
  
----------------------------------------------------------------------------------
--- All code outside of the listener functions will only be executed ONCE
--- unless "composer.removeScene()" is called.
----------------------------------------------------------------------------------
- 
--- local forward references should go here
+-- Lokalne zmienne
 local _W, _H, _CX, _CY
 local mSin, mCos, mPi, mRandom
 
 -- Nadaj odpowiednie wartości predefinowanym zmiennym (_W, _H, ...) 
 app.setLocals( )
 
+-- Lokalne zmienne
+local scene = composer.newScene()
+local menu, ui
+--[[
 local leftArrow
 local rightArrow 
 local border
@@ -33,6 +36,7 @@ local CENTER = _CX
 local RIGHT = _W - ( 2 * xLeftArrow + 0.5 * 200 )
 local isTransitioning = false
 local itemIndex = 2
+--]]
 
 --local player, computer
 ---------------------------------------------------------------------------------
@@ -42,19 +46,19 @@ local function onTransitionComplete( event )
 end
 
 local function enterFrame(event)
-   local deltatime = dt.getDeltaTime()
+    local deltatime = dt.getDeltaTime()
 
-   for i=1, #items do
-      if ( itemIndex - 2 < i and i < 2 + itemIndex ) then
-         items[i].ball:update( deltatime )
-      end
-   end
+    for i=1, #items do
+        if ( itemIndex - 2 < i and i < 2 + itemIndex ) then
+            items[i].ball:update( deltatime )
+        end
+    end
 end
 
 --------------------------------------------------------------------------------
 -- Add Listeners
 --------------------------------------------------------------------------------
- 
+--[[ 
 local function handleSwipe( event )
     if ( event.phase == "moved" and not isTransitioning ) then
         local dX = event.x - event.xStart
@@ -85,12 +89,38 @@ local function handleSwipe( event )
     end
     return true
 end
-
+--]]
 function scene:create( event )
    local sceneGroup = self.view
- 
+
+    -- Wczytanie mapy
+    local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/chooseBall.json', system.ResourceDirectory ) )
+    menu = tiled.new( uiData, 'scene/menu/ui' )
+    menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
+
+    -- Obsługa przycisków
+    menu.extensions = 'scene.menu.lib.'
+    menu:extend( 'button', 'label' )
+
+    function ui( event )
+        local phase = event.phase
+        local name = event.buttonName
+
+        if phase == 'released' then
+            app.playSound( buttonSound )
+         
+            if ( name == 'ok' ) then
+                composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
+            end
+        end
+
+        return true 
+    end
+
+    sceneGroup:insert( menu )
    -- Initialize the scene here.
    -- Example: add display objects to "sceneGroup", add touch listeners, etc.
+   --[==[
    local r = 50
    
    -- Wierzchołki strzałki - lewej i prawej
@@ -157,54 +187,38 @@ function scene:create( event )
    end   
 
    Runtime:addEventListener( "touch", handleSwipe )
+   --]==]
 end
  
 function scene:show( event )
- 
-   local sceneGroup = self.view
-   local phase = event.phase
- 
-   if ( phase == "will" ) then
-      -- Called when the scene is still off screen (but is about to come on screen).
-      Runtime:addEventListener("enterFrame", enterFrame)
-   elseif ( phase == "did" ) then
-      -- Called when the scene is now on screen.
-      -- Insert code here to make the scene come alive.
-      -- Example: start timers, begin animation, play audio, etc.
-   end
+    local sceneGroup = self.view
+    local phase = event.phase
+
+    if ( phase == "will" ) then
+      
+    elseif ( phase == "did" ) then
+        app.addRuntimeEvents( {'ui', ui} )       
+    end
 end
  
 function scene:hide( event )
- 
-   local sceneGroup = self.view
-   local phase = event.phase
- 
-   if ( phase == "will" ) then
-      -- Called when the scene is on screen (but is about to go off screen).
-      -- Insert code here to "pause" the scene.
-      -- Example: stop timers, stop animation, stop audio, etc.
-   elseif ( phase == "did" ) then
-      -- Called immediately after scene goes off screen.
-   end
+    local sceneGroup = self.view
+    local phase = event.phase
+
+    if ( phase == "will" ) then
+        app.removeAllRuntimeEvents() 
+    elseif ( phase == "did" ) then
+      
+    end
 end
  
 function scene:destroy( event )
  
-   local sceneGroup = self.view
- 
-   -- Called prior to the removal of scene's view ("sceneGroup").
-   -- Insert code here to clean up the scene.
-   -- Example: remove display objects, save state, etc.
 end
  
----------------------------------------------------------------------------------
- 
--- Listener setup
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
- 
----------------------------------------------------------------------------------
  
 return scene
