@@ -38,8 +38,10 @@ function scene:create( event )
                 resumeGame = true	   
                 composer.hideOverlay( 'slideUp' )
             elseif ( name == 'chooseball' ) then
-                composer.showOverlay('scene.chooseball', { isModal=true,
-                   effect='fromTop', params={} } )
+                timer.performWithDelay( 100, function() 
+                    composer.showOverlay('scene.chooseball', { isModal=true,
+                    effect='fromTop', params={} } )
+                    end ) 
             end
         end
         
