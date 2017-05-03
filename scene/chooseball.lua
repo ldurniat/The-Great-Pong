@@ -145,8 +145,8 @@ function scene:hide( event )
 end
  
 function scene:destroy( event )
-    --audio.stop()
-    --audio.dispose( buttonSound )
+    audio.stop()
+    audio.dispose( buttonSound )
 end
  
 scene:addEventListener( "create", scene )

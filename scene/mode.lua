@@ -14,60 +14,58 @@ local scene = composer.newScene()
 local menu, ui
 
 function scene:create( event )
- 
-   local sceneGroup = self.view
-   local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
- 
-   -- Wczytanie mapy
-   local uiData = json.decodeFile( system.pathForFile( 'scene/mode/ui/mode.json', system.ResourceDirectory ) )
-   menu = tiled.new( uiData, 'scene/mode/ui' )
-   menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
+    local sceneGroup = self.view
+    local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
 
-   -- Obsługa przycisków
-   menu.extensions = 'scene.menu.lib.'
-   menu:extend( 'button' )
+    -- Wczytanie mapy
+    local uiData = json.decodeFile( system.pathForFile( 'scene/mode/ui/mode.json', system.ResourceDirectory ) )
+    menu = tiled.new( uiData, 'scene/mode/ui' )
+    menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
 
-   function ui( event )
-      local phase = event.phase
-      local name = event.buttonName
-     
-      if phase == 'released' then
-         app.playSound( buttonSound )
+    -- Obsługa przycisków
+    menu.extensions = 'scene.menu.lib.'
+    menu:extend( 'button' )
+
+    function ui( event )
+        local phase = event.phase
+        local name = event.buttonName
+
+        if phase == 'released' then
+            app.playSound( buttonSound )
          
-         if ( name == 'endless' ) then
-            fx.fadeOut( function()
-                  local prevScene = composer.getSceneName( 'previous' )   
-                  composer.removeScene( prevScene )
-                  composer.gotoScene( 'scene.endless', { params = {} } )
-               end )
-         elseif ( name == 'match' ) then
-            fx.fadeOut( function()
-                  local prevScene = composer.getSceneName( 'previous' )   
-                  composer.removeScene( prevScene )
-                  composer.gotoScene( 'scene.match', { params = {} } )
-               end )   
-         end
-      end
-      return true 
-   end
+            if ( name == 'endless' ) then
+                fx.fadeOut( function()
+                    local prevScene = composer.getSceneName( 'previous' )   
+                    composer.removeScene( prevScene )
+                    composer.gotoScene( 'scene.endless', { params = {} } )
+                    end )
+            elseif ( name == 'match' ) then
+                fx.fadeOut( function()
+                    local prevScene = composer.getSceneName( 'previous' )   
+                    composer.removeScene( prevScene )
+                    composer.gotoScene( 'scene.match', { params = {} } )
+                    end )   
+            end
+        end
 
-   sceneGroup:insert( menu )
+        return true 
+    end
+
+    sceneGroup:insert( menu )
 end
  
 function scene:show( event )
- 
-   local sceneGroup = self.view
-   local phase = event.phase
- 
-   if ( phase == 'will' ) then
-   
-   elseif ( phase == 'did' ) then
-      app.addRuntimeEvents( {'ui', ui} )
-   end
+    local sceneGroup = self.view
+    local phase = event.phase
+
+    if ( phase == 'will' ) then
+
+    elseif ( phase == 'did' ) then
+        app.addRuntimeEvents( {'ui', ui} )
+    end
 end
  
 function scene:hide( event )
- 
    local sceneGroup = self.view
    local phase = event.phase
  
@@ -79,6 +77,8 @@ function scene:hide( event )
 end
  
 function scene:destroy( event )
+   audio.stop()
+   audio.dispose( buttonSound )
    --app.removeAllRuntimeEvents()
 end
  

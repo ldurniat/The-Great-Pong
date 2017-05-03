@@ -23,71 +23,76 @@ local function saveHighScore( newScore )
 end  
 
 function scene:create( event )
-  local sceneGroup = self.view
-  local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
+    local sceneGroup = self.view
+    local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
 
-  -- Wczytanie mapy
-  local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/highScore.json', system.ResourceDirectory ) )
-  hiscore = tiled.new( uiData, 'scene/menu/ui' )
-  hiscore.x, hiscore.y = display.contentCenterX - hiscore.designedWidth/2, display.contentCenterY - hiscore.designedHeight/2
-  
-  -- Obsługa przycisków
-  hiscore.extensions = 'scene.menu.lib.'
-  hiscore:extend( 'button', 'label' )
+    -- Wczytanie mapy
+    local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/highScore.json', system.ResourceDirectory ) )
+    hiscore = tiled.new( uiData, 'scene/menu/ui' )
+    hiscore.x, hiscore.y = display.contentCenterX - hiscore.designedWidth/2, display.contentCenterY - hiscore.designedHeight/2
 
-  function ui( event )
+    -- Obsługa przycisków
+    hiscore.extensions = 'scene.menu.lib.'
+    hiscore:extend( 'button', 'label' )
+
+    function ui( event )
     local phase = event.phase
     local name = event.buttonName
 
     if ( phase == 'released' ) then 
-      app.playSound( buttonSound )
+        app.playSound( buttonSound )
 
-      if ( name == 'restart' ) then
-        fx.fadeOut( function()
-            composer.hideOverlay()
-            composer.gotoScene( 'scene.refresh', { params = {} } )
-          end )
-      elseif ( name == 'menu' ) then
-          fx.fadeOut( function()
-            composer.hideOverlay()
-            composer.gotoScene( 'scene.menu', { params = {} } )
-          end )
-      end
+        if ( name == 'restart' ) then
+            fx.fadeOut( function()
+                composer.hideOverlay()
+                composer.gotoScene( 'scene.refresh', { params = {} } )
+                end )
+        elseif ( name == 'menu' ) then
+            fx.fadeOut( function()
+                composer.hideOverlay()
+                composer.gotoScene( 'scene.menu', { params = {} } )
+                end )
+        end
     end
-    return true	
-  end
 
-  sceneGroup:insert( hiscore )
+    return true	
+    end
+
+    sceneGroup:insert( hiscore )
 end
 
 function scene:show( event )
-  local phase = event.phase
-  local params = event.params or {}
-  if ( phase == 'will' ) then
-    local newScore = params.newScore
+    local phase = event.phase
+    local params = event.params or {}
 
-    saveHighScore( newScore )
+    if ( phase == 'will' ) then
+        local newScore = params.newScore
 
-    local newHighScore = preference:get( 'highScoreEndlessMode' )
+        saveHighScore( newScore )
 
-    hiscore:findObject('myScore').text = newScore
-    hiscore:findObject('myHighScore').text = newHighScore
-  elseif ( phase == 'did' ) then
-    app.addRuntimeEvents( {'ui', ui} )		    
-  end
+        local newHighScore = preference:get( 'highScoreEndlessMode' )
+
+        hiscore:findObject('myScore').text = newScore
+        hiscore:findObject('myHighScore').text = newHighScore
+    elseif ( phase == 'did' ) then
+        app.addRuntimeEvents( {'ui', ui} )		    
+    end
 end
 
 function scene:hide( event )
-  local phase = event.phase
-  if ( phase == 'will' ) then
-    app.removeAllRuntimeEvents()
-  elseif ( phase == 'did' ) then
+    local phase = event.phase
 
-  end
+    if ( phase == 'will' ) then
+        app.removeAllRuntimeEvents()
+    elseif ( phase == 'did' ) then
+
+    end
 end
 
 function scene:destroy( event )
-  --collectgarbage()
+    audio.stop()
+    audio.dispose( buttonSound )
+    --collectgarbage()
 end
 
 scene:addEventListener( 'create' )

@@ -14,66 +14,71 @@ local scene = composer.newScene()
 local info, ui 
 
 function scene:create( event )
-  local sceneGroup = self.view  
-  local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
+    local sceneGroup = self.view  
+    local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' ) 
 
-  -- Wczytanie mapy
-  local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/result.json', system.ResourceDirectory ) )
-  info = tiled.new( uiData, 'scene/menu/ui' )
-  info.x, info.y = display.contentCenterX - info.designedWidth/2, display.contentCenterY - info.designedHeight/2
-  
-  -- Obsługa przycisków
-  info.extensions = 'scene.menu.lib.'
-  info:extend( 'button', 'label' )
+    -- Wczytanie mapy
+    local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/result.json', system.ResourceDirectory ) )
+    info = tiled.new( uiData, 'scene/menu/ui' )
+    info.x, info.y = display.contentCenterX - info.designedWidth/2, display.contentCenterY - info.designedHeight/2
 
-  function ui( event )
-    local phase = event.phase
-    local name = event.buttonName
-    if phase == 'released' then 
-      if ( name == 'restart' ) then
-        app.playSound( buttonSound )
+    -- Obsługa przycisków
+    info.extensions = 'scene.menu.lib.'
+    info:extend( 'button', 'label' )
 
-        fx.fadeOut( function()
-            composer.hideOverlay()
-            composer.gotoScene( 'scene.refresh', { params = {} } )
-          end )
-      elseif ( name == 'menu' ) then
-          fx.fadeOut( function()
-            composer.hideOverlay()
-            composer.gotoScene( 'scene.menu', { params = {} } )
-          end )
-      end
+    function ui( event )
+        local phase = event.phase
+        local name = event.buttonName
+        if phase == 'released' then 
+            if ( name == 'restart' ) then
+                app.playSound( buttonSound )
+
+                fx.fadeOut( function()
+                    composer.hideOverlay()
+                    composer.gotoScene( 'scene.refresh', { params = {} } )
+                    end )
+            elseif ( name == 'menu' ) then
+                fx.fadeOut( function()
+                    composer.hideOverlay()
+                    composer.gotoScene( 'scene.menu', { params = {} } )
+                    end )
+            end
+        end
+
+        return true	
     end
-    return true	
-  end
 
-  sceneGroup:insert( info )
+    sceneGroup:insert( info )
 end
 
 function scene:show( event )
-  local phase = event.phase
-  local message = event.params.message
-  if ( phase == 'will' ) then
-    if message then
-      info:findObject('message').text = message
-    end  
-  elseif ( phase == 'did' ) then
-    app.addRuntimeEvents( {'ui', ui} )		    
-  end
+    local phase = event.phase
+    local message = event.params.message
+
+    if ( phase == 'will' ) then
+        if message then
+            info:findObject('message').text = message
+        end  
+    elseif ( phase == 'did' ) then
+        app.addRuntimeEvents( {'ui', ui} )		    
+    end
 end
 
 function scene:hide( event )
-  local phase = event.phase
-  local previousScene = event.parent
-  if ( phase == 'will' ) then
-    app.removeAllRuntimeEvents()
-    previousScene:resumeGame()
-  elseif ( phase == 'did' ) then
+    local phase = event.phase
+    local previousScene = event.parent
 
-  end
+    if ( phase == 'will' ) then
+        app.removeAllRuntimeEvents()
+        previousScene:resumeGame()
+    elseif ( phase == 'did' ) then
+
+    end
 end
 
 function scene:destroy( event )
+    audio.stop()
+    audio.dispose( buttonSound )
   --collectgarbage()
 end
 
