@@ -26,24 +26,28 @@ local menu, ui, tails
 local indexBall = 1
 local ballGroup = {}
 
-local function enterFrame( event )
+local function updateBall( event )
     local dt = deltatime.getTime()
-
     ballGroup[indexBall].squareBall:update( dt )
 end
 
 local function nextBall( index )
-    if ( mClamp(index, 1, #tails) == index ) then
-        for i=1, #ballGroup do ballGroup[i].isVisible = false end
+    if ( index == 0 ) then
+        index = #tails
+    end 
+    if ( index == #tails + 1 ) then
+        index = 1
+    end  
 
-        ballGroup[index].isVisible = true  
-        indexBall = index 
-        deltatime.restart() 
-    end    
+    for i=1, #ballGroup do ballGroup[i].isVisible = false end
+
+    ballGroup[index].isVisible = true  
+    indexBall = index     
 end    
 
 function scene:create( event )
    local sceneGroup = self.view
+   local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' )
 
     -- Wczytanie mapy
     local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/chooseBall.json', system.ResourceDirectory ) )
@@ -61,8 +65,15 @@ function scene:create( event )
         if phase == 'released' then
             app.playSound( buttonSound )
          
-            if ( name == 'ok' ) then
-                composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
+            if ( name == 'left' ) then
+                nextBall( indexBall - 1 )
+            elseif ( name == 'right' ) then
+                nextBall( indexBall + 1 )  
+            elseif ( name == 'ok' ) then 
+                timer.performWithDelay( 100, function() 
+                    composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
+                    end ) 
+                  
             end
         end
 
@@ -73,16 +84,12 @@ function scene:create( event )
 
     tails = effects.getTailNames()
     local width, height = 239, 247
-
+  
     local x, y = menu:findObject( 'ballFrame' ).x, menu:findObject( 'ballFrame' ).y
     x, y = menu:localToContent( x, y )
 
     for i=1, #tails do
       local group = display.newGroup( )
-      --local text = display.newText( group, "Ball " .. i, smallSizeRect * 0.5, -50, native.systemFont, 30 )
-      --local rect = display.newRect( group, 0, 0, width, height )
-      --rect:setFillColor( 0, 0.2, 0 )
-      --rect.anchorX, rect.anchorY, rect.strokeWidth  = 0, 0, 5
       
       local update = function( self, dt )  
         local img = self.img
@@ -106,6 +113,7 @@ function scene:create( event )
 
       ballGroup[i] = group
       group.squareBall = squareBall
+      -- Ustawienie prostokątnego pole w którym będzie się poruszać piłeczka
       group.x, group.y = x - width * 0.5, y - height * 0.5
 
       group:insert( squareBall )
@@ -119,7 +127,8 @@ function scene:show( event )
 
     if ( phase == "will" ) then
       nextBall( indexBall )
-      app.addRuntimeEvents( {'ui', ui, 'enterFrame', enterFrame} )
+      deltatime.restart()
+      app.addRuntimeEvents( {'ui', ui, 'enterFrame', updateBall} )
     elseif ( phase == "did" ) then     
     end
 end
@@ -136,7 +145,8 @@ function scene:hide( event )
 end
  
 function scene:destroy( event )
- 
+    --audio.stop()
+    --audio.dispose( buttonSound )
 end
  
 scene:addEventListener( "create", scene )
