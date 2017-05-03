@@ -271,4 +271,13 @@ function M.addTail( group, options )
 	end	
 end
 
+function M.getTailNames()
+	local names = {}
+
+	for k,v in pairs( tails ) do table.insert( names, k ) end
+	table.sort( names )
+
+	return names
+end	
+
 return M
