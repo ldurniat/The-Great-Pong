@@ -2,14 +2,15 @@
 -- Okno z wyborem piłeczki 
 --
 -- Wymagane moduły
-local composer  = require( "composer" )
-local app       = require( "lib.app" )
-local tiled     = require( 'com.ponywolf.ponytiled' )
-local json      = require( 'json' )
-local fx        = require( 'com.ponywolf.ponyfx' ) 
-local effects   = require( 'lib.effects' )
-local deltatime = require( 'lib.deltatime' )
-local ball      = require( 'scene.endless.lib.ball' )
+local composer   = require( "composer" )
+local app        = require( "lib.app" )
+local tiled      = require( 'com.ponywolf.ponytiled' )
+local json       = require( 'json' )
+local fx         = require( 'com.ponywolf.ponyfx' ) 
+local effects    = require( 'lib.effects' )
+local deltatime  = require( 'lib.deltatime' )
+local preference = require( 'preference' )
+local ball       = require( 'scene.endless.lib.ball' )
 
  
 -- Lokalne zmienne
@@ -25,6 +26,7 @@ local scene = composer.newScene()
 local menu, ui, tails
 local indexBall = 1
 local ballGroup = {}
+local ballFrame, ballInUse
 
 local function updateBall( event )
     local dt = deltatime.getTime()
@@ -32,22 +34,49 @@ local function updateBall( event )
 end
 
 local function nextBall( index )
-    if ( index == 0 ) then
-        index = #tails
-    end 
-    if ( index == #tails + 1 ) then
-        index = 1
-    end  
+    -- Zmień piłeczke o ile przejście/animacja jest zakończone
+    if ( ballGroup.transitioning == false ) then
+        ballGroup.transitioning = true
+        -- nie pozwól wyjść poza zakres
+        if ( index == 0 ) then
+            index = #tails
+        end 
+        if ( index == #tails + 1 ) then
+            index = 1
+        end
 
-    for i=1, #ballGroup do ballGroup[i].isVisible = false end
+        -- zaznacz wybrana piłeczke
+        if ( ballInUse == index ) then
+            ballFrame:setFillColor( 0.2, 0.3, 0.4 )
+        else
+            ballFrame:setFillColor( 1 )
+        end       
 
-    ballGroup[index].isVisible = true  
-    indexBall = index     
+        for i=1, #ballGroup do ballGroup[i].alpha = 0 end
+
+        ballGroup[index]:toFront()
+        transition.to( ballGroup[index], {time=500, alpha=1})
+        ballGroup[index].alpha = 1
+
+        ballFrame.alpha = 0
+        transition.to( ballFrame, {time=500, alpha=1, 
+            onComplete=function() ballGroup.transitioning = false end} )
+
+        indexBall = index  
+    end      
+end    
+
+local function pickBall()
+    ballInUse = indexBall
+    ballFrame:setFillColor( 0.2, 0.3, 0.4 )
 end    
 
 function scene:create( event )
    local sceneGroup = self.view
    local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' )
+
+   ballInUse = preference:get( 'ballInUse' )
+   ballGroup.transitioning = false
 
     -- Wczytanie mapy
     local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/chooseBall.json', system.ResourceDirectory ) )
@@ -74,6 +103,8 @@ function scene:create( event )
                     composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
                     end ) 
                   
+            elseif ( name == 'ballFrame' ) then
+                pickBall()
             end
         end
 
@@ -85,7 +116,8 @@ function scene:create( event )
     tails = effects.getTailNames()
     local width, height = 239, 247
   
-    local x, y = menu:findObject( 'ballFrame' ).x, menu:findObject( 'ballFrame' ).y
+    ballFrame = menu:findObject( 'ballFrame' )
+    local x, y = ballFrame.x, ballFrame.y
     x, y = menu:localToContent( x, y )
 
     for i=1, #tails do
@@ -139,6 +171,7 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         app.removeAllRuntimeEvents() 
+        preference:set( 'ballInUse', ballInUse )
     elseif ( phase == "did" ) then
       
     end

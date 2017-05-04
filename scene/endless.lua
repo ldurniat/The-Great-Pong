@@ -27,6 +27,7 @@ app.setLocals()
 -- Lokalne zmienne
 local squareBall, player, computer, spark, score
 local scene = composer.newScene()
+local tailName
 
 -- Główna pętla gry 
 local function loop()
@@ -85,6 +86,43 @@ end
 
 -- rozpoczyna grę od nowa
 function scene:resumeGame()
+   -- ustawia wybraną piłeczke
+   local ballInUse = preference:get( 'ballInUse' )
+   tailName = effects.getTailNames()[ballInUse]
+
+   -- definicja funkcji piłeczki do aktualizacji jej ruchów 
+   local update = function( self, dt ) 
+      local img = self.img
+      img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
+
+      -- dodanie różnych efektów dla piłeczki
+      self:addTail( dt, tailName )
+      self:rotate( dt )
+      -- wykrywanie kolizji z krawędziami ekranu
+      self:collision()
+      
+      local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
+      
+      -- wykrywanie kolizji między piłeczką i paletkami
+      if ( collision.AABBIntersect( pdle, img ) ) then
+         app.playSound(scene.sounds.hit)
+
+         img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
+        
+         local mSign = math.sign        
+         local i = pdle == player and -1 or 1
+         local x1 = 0.5 * ( pdle.height + img.side )
+         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
+         local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
+         local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
+        
+         img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
+         img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
+      end
+   end  
+
+   squareBall.update = update
+
    deltatime.restart()
    app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
 end   
@@ -113,41 +151,10 @@ function scene:create( event )
 
    -- dodaje paletkę komputerowego przeciwnika
    computer = paddle.new()
-   computer.img.x, computer.img.y = _W - offset, _CY
-   
-   -- definicja funkcji piłeczki do aktualizacji jej ruchów 
-   local update = function( self, dt ) 
-      local img = self.img
-      img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
-
-      -- dodanie różnych efektów dla piłeczki
-      self:addTail( dt )
-      self:rotate( dt )
-      -- wykrywanie kolizji z krawędziami ekranu
-      self:collision()
-      
-      local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
-      
-      -- wykrywanie kolizji między piłeczką i paletkami
-      if ( collision.AABBIntersect( pdle, img ) ) then
-         app.playSound(scene.sounds.hit)
-
-         img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
-        
-         local mSign = math.sign        
-         local i = pdle == player and -1 or 1
-         local x1 = 0.5 * ( pdle.height + img.side )
-         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
-         local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
-         local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
-        
-         img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
-         img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
-      end
-   end   
+   computer.img.x, computer.img.y = _W - offset, _CY 
    
    -- dodanie piłeczki
-   squareBall = ball.new( {update=update} )
+   squareBall = ball.new()
    squareBall:serve()
 
    -- dodanie paska z życiem
@@ -179,7 +186,7 @@ function scene:show( event )
    local phase = event.phase
  
    if ( phase == 'will' ) then
-      
+     
    elseif ( phase == 'did' ) then
       composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
    end

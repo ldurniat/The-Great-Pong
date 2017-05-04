@@ -36,6 +36,7 @@ function M:load()
 		self:set( 'highScoreMatchMode', 0 )
 		self:set( 'music', true )
 		self:set( 'sound', true )
+		self:set( 'ballInUse', 1 )
 
 		loadsave.saveTable( self.settings, 'settings.json' )
 	else

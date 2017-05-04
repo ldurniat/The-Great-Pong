@@ -59,7 +59,7 @@
                  "id":5,
                  "name":"ballFrame",
                  "rotation":0,
-                 "type":"frame",
+                 "type":"button",
                  "visible":true,
                  "width":239,
                  "x":208,
