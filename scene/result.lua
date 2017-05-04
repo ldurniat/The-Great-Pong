@@ -30,9 +30,9 @@ function scene:create( event )
         local phase = event.phase
         local name = event.buttonName
         if phase == 'released' then 
+            app.playSound( buttonSound )
+            
             if ( name == 'restart' ) then
-                app.playSound( buttonSound )
-
                 fx.fadeOut( function()
                     composer.hideOverlay()
                     composer.gotoScene( 'scene.refresh', { params = {} } )
