@@ -49,6 +49,21 @@ if isSimulator then
   Runtime:addEventListener( "key", debugKeys )
 end
 
+local function onSystemEvent( event )    
+    if (event.type == "applicationStart") then
+
+    elseif (event.type == "applicationExit") then 
+        -- Zapis ustawień przed zamknięciem aplikacji
+        preference:save()
+    elseif ( event.type == "applicationSuspend" ) then
+      
+    elseif event.type == "applicationResume" then
+        
+    end
+end
+
+Runtime:addEventListener( "system", onSystemEvent )
+
 -- Ładowanie ustawień z pliku settings.json
 preference:load()
 
