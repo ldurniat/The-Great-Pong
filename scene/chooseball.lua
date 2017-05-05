@@ -23,7 +23,25 @@ app.setLocals( )
 
 -- Lokalne zmienne
 local scene = composer.newScene()
-local menu, ui, tails
+local menu, ui
+local tails = {'lines', 'rects', 'circles', 'rectsRandomColors',
+    'circlesRandomColors', 'linesRandomColors' }
+local ballNames = {
+    lines = 'Jim',
+    rects = 'Tom',
+    circles = 'Bob',
+    rectsRandomColors = 'Greg',
+    circlesRandomColors = 'Tim',
+    linesRandomColors = 'Mark'
+}
+local pointsToBuyBall = {
+    lines = 0,
+    rects = 20,
+    circles = 40,
+    rectsRandomColors = 80,
+    circlesRandomColors = 160,
+    linesRandomColors = 320
+}
 local indexBall = 1
 local ballGroup = {}
 local ballFrame, ballInUse
@@ -51,6 +69,12 @@ local function nextBall( index )
         else
             ballFrame:setFillColor( 1 )
         end       
+
+        local ballNameLabel = menu:findObject( 'ballName' )
+        ballNameLabel.text = ballNames[ballGroup[index].squareBall.tailName]
+
+        local pointsLabel = menu:findObject( 'points' )
+        pointsLabel.text = pointsToBuyBall[ballGroup[index].squareBall.tailName]
 
         for i=1, #ballGroup do ballGroup[i].alpha = 0 end
 
@@ -102,7 +126,6 @@ function scene:create( event )
                 timer.performWithDelay( 100, function() 
                     composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
                     end ) 
-                  
             elseif ( name == 'ballFrame' ) then
                 pickBall()
             end
@@ -113,7 +136,6 @@ function scene:create( event )
 
     sceneGroup:insert( menu )
 
-    tails = effects.getTailNames()
     local width, height = 239, 247
   
     ballFrame = menu:findObject( 'ballFrame' )
@@ -135,6 +157,7 @@ function scene:create( event )
       end
 
       local squareBall = ball.new( {width=width, height=height, speed=10, update=update} )
+      squareBall.tailName = tails[i] 
       squareBall:serve()
 
       --group.anchorChildren = true

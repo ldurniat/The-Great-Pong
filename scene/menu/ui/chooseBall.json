@@ -113,6 +113,56 @@
                  "width":224,
                  "x":208,
                  "y":520
+                }, 
+                {
+                 "height":40,
+                 "id":17,
+                 "name":"ballName",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":40,
+                     "strokeColor":"#ffffffff",
+                     "text":"OK"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":280,
+                 "x":192,
+                 "y":56
+                }, 
+                {
+                 "height":40,
+                 "id":18,
+                 "name":"points",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":40,
+                     "strokeColor":"#ffffffff",
+                     "text":"OK"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":112,
+                 "x":320,
+                 "y":320
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -121,7 +171,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":14,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

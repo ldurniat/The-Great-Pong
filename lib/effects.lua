@@ -269,15 +269,6 @@ function M.addTail( group, options )
 	if tails[name] then
 		tails[name]( group, dt )
 	end	
-end
-
-function M.getTailNames()
-	local names = {}
-
-	for k,v in pairs( tails ) do table.insert( names, k ) end
-	table.sort( names )
-
-	return names
 end	
 
 return M
