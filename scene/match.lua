@@ -69,6 +69,9 @@ local function gameOver()
    app.playSound( scene.sounds.lost )
    local message = playerScore:get() == maxScore and message.win or message.lost
    app.removeAllRuntimeEvents()
+   -- Resetowanie fokusa. Bez tego polecenia pzyciski w 
+   -- oknie dialogowym nie reagowały  
+   drag( { phase='ended'} )
    transition.pause( ) 
    effects.shake( {time=500} )
    timer.performWithDelay( 500, function() 

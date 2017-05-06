@@ -73,7 +73,9 @@ local function touchEdge( event )
     elseif ( edge == 'left' ) then
         if ( live:damage( 1 ) == 0 ) then
             app.playSound( scene.sounds.lost )
-            display.getCurrentStage():setFocus( self, nil )
+            -- Resetowanie fokusa. Bez tego polecenia pzyciski w 
+            -- oknie dialogowym nie reagowały 
+            drag( { phase='ended'} )
             app.removeAllRuntimeEvents()
             --transition.pause( ) 
             effects.shake( {time=500} )
