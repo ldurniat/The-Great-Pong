@@ -40,6 +40,56 @@
                  "width":267,
                  "x":184,
                  "y":592
+                }, 
+                {
+                 "height":48,
+                 "id":5,
+                 "name":"",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":20,
+                     "strokeColor":"#ffffffff",
+                     "text":"Wins whoever first reach 11 points."
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":400,
+                 "x":128,
+                 "y":144
+                }, 
+                {
+                 "height":48,
+                 "id":7,
+                 "name":"",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":20,
+                     "strokeColor":"#ffffffff",
+                     "text":"You play as long you have at least one live."
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":400,
+                 "x":128,
+                 "y":312
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -48,7 +98,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":5,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

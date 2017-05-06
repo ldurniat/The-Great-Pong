@@ -24,7 +24,7 @@ function scene:create( event )
 
     -- Obsługa przycisków
     menu.extensions = 'scene.menu.lib.'
-    menu:extend( 'button' )
+    menu:extend( 'button', 'label' )
 
     function ui( event )
         local phase = event.phase
