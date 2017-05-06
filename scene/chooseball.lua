@@ -77,6 +77,12 @@ local function nextBall( index )
         local totalPoints = preference:get( 'totalPoints' )
         pointsLabel.text = totalPoints .. '/' .. pointsToBuyBall[ballGroup[index].squareBall.tailName]
 
+        if ( totalPoints > pointsToBuyBall[ballGroup[index].squareBall.tailName] ) then
+            pointsLabel:setTextColor( 0, 127/255, 0 )
+        else
+            pointsLabel:setTextColor( 212/255, 0, 0 )
+        end  
+
         for i=1, #ballGroup do ballGroup[i].alpha = 0 end
 
         ballGroup[index]:toFront()
