@@ -160,9 +160,9 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":112,
-                 "x":320,
-                 "y":320
+                 "width":272,
+                 "x":192,
+                 "y":392
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -171,7 +171,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":19,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

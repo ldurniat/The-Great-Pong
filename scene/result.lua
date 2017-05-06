@@ -54,10 +54,16 @@ end
 function scene:show( event )
     local phase = event.phase
     local message = event.params.message
+    local newScore = event.params.newScore
 
     if ( phase == 'will' ) then
         if message then
             info:findObject('message').text = message
+
+            -- zlicza wszystkie zdobyte punkty
+            local totalPoints = preference:get( 'totalPoints' )
+            totalPoints = totalPoints + newScore
+            preference:set('totalPoints', totalPoints )
         end  
     elseif ( phase == 'did' ) then
         app.addRuntimeEvents( {'ui', ui} )		    

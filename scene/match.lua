@@ -31,7 +31,8 @@ local message = {
    win = 'You WIN.',
    lost = 'You lost.'
 }
-local tailName
+local tailNames = {'lines', 'rects', 'circles', 'rectsRandomColors',
+    'circlesRandomColors', 'linesRandomColors' }
 local scene = composer.newScene()
 
 -- Główna pętla gry 
@@ -45,7 +46,7 @@ end
 -- Obsługa ruchu paletki gracza
 local function drag( event )
    local self = player.img
-
+  
    if ( event.phase == 'began' ) then
       display.getCurrentStage():setFocus( self )
       self.isFocus = true
@@ -72,7 +73,7 @@ local function gameOver()
    effects.shake( {time=500} )
    timer.performWithDelay( 500, function() 
       composer.showOverlay("scene.result", { isModal=true,
-         effect="fromTop", params={message=message} } )
+         effect="fromTop", params={message=message, newScore=playerScore:get()} } )
       end ) 
 end   
 
@@ -100,7 +101,7 @@ end
 function scene:resumeGame()
    -- ustawia wybraną piłeczke
    local ballInUse = preference:get( 'ballInUse' )
-   tailName = effects.getTailNames()[ballInUse]
+   tailName = tailNames[ballInUse]
 
    -- definicja funkcji piłeczki do aktualizacji jej ruchów 
    local update = function( self, dt ) 

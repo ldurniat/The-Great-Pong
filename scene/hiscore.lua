@@ -12,15 +12,7 @@ local preference = require( 'preference' )
 
 -- Lokalne zmienne
 local scene = composer.newScene()
-local hiscore, ui
-
-local function saveHighScore( newScore )
-    if  preference:get( 'highScoreEndlessMode' ) < newScore then
-      preference:set( 'highScoreEndlessMode', newScore )
-    end   
-
-    preference:save()
-end  
+local hiscore, ui 
 
 function scene:create( event )
     local sceneGroup = self.view
@@ -68,7 +60,14 @@ function scene:show( event )
     if ( phase == 'will' ) then
         local newScore = params.newScore
 
-        saveHighScore( newScore )
+        -- zlicza wszystkie zdobyte punkty
+        local totalPoints = preference:get( 'totalPoints' )
+        totalPoints = totalPoints + newScore
+        preference:set('totalPoints', totalPoints )
+
+        if  preference:get( 'highScoreEndlessMode' ) < newScore then
+            preference:set( 'highScoreEndlessMode', newScore )
+        end 
 
         local newHighScore = preference:get( 'highScoreEndlessMode' )
 

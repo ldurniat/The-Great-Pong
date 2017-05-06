@@ -74,7 +74,8 @@ local function nextBall( index )
         ballNameLabel.text = ballNames[ballGroup[index].squareBall.tailName]
 
         local pointsLabel = menu:findObject( 'points' )
-        pointsLabel.text = pointsToBuyBall[ballGroup[index].squareBall.tailName]
+        local totalPoints = preference:get( 'totalPoints' )
+        pointsLabel.text = totalPoints .. '/' .. pointsToBuyBall[ballGroup[index].squareBall.tailName]
 
         for i=1, #ballGroup do ballGroup[i].alpha = 0 end
 

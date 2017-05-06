@@ -27,193 +27,194 @@ app.setLocals()
 -- Lokalne zmienne
 local squareBall, player, computer, spark, score
 local scene = composer.newScene()
-local tailName
+local tailNames = {'lines', 'rects', 'circles', 'rectsRandomColors',
+    'circlesRandomColors', 'linesRandomColors' }
 
 -- Główna pętla gry 
 local function loop()
-   local dt = deltatime.getTime()
+    local dt = deltatime.getTime()
 
-   squareBall:update( dt )
-   computer:update( squareBall, dt )
+    squareBall:update( dt )
+    computer:update( squareBall, dt )
 end
 
 -- Obsługa ruchu paletki gracza
 local function drag( event )
-   local self = player.img
+    local self = player.img
 
-   if ( event.phase == 'began' ) then
-      display.getCurrentStage():setFocus( self )
-      self.isFocus = true
-      self.markY = self.y
-   elseif ( self.isFocus ) then
-      if ( event.phase == 'moved' ) then
-         self.y = mClamp( event.y - event.yStart + self.markY, 
-            self.height * self.yScale * self.anchorY, 
-            _H - self.height * ( 1 - self.anchorY ) * self.yScale )
-      elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
-        display.getCurrentStage():setFocus( nil )
-        self.isFocus = false
-      end
-   end
+    if ( event.phase == 'began' ) then
+        display.getCurrentStage():setFocus( self )
+        self.isFocus = true
+        self.markY = self.y
+    elseif ( self.isFocus ) then
+        if ( event.phase == 'moved' ) then
+            self.y = mClamp( event.y - event.yStart + self.markY, 
+                self.height * self.yScale * self.anchorY, 
+                _H - self.height * ( 1 - self.anchorY ) * self.yScale )
+        elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
+          display.getCurrentStage():setFocus( nil )
+          self.isFocus = false
+        end
+    end
  
-   return true
-end   
+    return true
+end    
 
 local function touchEdge( event )
-   local edge = event.edge
-   local x = event.x
-   local y = event.y
+    local edge = event.edge
+    local x = event.x
+    local y = event.y
 
-   spark:startAt( edge, x, y )
-   app.playSound( scene.sounds.wall )
+    spark:startAt( edge, x, y )
+    app.playSound( scene.sounds.wall )
 
-   if ( edge == 'right' ) then
-      score:add( 1 )
-   elseif ( edge == 'left' ) then
-      if ( live:damage( 1 ) == 0 ) then
-         app.playSound( scene.sounds.lost )
-         display.getCurrentStage():setFocus( self, nil )
-         app.removeAllRuntimeEvents()
-         --transition.pause( ) 
-         effects.shake( {time=500} )
-         timer.performWithDelay( 700, function() 
-            composer.showOverlay('scene.hiscore', { isModal=true,
-               effect='fromTop', params={newScore=score:get()} } )
-            end, 1 )
-         end   
-   end   
-end   
+    if ( edge == 'right' ) then
+        score:add( 1 )
+    elseif ( edge == 'left' ) then
+        if ( live:damage( 1 ) == 0 ) then
+            app.playSound( scene.sounds.lost )
+            display.getCurrentStage():setFocus( self, nil )
+            app.removeAllRuntimeEvents()
+            --transition.pause( ) 
+            effects.shake( {time=500} )
+            timer.performWithDelay( 700, function() 
+                composer.showOverlay('scene.hiscore', { isModal=true,
+                    effect='fromTop', params={newScore=score:get()} } )
+                end, 1 )
+            end    
+    end    
+end    
 
 -- rozpoczyna grę od nowa
 function scene:resumeGame()
-   -- ustawia wybraną piłeczke
-   local ballInUse = preference:get( 'ballInUse' )
-   tailName = effects.getTailNames()[ballInUse]
+    -- ustawia wybraną piłeczke
+    local ballInUse = preference:get( 'ballInUse' )
+    tailName = tailNames[ballInUse]
 
-   -- definicja funkcji piłeczki do aktualizacji jej ruchów 
-   local update = function( self, dt ) 
-      local img = self.img
-      img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
+    -- definicja funkcji piłeczki do aktualizacji jej ruchów 
+    local update = function( self, dt ) 
+        local img = self.img
+        img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
 
-      -- dodanie różnych efektów dla piłeczki
-      self:addTail( dt, tailName )
-      self:rotate( dt )
-      -- wykrywanie kolizji z krawędziami ekranu
-      self:collision()
-      
-      local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
-      
-      -- wykrywanie kolizji między piłeczką i paletkami
-      if ( collision.AABBIntersect( pdle, img ) ) then
-         app.playSound(scene.sounds.hit)
-
-         img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
+        -- dodanie różnych efektów dla piłeczki
+        self:addTail( dt, tailName )
+        self:rotate( dt )
+        -- wykrywanie kolizji z krawędziami ekranu
+        self:collision()
         
-         local mSign = math.sign        
-         local i = pdle == player and -1 or 1
-         local x1 = 0.5 * ( pdle.height + img.side )
-         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
-         local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
-         local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
+        local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
         
-         img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
-         img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
-      end
-   end  
+        -- wykrywanie kolizji między piłeczką i paletkami
+        if ( collision.AABBIntersect( pdle, img ) ) then
+            app.playSound(scene.sounds.hit)
 
-   squareBall.update = update
+            img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
+          
+            local mSign = math.sign          
+            local i = pdle == player and -1 or 1
+            local x1 = 0.5 * ( pdle.height + img.side )
+            local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
+            local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
+            local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
+          
+            img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
+            img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
+        end
+    end  
 
-   deltatime.restart()
-   app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
-end   
+    squareBall.update = update
+
+    deltatime.restart()
+    app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
+end    
 
 function scene:create( event ) 
-   local sceneGroup = self.view
-   local offset = 120
+    local sceneGroup = self.view
+    local offset = 120
 
-   local sndDir = 'scene/endless/sfx/'
-   scene.sounds = {
-      wall = audio.loadSound( sndDir .. 'wall.wav' ),
-      hit  = audio.loadSound( sndDir .. 'hit.wav' ),
-      lost = audio.loadSound( sndDir .. 'lost.wav' )  
-   }
+    local sndDir = 'scene/endless/sfx/'
+    scene.sounds = {
+        wall = audio.loadSound( sndDir .. 'wall.wav' ),
+        hit  = audio.loadSound( sndDir .. 'hit.wav' ),
+        lost = audio.loadSound( sndDir .. 'lost.wav' )  
+    }
 
-   -- usuwa poprzednią scene
-   local prevScene = composer.getSceneName( 'previous' ) 
-   composer.removeScene( prevScene )
+    -- usuwa poprzednią scene
+    local prevScene = composer.getSceneName( 'previous' ) 
+    composer.removeScene( prevScene )
 
-   -- dodaje planszę
-   local board = background.new()
+    -- dodaje planszę
+    local board = background.new()
 
-   -- dodaje paletkę gracza 
-   player = paddle.new()
-   player.img.x, player.img.y = player.img.width + offset, _CY
+    -- dodaje paletkę gracza 
+    player = paddle.new()
+    player.img.x, player.img.y = player.img.width + offset, _CY
 
-   -- dodaje paletkę komputerowego przeciwnika
-   computer = paddle.new()
-   computer.img.x, computer.img.y = _W - offset, _CY 
-   
-   -- dodanie piłeczki
-   squareBall = ball.new()
-   squareBall:serve()
+    -- dodaje paletkę komputerowego przeciwnika
+    computer = paddle.new()
+    computer.img.x, computer.img.y = _W - offset, _CY 
+    
+    -- dodanie piłeczki
+    squareBall = ball.new()
+    squareBall:serve()
 
-   -- dodanie paska z życiem
-   live = lives.new()
-   live.x, live.y = _CX + 100, _T + 100
-   app.setRP( live, 'CenterLeft')
+    -- dodanie paska z życiem
+    live = lives.new()
+    live.x, live.y = _CX + 100, _T + 100
+    app.setRP( live, 'CenterLeft')
 
-   -- dodaje efekt cząsteczkowy
-   spark = sparks.new()
-   
-   -- dodanie obiektu przechowującego wynik
-   score = scoring.new()
-   score.x, score.y = _CX - 100, _T + 100
-   app.setRP( score, 'CenterRight')
+    -- dodaje efekt cząsteczkowy
+    spark = sparks.new()
+    
+    -- dodanie obiektu przechowującego wynik
+    score = scoring.new()
+    score.x, score.y = _CX - 100, _T + 100
+    app.setRP( score, 'CenterRight')
 
 
-   -- dodanie obiekty do sceny we właściwej kolejności
-   sceneGroup:insert( spark )
-   sceneGroup:insert( board )
-   sceneGroup:insert( squareBall )
-   sceneGroup:insert( computer )
-   sceneGroup:insert( player )
-   sceneGroup:insert( score )
-   sceneGroup:insert( live )
+    -- dodanie obiekty do sceny we właściwej kolejności
+    sceneGroup:insert( spark )
+    sceneGroup:insert( board )
+    sceneGroup:insert( squareBall )
+    sceneGroup:insert( computer )
+    sceneGroup:insert( player )
+    sceneGroup:insert( score )
+    sceneGroup:insert( live )
 end
 
 function scene:show( event )
-   local sceneGroup = self.view
-   local phase = event.phase
+    local sceneGroup = self.view
+    local phase = event.phase
  
-   if ( phase == 'will' ) then
-     
-   elseif ( phase == 'did' ) then
-      composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
-   end
+    if ( phase == 'will' ) then
+      
+    elseif ( phase == 'did' ) then
+        composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
+    end
 end
  
 function scene:hide( event )
-   local sceneGroup = self.view
-   local phase = event.phase
+    local sceneGroup = self.view
+    local phase = event.phase
  
-   if ( phase == 'will' ) then
-   
-   elseif ( phase == 'did' ) then
-      app.removeAllRuntimeEvents()
-   end
+    if ( phase == 'will' ) then
+    
+    elseif ( phase == 'did' ) then
+        app.removeAllRuntimeEvents()
+    end
 end
  
 function scene:destroy( event )
-   app.removeAllRuntimeEvents()
+    app.removeAllRuntimeEvents()
 
-   audio.stop()
-   for s,v in pairs( self.sounds ) do
-      audio.dispose( v )
-      self.sounds[s] = nil
-   end
+    audio.stop()
+    for s,v in pairs( self.sounds ) do
+        audio.dispose( v )
+        self.sounds[s] = nil
+    end
 
-   spark:destroy()
-   spark = nil
+    spark:destroy()
+    spark = nil
 end
  
 scene:addEventListener( 'create', scene )

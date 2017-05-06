@@ -37,6 +37,9 @@ function M:load()
 		self:set( 'music', true )
 		self:set( 'sound', true )
 		self:set( 'ballInUse', 1 )
+		-- Zlicza wszystkie zdobyte punkty 
+		-- minus punkty wydane na zakup piłeczek
+		self:set( 'totalPoints', 0 ) 
 
 		loadsave.saveTable( self.settings, 'settings.json' )
 	else
