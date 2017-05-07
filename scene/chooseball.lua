@@ -52,9 +52,12 @@ local function updateBall( event )
 end
 
 local function nextBall( index )
+    local buyBallIndex = preference:get( 'buyBallIndex' )
+   
     -- Zmień piłeczke o ile przejście/animacja jest zakończone
     if ( ballGroup.transitioning == false ) then
         ballGroup.transitioning = true
+
         -- nie pozwól wyjść poza zakres
         if ( index == 0 ) then
             index = #tails
@@ -70,36 +73,62 @@ local function nextBall( index )
             ballFrame:setFillColor( 1 )
         end       
 
+        -- dodanie nazwy piłeczki
         local ballNameLabel = menu:findObject( 'ballName' )
+        local pointsLabel = menu:findObject( 'points' )
         ballNameLabel.text = ballNames[ballGroup[index].squareBall.tailName]
 
-        local pointsLabel = menu:findObject( 'points' )
-        local totalPoints = preference:get( 'totalPoints' )
-        pointsLabel.text = totalPoints .. '/' .. pointsToBuyBall[ballGroup[index].squareBall.tailName]
-
-        if ( totalPoints > pointsToBuyBall[ballGroup[index].squareBall.tailName] ) then
-            pointsLabel:setTextColor( 0, 127/255, 0 )
-        else
-            pointsLabel:setTextColor( 212/255, 0, 0 )
-        end  
+        local questionMark = menu:findObject( 'questionMark' ) 
 
         for i=1, #ballGroup do ballGroup[i].alpha = 0 end
 
-        ballGroup[index]:toFront()
-        transition.to( ballGroup[index], {time=500, alpha=1})
-        ballGroup[index].alpha = 1
+        -- Sprawdza czy piłeczka została zakupiona
+        if buyBallIndex[index] then  
+            questionMark.isVisible = false
+            pointsLabel.text = ''
+           
+            transition.to( ballGroup[index], {time=500, alpha=1})
 
-        ballFrame.alpha = 0
-        transition.to( ballFrame, {time=500, alpha=1, 
-            onComplete=function() ballGroup.transitioning = false end} )
+            ballFrame.alpha = 0
+            transition.to( ballFrame, {time=500, alpha=1, 
+                onComplete=function() ballGroup.transitioning = false end} )
+        else 
+            questionMark.isVisible = true
+            ballGroup.transitioning = false
+            -- dodanie liczby punktów
+            local totalPoints = preference:get( 'totalPoints' )
+            pointsLabel.text = totalPoints .. '/' .. pointsToBuyBall[ballGroup[index].squareBall.tailName]
 
-        indexBall = index  
+            if ( totalPoints >= pointsToBuyBall[ballGroup[index].squareBall.tailName] ) then
+                pointsLabel:setTextColor( 0, 127/255, 0 )
+            else
+                pointsLabel:setTextColor( 212/255, 0, 0 )
+            end  
+        end
+
+        indexBall = index
     end      
 end    
 
 local function pickBall()
-    ballInUse = indexBall
-    ballFrame:setFillColor( 0.2, 0.3, 0.4 )
+    local totalPoints = preference:get( 'totalPoints' )
+    local buyBallIndex = preference:get( 'buyBallIndex' )
+
+    -- Sprawdza czy piłeczka została zakupiona
+    if buyBallIndex[indexBall] then   
+        ballInUse = indexBall
+        ballFrame:setFillColor( 0.2, 0.3, 0.4 )   
+    else
+        if ( totalPoints >= pointsToBuyBall[ballGroup[indexBall].squareBall.tailName] ) then
+            totalPoints = totalPoints - pointsToBuyBall[ballGroup[indexBall].squareBall.tailName]
+            preference:set( 'totalPoints', totalPoints )
+
+            buyBallIndex[indexBall] = true
+            preference:set( 'buyBallIndex', buyBallIndex )   
+
+            nextBall( indexBall )
+        end
+    end
 end    
 
 function scene:create( event )

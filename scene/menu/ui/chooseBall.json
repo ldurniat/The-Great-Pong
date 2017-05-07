@@ -76,6 +76,18 @@
                  "width":267,
                  "x":184,
                  "y":576
+                }, 
+                {
+                 "gid":5,
+                 "height":128,
+                 "id":20,
+                 "name":"questionMark",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":67,
+                 "x":296,
+                 "y":312
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -171,7 +183,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":20,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -182,7 +194,7 @@
          "margin":0,
          "name":"ui",
          "spacing":0,
-         "tilecount":4,
+         "tilecount":5,
          "tileheight":593,
          "tiles":
             {
@@ -201,6 +213,10 @@
              "3":
                 {
                  "image":"button.png"
+                },
+             "4":
+                {
+                 "image":"questionMark.png"
                 }
             },
          "tilewidth":593

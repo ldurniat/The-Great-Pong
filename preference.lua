@@ -17,14 +17,11 @@ function M:save()
 end	
 
 function M:get( name )
-	--print( '...ccccccccccccccccccccccccccccccc' )
-	--app.pprint(self.settings, 1, ' ')
-	--print( '...ccccccccccccccccccccccccccccccc' )
-	return self.settings[ name ]
+	return self.settings[name]
 end	
 
 function M:set( name, value )
-	self.settings[ name ] = value
+	self.settings[name] = value
 end	
 
 function M:load()
@@ -39,7 +36,9 @@ function M:load()
 		self:set( 'ballInUse', 1 )
 		-- Zlicza wszystkie zdobyte punkty 
 		-- minus punkty wydane na zakup piłeczek
-		self:set( 'totalPoints', 0 ) 
+		self:set( 'totalPoints', 0 )
+		-- Pierwsza piłeczka jest darmowa
+		self:set( 'buyBallIndex', { true, false, false, false, false, false } ) 
 
 		loadsave.saveTable( self.settings, 'settings.json' )
 	else
