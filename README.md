@@ -11,6 +11,7 @@ Work in progress:) So far I do
 - [x] Add effect module
 - [x] Add two mode for game: match and endless (you can play)
 - [x] Add a simple sounds
+- [x] Add buy new balls for points
 
 Used modules or code
 
@@ -33,6 +34,7 @@ Praca w toku:) Wykonane do tej pory
 - [x] Dodanie modułu efektów
 - [x] Dodanie dwóch trybów: match oraz endless (grywalne)
 - [x] Dodanie prostych dzwięków
+- [x] Dodanie zakupu nowych piłeczek za punkty
 
 Skorzystałem z modułów lub kodu
 
