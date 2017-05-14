@@ -29,10 +29,10 @@ function M:load()
 	
 	if ( settings == nil ) then
 		-- Ustawienia domyślne
-		self:set( 'highScoreEndlessMode', 0 )
 		self:set( 'highScoreMatchMode', 0 )
 		self:set( 'music', true )
 		self:set( 'sound', true )
+		self:set( 'endlessMode', false )
 		self:set( 'ballInUse', 1 )
 		-- Zlicza wszystkie zdobyte punkty 
 		-- minus punkty wydane na zakup piłeczek

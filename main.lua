@@ -67,7 +67,8 @@ Runtime:addEventListener( "system", onSystemEvent )
 -- Ładowanie ustawień z pliku settings.json
 preference:load()
 
-app.sound = preference:get( 'sound' )
-app.music = preference:get( 'music' )
+app.sound       = preference:get( 'sound' )
+app.music       = preference:get( 'music' )
+app.endlessMode = preference:get( 'endlessMode' )
 
 composer.gotoScene( 'scene.menu' )

@@ -40,6 +40,18 @@
                  "width":83,
                  "x":432,
                  "y":176
+                }, 
+                {
+                 "gid":2,
+                 "height":72,
+                 "id":17,
+                 "name":"modeoff",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":83,
+                 "x":432,
+                 "y":400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -99,7 +111,7 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":232,
+                 "width":272,
                  "x":56,
                  "y":128
                 }, 
@@ -124,9 +136,34 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":232,
+                 "width":272,
                  "x":56,
                  "y":232
+                }, 
+                {
+                 "height":40,
+                 "id":15,
+                 "name":"endlessMode",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":40,
+                     "strokeColor":"#ffffffff",
+                     "text":"Endless mode"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":272,
+                 "x":56,
+                 "y":336
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -144,7 +181,7 @@
                  "gid":3,
                  "height":72,
                  "id":11,
-                 "name":"soundOn",
+                 "name":"sound",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -156,13 +193,25 @@
                  "gid":3,
                  "height":72,
                  "id":14,
-                 "name":"musicOn",
+                 "name":"music",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
                  "width":83,
                  "x":432,
                  "y":296
+                }, 
+                {
+                 "gid":3,
+                 "height":72,
+                 "id":16,
+                 "name":"endlessMode",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":83,
+                 "x":432,
+                 "y":400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -171,7 +220,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":15,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,

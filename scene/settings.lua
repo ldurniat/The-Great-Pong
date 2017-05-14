@@ -14,18 +14,14 @@ local scene = composer.newScene()
 local menu, ui
 
 -- Od/zaznacza pola 
-local function setAudio( name )
-   local enable = preference:get( name )
-   local checkBox = menu:findObject( name .. 'On' )
+local function toggleCheckbox( name )
+   app[name] = not app[name]
+   local isEnabled = app[name]
 
-   if enable then
-      checkBox.isVisible = true
-   else   
-      checkBox.isVisible = false
-      checkBox.isHitTestable = true
-   end
+   local checkBox = menu:findObject( name )
+   checkBox.isVisible = isEnabled
 
-   app[name] = preference:get( name ) 
+   preference:set( name, isEnabled )
 end  
 
 function scene:create( event )
@@ -51,18 +47,12 @@ function scene:create( event )
       if phase == 'released' then
          app.playSound( buttonSound )
          
-         if ( name == 'soundOn' ) then
-            local soundOn = preference:get( 'sound' )
-            soundOn = not soundOn
-            preference:set( 'sound', soundOn )
-           
-            setAudio( 'sound' )
-         elseif ( name == 'musicOn' ) then
-            local musicOn = preference:get( 'music' )
-            musicOn = not musicOn
-            preference:set( 'music', musicOn ) 
-
-            setAudio( 'music' )
+         if ( name == 'sound' ) then
+            toggleCheckbox( 'sound' )
+         elseif ( name == 'music' ) then
+            toggleCheckbox( 'music' )
+         elseif ( name == 'endlessMode' ) then
+            toggleCheckbox( 'endlessMode' )   
          elseif ( name == 'back' ) then
             fx.fadeOut( function()
                composer.hideOverlay()
@@ -83,8 +73,14 @@ function scene:show( event )
    local phase = event.phase
  
    if ( phase == "will" ) then
-      setAudio( 'music' )
-      setAudio( 'sound' )
+      -- konfiguruje stan początkowy checkbox-ów
+      local checkboxNames = { 'endlessMode', 'music', 'sound'}
+      for i=1, #checkboxNames do
+            local checkbox = menu:findObject( checkboxNames[i] )
+            -- włączony == widoczny, wyłączony == nie widoczny
+            checkbox.isVisible = app[ checkboxNames[i] ] 
+            checkbox.isHitTestable = true  
+      end 
    elseif ( phase == "did" ) then
       app.addRuntimeEvents( {'ui', ui} )
    end
