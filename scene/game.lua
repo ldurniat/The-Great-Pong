@@ -1,5 +1,5 @@
 --
--- Scena z rozgrywką endless
+-- Scena z rozgrywką
 --
 -- Wymagane moduły
 local composer   = require( 'composer' )
@@ -8,11 +8,11 @@ local preference = require( 'preference' )
 local collision  = require( 'lib.collision' )
 local effects    = require( 'lib.effects' )
 local deltatime  = require( 'lib.deltatime' ) 
-local ball       = require( 'scene.endless.lib.ball' )
-local paddle     = require( 'scene.endless.lib.paddle' )
-local background = require( 'scene.endless.lib.background' )
+local ball       = require( 'scene.game.lib.ball' )
+local paddle     = require( 'scene.game.lib.paddle' )
+local background = require( 'scene.game.lib.background' )
 local sparks     = require( 'lib.sparks' )
-local scoring    = require( 'scene.endless.lib.score' )
+local scoring    = require( 'scene.game.lib.score' )
 
 math.randomseed( os.time() )  
 
@@ -147,7 +147,7 @@ function scene:create( event )
    local sceneGroup = self.view
    local offset = 120
 
-   local sndDir = 'scene/endless/sfx/'
+   local sndDir = 'scene/game/sfx/'
    scene.sounds = {
       wall = audio.loadSound( sndDir .. 'wall.wav' ),
       hit  = audio.loadSound( sndDir .. 'hit.wav' ),

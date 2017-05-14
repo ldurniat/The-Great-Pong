@@ -10,7 +10,7 @@ local fx         = require( 'com.ponywolf.ponyfx' )
 local effects    = require( 'lib.effects' )
 local deltatime  = require( 'lib.deltatime' )
 local preference = require( 'preference' )
-local ball       = require( 'scene.endless.lib.ball' )
+local ball       = require( 'scene.game.lib.ball' )
 
  
 -- Lokalne zmienne
@@ -133,7 +133,7 @@ end
 
 function scene:create( event )
    local sceneGroup = self.view
-   local buttonSound = audio.loadSound( 'scene/endless/sfx/select.wav' )
+   local buttonSound = audio.loadSound( 'scene/game/sfx/select.wav' )
 
    ballInUse = preference:get( 'ballInUse' )
    ballGroup.transitioning = false
@@ -155,7 +155,7 @@ function scene:create( event )
             app.playSound( buttonSound )
          
             if ( name == 'left' ) then
-                nextBall( indexBall - 1 )
+                nextBall( indexBall - 1 ) 
             elseif ( name == 'right' ) then
                 nextBall( indexBall + 1 )  
             elseif ( name == 'ok' ) then 
