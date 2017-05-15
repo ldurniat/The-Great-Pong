@@ -32,7 +32,6 @@ function M:load()
 		self:set( 'highScoreMatchMode', 0 )
 		self:set( 'music', true )
 		self:set( 'sound', true )
-		self:set( 'endlessMode', false )
 		self:set( 'ballInUse', 1 )
 		-- Zlicza wszystkie zdobyte punkty 
 		-- minus punkty wydane na zakup piłeczek

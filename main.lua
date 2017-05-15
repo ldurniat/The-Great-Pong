@@ -69,6 +69,5 @@ preference:load()
 
 app.sound       = preference:get( 'sound' )
 app.music       = preference:get( 'music' )
-app.endlessMode = preference:get( 'endlessMode' )
 
 composer.gotoScene( 'scene.menu' )

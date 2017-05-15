@@ -50,9 +50,7 @@ function scene:create( event )
          if ( name == 'sound' ) then
             toggleCheckbox( 'sound' )
          elseif ( name == 'music' ) then
-            toggleCheckbox( 'music' )
-         elseif ( name == 'endlessMode' ) then
-            toggleCheckbox( 'endlessMode' )   
+            toggleCheckbox( 'music' )  
          elseif ( name == 'back' ) then
             fx.fadeOut( function()
                composer.hideOverlay()
@@ -74,7 +72,7 @@ function scene:show( event )
  
    if ( phase == "will" ) then
       -- konfiguruje stan początkowy checkbox-ów
-      local checkboxNames = { 'endlessMode', 'music', 'sound'}
+      local checkboxNames = { 'music', 'sound' }
       for i=1, #checkboxNames do
             local checkbox = menu:findObject( checkboxNames[i] )
             -- włączony == widoczny, wyłączony == nie widoczny
