@@ -83,8 +83,6 @@ function scene:hide( event )
 end
 
 function scene:destroy( event )
-    audio.stop()
-    audio.dispose( buttonSound )
   --collectgarbage()
 end
 

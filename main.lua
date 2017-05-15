@@ -55,6 +55,8 @@ local function onSystemEvent( event )
     elseif (event.type == "applicationExit") then 
         -- Zapis ustawień przed zamknięciem aplikacji
         preference:save()
+        -- Usunięcie 
+        app.disposeSounds()
     elseif ( event.type == "applicationSuspend" ) then
       
     elseif event.type == "applicationResume" then
@@ -67,7 +69,8 @@ Runtime:addEventListener( "system", onSystemEvent )
 -- Ładowanie ustawień z pliku settings.json
 preference:load()
 
-app.sound       = preference:get( 'sound' )
-app.music       = preference:get( 'music' )
+app.sound = preference:get( 'sound' )
+app.music = preference:get( 'music' )
+app.loadSounds()
 
 composer.gotoScene( 'scene.menu' )

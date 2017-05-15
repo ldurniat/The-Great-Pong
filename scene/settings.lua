@@ -27,8 +27,6 @@ end
 function scene:create( event )
    local sceneGroup = self.view
 
-   local buttonSound = audio.loadSound( 'scene/game/sfx/select.wav' ) 
-
    -- Wczytanie mapy
    local uiData = json.decodeFile( system.pathForFile( 
       'scene/settings/ui/settings.json', 
@@ -45,7 +43,7 @@ function scene:create( event )
       local name = event.buttonName
      
       if phase == 'released' then
-         app.playSound( buttonSound )
+         app.playSound( 'button' )
          
          if ( name == 'sound' ) then
             toggleCheckbox( 'sound' )
@@ -97,8 +95,7 @@ function scene:hide( event )
 end
  
 function scene:destroy( event )
-   audio.stop()
-   audio.dispose( buttonSound )
+
 end
  
 scene:addEventListener( "create", scene )

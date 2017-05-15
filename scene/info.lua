@@ -16,7 +16,6 @@ local resumeGame = false
 
 function scene:create( event )
   local sceneGroup = self.view  
-  local buttonSound = audio.loadSound( 'scene/game/sfx/select.wav' ) 
 
   -- Wczytanie mapy
   local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/info.json', system.ResourceDirectory ) )
@@ -32,7 +31,7 @@ function scene:create( event )
         local name = event.buttonName
 
         if phase == 'released' then
-          app.playSound( buttonSound )
+          app.playSound( 'button' )
            
             if ( name == 'ok' ) then	
                 resumeGame = true	   
@@ -75,8 +74,6 @@ function scene:hide( event )
 end
 
 function scene:destroy( event )
-    audio.stop()
-    audio.dispose( buttonSound )
   --collectgarbage()
 end
 

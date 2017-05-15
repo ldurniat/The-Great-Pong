@@ -152,7 +152,7 @@ function scene:create( event )
         local name = event.buttonName
 
         if phase == 'released' then
-            app.playSound( buttonSound )
+            app.playSound( 'button' )
          
             if ( name == 'left' ) then
                 nextBall( indexBall - 1 ) 
@@ -237,8 +237,7 @@ function scene:hide( event )
 end
  
 function scene:destroy( event )
-    audio.stop()
-    audio.dispose( buttonSound )
+
 end
  
 scene:addEventListener( "create", scene )
