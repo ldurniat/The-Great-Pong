@@ -9,7 +9,7 @@ Work in progress:) So far I do
 - [x] Add main menu, both mode, popup and settings scenes
 - [x] Add module to save/load settings
 - [x] Add effect module
-- [x] Add two mode for game: match and endless (you can play)
+- [x] Add match mode (you can play)
 - [x] Add a simple sounds
 - [x] Add buy new balls for points
 
@@ -32,7 +32,7 @@ Praca w toku:) Wykonane do tej pory
 - [x] Dodanie scen z menu głównym, dwoma trybami, przejściowymi oraz ustawieniami
 - [x] Dodanie modułu do zapisywania/odczytywania ustawień
 - [x] Dodanie modułu efektów
-- [x] Dodanie dwóch trybów: match oraz endless (grywalne)
+- [x] Dodanie trybu match (grywalne)
 - [x] Dodanie prostych dzwięków
 - [x] Dodanie zakupu nowych piłeczek za punkty
 
