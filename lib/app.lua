@@ -131,19 +131,17 @@ end
 -- Funkcje od ładowania i odtwarzania dzwieków
 local function loadSound( name )
     if ( not loadedSounds[name] ) then
-        print( 'loadSound= ', name, sounds[name] )
         loadedSounds[name] = audio.loadSound( sounds[name] )
     end
     return loadedSounds[name]
 end
 
 function M.loadSounds()
-    for name in pairs(sounds) do loadSound( name ); print(name) end
+    for name in pairs(sounds) do loadSound( name ) end
 end
 
 function M.playSound( name )
-    print( M.sound, loadedSounds[name] )
-    if M.sound then audio.play( loadedSounds[name] ) end    
+    if M.sound then audio.play( loadedSounds[name] or name ) end    
 end 
 
 function M.disposeSounds()
