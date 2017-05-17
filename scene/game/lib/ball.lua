@@ -4,7 +4,6 @@
 -- Wymagane moduły
 local app      = require( 'lib.app' )
 local colors   = require( 'lib.colors' ) 
-local effects  = require( 'lib.effects' )
 local composer = require( 'composer' )
 
 -- Deklaracja modułu
@@ -84,10 +83,6 @@ function M.new( options )
 	function instance:rotate( dt )
 		local img = self.img
 		img.rotation = ( img.rotation % 360 ) + rotationSpeed * dt
-	end
-
-	function instance:addTail( dt, name )
-		effects.addTail( self, { dt=dt, name=name } )
 	end
 
 	return instance

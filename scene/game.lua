@@ -133,7 +133,8 @@ function scene:resumeGame()
       img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
 
       -- dodanie różnych efektów dla piłeczki
-      self:addTail( dt, tailName )
+      --self:addTail( dt, tailName )
+
       self:rotate( dt )
       -- wykrywanie kolizji z krawędziami ekranu
       self:collision()
@@ -159,6 +160,9 @@ function scene:resumeGame()
    end 
 
    squareBall.update = update
+
+   local trail = fx.newTrail( squareBall.img )
+   scene.view:insert( trail )
 
    deltatime.restart()
    app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
