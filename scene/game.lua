@@ -5,7 +5,7 @@
 local composer   = require( 'composer' )
 local app        = require( 'lib.app' )
 local preference = require( 'preference' )
-local effects    = require( 'lib.effects' )
+local fx         = require( 'com.ponywolf.ponyfx' )
 local deltatime  = require( 'lib.deltatime' ) 
 local ball       = require( 'scene.game.lib.ball' )
 local paddle     = require( 'scene.game.lib.paddle' )
@@ -39,13 +39,13 @@ local function AABBIntersect( rectA, rectB )
    local boundsRectA = rectA.contentBounds
    local boundsRectB = rectB.contentBounds
 
-   -- to sa liczby całkowite
+   -- to są liczby całkowite
    rectA.left   = boundsRectA.xMin
    rectA.right  = boundsRectA.xMax
    rectA.top    = boundsRectA.yMin
    rectA.bottom = boundsRectA.yMax
 
-   -- to sa liczby całkowite
+   -- to są liczby całkowite
    rectB.left   = boundsRectB.xMin
    rectB.right  = boundsRectB.xMax
    rectB.top    = boundsRectB.yMin
@@ -93,7 +93,8 @@ local function gameOver()
    -- oknie dialogowym nie reagowały  
    drag( { phase='ended'} )
    transition.pause( ) 
-   effects.shake( {time=500} )
+   local screen = display.getCurrentStage()
+   fx.shake( screen )
    timer.performWithDelay( 500, function() 
       composer.showOverlay("scene.result", { isModal=true,
          effect="fromTop", params={message=message, newScore=playerScore:get()} } )
