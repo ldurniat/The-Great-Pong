@@ -32,28 +32,7 @@ local message = {
 }
 local tailNames = {'lines', 'rects', 'circles', 'rectsRandomColors',
     'circlesRandomColors', 'linesRandomColors' }
-local scene = composer.newScene()
-
--- Funkcja sprawdza czy dwa prostokąty nachodzą na siebie. 
-local function AABBIntersect( rectA, rectB )
-   local boundsRectA = rectA.contentBounds
-   local boundsRectB = rectB.contentBounds
-
-   -- to są liczby całkowite
-   rectA.left   = boundsRectA.xMin
-   rectA.right  = boundsRectA.xMax
-   rectA.top    = boundsRectA.yMin
-   rectA.bottom = boundsRectA.yMax
-
-   -- to są liczby całkowite
-   rectB.left   = boundsRectB.xMin
-   rectB.right  = boundsRectB.xMax
-   rectB.top    = boundsRectB.yMin
-   rectB.bottom = boundsRectB.yMax
-
-   return ( rectA.left < rectB.right and rectA.right > rectB.left and
-     rectA.top < rectB.bottom and rectA.bottom > rectB.top )
-end   
+local scene = composer.newScene()   
 
 -- Główna pętla gry 
 local function loop()
@@ -127,40 +106,6 @@ function scene:resumeGame()
    local ballInUse = preference:get( 'ballInUse' )
    tailName = tailNames[ballInUse]
 
-   -- definicja funkcji piłeczki do aktualizacji jej ruchów 
-   local update = function( self, dt ) 
-      local img = self.img
-      img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
-
-      -- dodanie różnych efektów dla piłeczki
-      --self:addTail( dt, tailName )
-
-      self:rotate( dt )
-      -- wykrywanie kolizji z krawędziami ekranu
-      self:collision()
-      
-      local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
-      
-      -- wykrywanie kolizji między piłeczką i paletkami
-      if ( AABBIntersect( pdle, img ) ) then
-         app.playSound(scene.sounds.hit)
-
-         img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
-        
-         local mSign = math.sign        
-         local i = pdle == player and -1 or 1
-         local x1 = 0.5 * ( pdle.height + img.side )
-         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
-         local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
-         local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
-        
-         img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
-         img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
-      end
-   end 
-
-   squareBall.update = update
-
    local trail = fx.newTrail( squareBall.img )
    scene.view:insert( trail )
 
@@ -188,10 +133,12 @@ function scene:create( event )
 
    -- dodaje paletkę gracza 
    player = paddle.new()
+   scene.player = player
    player.img.x, player.img.y = player.img.width + offset, _CY
 
    -- dodaje paletkę komputerowego przeciwnika
    computer = paddle.new()
+   scene.computer = computer
    computer.img.x, computer.img.y = _W - offset, _CY  
    
    -- dodanie piłeczki

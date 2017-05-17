@@ -16,8 +16,29 @@ local mRandom, mPi, mSin, mCos, mAbs
 -- Nadaje wartość pomocniczym zmiennym powyżej
 app.setLocals()
 
+-- Funkcja sprawdza czy dwa prostokąty nachodzą na siebie. 
+local function AABBIntersect( rectA, rectB )
+   local boundsRectA = rectA.contentBounds
+   local boundsRectB = rectB.contentBounds
+
+   -- to są liczby całkowite
+   rectA.left   = boundsRectA.xMin
+   rectA.right  = boundsRectA.xMax
+   rectA.top    = boundsRectA.yMin
+   rectA.bottom = boundsRectA.yMax
+
+   -- to są liczby całkowite
+   rectB.left   = boundsRectB.xMin
+   rectB.right  = boundsRectB.xMax
+   rectB.top    = boundsRectB.yMin
+   rectB.bottom = boundsRectB.yMax
+
+   return ( rectA.left < rectB.right and rectA.right > rectB.left and
+     rectA.top < rectB.bottom and rectA.bottom > rectB.top )
+end
+
 function M.new( options )
-	local scene = composer.getScene(composer.getSceneName("current"))
+	local scene = composer.getScene( composer.getSceneName('current') )
 
 	-- Domyślne opcje
 	options = options or {}
@@ -34,7 +55,35 @@ function M.new( options )
 	instance.img.lastX = bounds.width * 0.5
 	instance.img.lastY = bounds.height * 0.5
 	instance.img.bounds = bounds
-	instance.update = options.update or function() end 	
+
+	-- definicja funkcji piłeczki do aktualizacji jej ruchów 
+    function instance:update( dt ) 
+      local img = self.img
+      img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
+
+      self:rotate( dt )
+      -- wykrywanie kolizji z krawędziami ekranu
+      self:collision()
+      
+      local pdle = img.x < img.bounds.width * 0.5 and scene.player.img or scene.computer.img
+      
+      -- wykrywanie kolizji między piłeczką i paletkami
+      if ( AABBIntersect( pdle, img ) ) then
+         app.playSound(scene.sounds.hit)
+
+         img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
+        
+         local mSign = math.sign        
+         local i = pdle == scene.player and -1 or 1
+         local x1 = 0.5 * ( pdle.height + img.side )
+         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
+         local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
+         local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
+        
+         img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
+         img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
+      end
+   end 
 
 	-- Wykrywanie kolizji z krawędziami
 	function instance:collision()
