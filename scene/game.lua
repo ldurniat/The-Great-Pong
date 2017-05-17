@@ -5,7 +5,6 @@
 local composer   = require( 'composer' )
 local app        = require( 'lib.app' )
 local preference = require( 'preference' )
-local collision  = require( 'lib.collision' )
 local effects    = require( 'lib.effects' )
 local deltatime  = require( 'lib.deltatime' ) 
 local ball       = require( 'scene.game.lib.ball' )
@@ -34,6 +33,27 @@ local message = {
 local tailNames = {'lines', 'rects', 'circles', 'rectsRandomColors',
     'circlesRandomColors', 'linesRandomColors' }
 local scene = composer.newScene()
+
+-- Funkcja sprawdza czy dwa prostokąty nachodzą na siebie. 
+local function AABBIntersect( rectA, rectB )
+   local boundsRectA = rectA.contentBounds
+   local boundsRectB = rectB.contentBounds
+
+   -- to sa liczby całkowite
+   rectA.left   = boundsRectA.xMin
+   rectA.right  = boundsRectA.xMax
+   rectA.top    = boundsRectA.yMin
+   rectA.bottom = boundsRectA.yMax
+
+   -- to sa liczby całkowite
+   rectB.left   = boundsRectB.xMin
+   rectB.right  = boundsRectB.xMax
+   rectB.top    = boundsRectB.yMin
+   rectB.bottom = boundsRectB.yMax
+
+   return ( rectA.left < rectB.right and rectA.right > rectB.left and
+     rectA.top < rectB.bottom and rectA.bottom > rectB.top )
+end   
 
 -- Główna pętla gry 
 local function loop()
@@ -120,7 +140,7 @@ function scene:resumeGame()
       local pdle = img.x < img.bounds.width * 0.5 and player.img or computer.img
       
       -- wykrywanie kolizji między piłeczką i paletkami
-      if ( collision.AABBIntersect( pdle, img ) ) then
+      if ( AABBIntersect( pdle, img ) ) then
          app.playSound(scene.sounds.hit)
 
          img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
