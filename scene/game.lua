@@ -16,11 +16,7 @@ local scoring    = require( 'scene.game.lib.score' )
 math.randomseed( os.time() )  
 
 -- Lokalne zmienne
-local _W, _H, _CX, _CY, _T
-local mClamp, mRandom, mPi, mSin, mCos, mAbs = math.clamp 
-
--- Nadaj odpowiednie wartości predefinowanym zmiennym (_W, _H, ...) 
-app.setLocals()
+local mClamp  = math.clamp
 
 -- Lokalne zmienne
 local squareBall, player, computer 

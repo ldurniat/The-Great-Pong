@@ -10,11 +10,11 @@ local composer = require( 'composer' )
 local M = {}
 
 -- Lokalne zmienne
-local _W, _H, _CX, _CY
-local mRandom, mPi, mSin, mCos, mAbs  
-
--- Nadaje wartość pomocniczym zmiennym powyżej
-app.setLocals()
+local mRandom = math.random
+local mPi     = math.pi
+local mSin    = math.sin
+local mCos    = math.cos
+local mAbs    = math.abs
 
 -- Funkcja sprawdza czy dwa prostokąty nachodzą na siebie. 
 local function AABBIntersect( rectA, rectB )

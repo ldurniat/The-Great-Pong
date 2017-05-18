@@ -9,11 +9,7 @@ local colors   = require( 'lib.colors' )
 local M = {}
 
 -- Lokalne zmienne
-local _H, _CX
-local mFloor
-
--- Nadaje wartość pomocniczym zmiennym powyżej
-app.setLocals()
+local mFloor = math.floor
 
 function M.new(options)
 

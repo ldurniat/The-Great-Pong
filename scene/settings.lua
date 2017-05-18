@@ -32,7 +32,7 @@ function scene:create( event )
       'scene/settings/ui/settings.json', 
       system.ResourceDirectory ) )
    menu = tiled.new( uiData, 'scene/settings/ui' )
-   menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
+   menu.x, menu.y = _CX - menu.designedWidth * 0.5, _CY - menu.designedHeight * 0.5
 
    -- Obsługa przycisków
    menu.extensions = 'scene.menu.lib.'

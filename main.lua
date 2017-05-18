@@ -9,6 +9,16 @@ local preference = require( 'preference' )
 -- Dodaje nowe funkcje do standardowych modułów 
 require( 'lib.utils' ) 
 
+-- Dodanie zmiennych globalnych
+_W  = display.contentWidth
+_H  = display.contentHeight
+_T  = display.screenOriginY
+_B  = display.viewableContentHeight - display.screenOriginY
+_L  = display.screenOriginX
+_R  = display.viewableContentWidth - display.screenOriginX
+_CX = display.contentCenterX
+_CY = display.contentCenterY
+
 -- Usunięcie paska navigacyjnego z dołu
 if system.getInfo( "androidApiLevel" ) and system.getInfo( "androidApiLevel" ) < 19 then
   native.setProperty( "androidSystemUiVisibility", "lowProfile" )

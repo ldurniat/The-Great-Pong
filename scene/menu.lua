@@ -25,7 +25,7 @@ function scene:create( event )
    -- Wczytanie mapy
    local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/title.json', system.ResourceDirectory ) )
    menu = tiled.new( uiData, 'scene/menu/ui' )
-   menu.x, menu.y = display.contentCenterX - menu.designedWidth/2, display.contentCenterY - menu.designedHeight/2
+   menu.x, menu.y = _CX - menu.designedWidth * 0.5, _CY - menu.designedHeight * 0.5
 
    -- Obsługa przycisków
    menu.extensions = 'scene.menu.lib.'

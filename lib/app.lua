@@ -20,53 +20,6 @@ elseif platform == 'iPhone OS' then
     M.isiOS = true
 end
 
-local locals = {
-    _W = display.contentWidth,
-    _H = display.contentHeight,
-    _T = display.screenOriginY,
-    _B = display.viewableContentHeight - display.screenOriginY,
-    _L = display.screenOriginX,
-    _R = display.viewableContentWidth - display.screenOriginX,
-    _CX = math.floor(display.contentWidth * 0.5),
-    _CY = math.floor(display.contentHeight * 0.5),
-    mMax = math.max,
-    mMin = math.min,
-    mFloor = math.floor,
-    tInsert = table.insert,
-    mCeil = math.ceil,
-    mFloor = math.floor,
-    mAbs = math.abs,
-    mAtan2 = math.atan2,
-    mSin = math.sin,
-    mCos = math.cos,
-    mPi = math.pi,
-    mSqrt = math.sqrt,
-    mExp = math.exp,
-    mRandom = math.random,
-    tInsert = table.insert,
-    tRemove = table.remove,
-    tForeach = table.foreach,
-    tShuffle = table.shuffle,
-    sSub = string.sub,
-    sLower = string.lower}
-locals._SW = locals._R - locals._L
-locals._SH = locals._B - locals._T
-
-function M.setLocals()
-    local i = 1
-    repeat
-        local k, v = debug.getlocal(2, i)
-        if k and v == nil then
-            if locals[k] ~= nil then
-                debug.setlocal(2, i, locals[k])
-            else
-                --error('No value for a local variable: ' .. k, 2)
-            end
-        end
-        i = i + 1
-    until not k
-end
-
 local colors = {}
 colors['white'] = {1, 1, 1}
 colors['grey'] = {0.6, 0.6, 0.6}

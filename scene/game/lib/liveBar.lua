@@ -9,10 +9,7 @@ local colors   = require( 'lib.colors' )
 local M = {}
 
 -- Lokalne zmienne
-local mMax, mMin 
-
--- Nadaje wartość pomocniczym zmiennym powyżej
-app.setLocals()
+local mMax, mMin = math.max, math.min
 
 function M.new(options)
 

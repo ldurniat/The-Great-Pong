@@ -14,12 +14,11 @@ local ball       = require( 'scene.game.lib.ball' )
 
  
 -- Lokalne zmienne
-local _W, _H, _CX, _CY
-local mSin, mCos, mPi, mRandom
-local mClamp = math.clamp
-
--- Nadaj odpowiednie wartości predefinowanym zmiennym (_W, _H, ...) 
-app.setLocals( )
+local mClamp  = math.clamp
+local mRandom = math.random
+local mPi     = math.pi
+local mCos    = math.cos
+local mSin    = math.sin
 
 -- Lokalne zmienne
 local scene = composer.newScene()

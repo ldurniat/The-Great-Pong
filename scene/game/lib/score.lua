@@ -2,9 +2,6 @@
 -- Moduł do przechowywania wyników (punktów)
 --
 
--- Wymagane moduły
-require( 'lib.utils' )
-
 -- Deklaracja modułu
 local M = {}
 

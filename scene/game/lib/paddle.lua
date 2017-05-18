@@ -6,17 +6,11 @@ local colors   = require( 'lib.colors' )
 local app      = require( 'lib.app' ) 
 local composer = require( 'composer' )
 
-require( 'lib.utils' ) 
-
 -- Deklaracja modułu
 local M = {}
 
 -- Lokalne zmienne
-local _H, _W 
-local mClamp, mMin, mMax, mExp = math.clamp
-
--- Nadaje wartość pomocniczym zmiennym powyżej
-app.setLocals()
+local mMin, mMax = math.min, math.max
 
 function M.new( options )
 	local scene = composer.getScene( composer.getSceneName('current') )

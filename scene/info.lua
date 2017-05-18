@@ -20,7 +20,7 @@ function scene:create( event )
   -- Wczytanie mapy
   local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/info.json', system.ResourceDirectory ) )
   info = tiled.new( uiData, 'scene/menu/ui' )
-  info.x, info.y = display.contentCenterX - info.designedWidth/2, display.contentCenterY - info.designedHeight/2
+  info.x, info.y = _CX - info.designedWidth * 0.5, _CY - info.designedHeight * 0.5
   
   -- Obsługa przycisków
   info.extensions = 'scene.menu.lib.'

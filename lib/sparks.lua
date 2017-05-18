@@ -17,10 +17,7 @@ local gravity = {
 local M = {}
 
 -- Lokalne zmienne
-local mRandom
-
--- Nadaje wartość pomocniczym zmiennym powyżej
-app.setLocals()
+local mRandom = math.random
 
 function M.new( options )
 
