@@ -20,7 +20,7 @@ local mClamp  = math.clamp
 
 -- Lokalne zmienne
 local squareBall, player, computer 
-local spark, playerScore, computerScore
+local spark, playerScore, computerScore, trail
 local maxScore = 1
 local message = {
    win = 'You WIN.',
@@ -65,7 +65,8 @@ local function gameOver()
    -- Resetowanie fokusa. Bez tego polecenia pzyciski w 
    -- oknie dialogowym nie reagowały  
    drag( { phase='ended'} )
-   transition.pause( ) 
+   --transition.pause( )
+   display.remove( trail ) 
    local screen = display.getCurrentStage()
    fx.shake( screen )
    timer.performWithDelay( 500, function() 
@@ -99,9 +100,6 @@ function scene:resumeGame()
    -- ustawia wybraną piłeczke
    local ballInUse = preference:get( 'ballInUse' )
    tailName = tailNames[ballInUse]
-
-   local trail = fx.newTrail( squareBall )
-   scene.view:insert( trail )
 
    deltatime.restart()
    app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
@@ -152,7 +150,10 @@ function scene:create( event )
    computerScore.x, computerScore.y = _CX + 100, _T + 100
    app.setRP( computerScore, 'CenterLeft')
 
+   trail = fx.newTrail( squareBall )
+
    -- dodanie obiekty do sceny we właściwej kolejności
+   scene.view:insert( trail )
    sceneGroup:insert( spark )
    sceneGroup:insert( board )
    sceneGroup:insert( squareBall )

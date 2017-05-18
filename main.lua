@@ -26,20 +26,20 @@ else
   native.setProperty( "androidSystemUiVisibility", "immersiveSticky" ) 
 end
 
--- are we running on a simulator?
-local isSimulator = "simulator" == system.getInfo( "environment" )
-local isMobile = ("ios" == system.getInfo("platform")) or ("android" == system.getInfo("platform"))
+-- czy uruchomiony w simulatorze ?
+local isSimulator = app.isSimulator
+local isMobile = app.isAndroid or app.isiOS
 
--- if we are load our visual monitor that let's a press of the "F"
--- key show our frame rate and memory usage, "P" to show physics
+-- jezeli widoczny to przycisk 'F' wyświetla fps oraz zuzycie pamięci
+-- przycisk 'P' wyświetla fizykę w trybie debug 
 if isSimulator then 
 
   -- show FPS
   local visualMonitor = require( "com.ponywolf.visualMonitor" )
   local visMon = visualMonitor:new()
-  visMon.isVisible = false
+  visMon.isVisible = true
 
-  -- show/hide physics
+  -- wyświetl/ukryj fizykę
   local function debugKeys( event )
     local phase = event.phase
     local key = event.keyName
