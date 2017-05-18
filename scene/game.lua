@@ -39,25 +39,23 @@ local function loop()
    local dt = deltatime.getTime()
 
    squareBall:update( dt )
-   computer:update( squareBall, dt )
+   computer:update( dt )
 end
 
 -- Obsługa ruchu paletki gracza
 local function drag( event )
-   local self = player.img
-  
    if ( event.phase == 'began' ) then
-      display.getCurrentStage():setFocus( self )
-      self.isFocus = true
-      self.markY = self.y
-   elseif ( self.isFocus ) then
+      display.getCurrentStage():setFocus( player )
+      player.isFocus = true
+      player.markY = player.y
+   elseif ( player.isFocus ) then
       if ( event.phase == 'moved' ) then
-         self.y = mClamp( event.y - event.yStart + self.markY, 
-            self.height * self.yScale * self.anchorY, 
-            _H - self.height * ( 1 - self.anchorY ) * self.yScale )
+         player.y = mClamp( event.y - event.yStart + player.markY, 
+            player.height * player.yScale * player.anchorY, 
+            _H - player.height * ( 1 - player.anchorY ) * player.yScale )
       elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
         display.getCurrentStage():setFocus( nil )
-        self.isFocus = false
+        player.isFocus = false
       end
    end
  
@@ -106,7 +104,7 @@ function scene:resumeGame()
    local ballInUse = preference:get( 'ballInUse' )
    tailName = tailNames[ballInUse]
 
-   local trail = fx.newTrail( squareBall.img )
+   local trail = fx.newTrail( squareBall )
    scene.view:insert( trail )
 
    deltatime.restart()
@@ -134,15 +132,16 @@ function scene:create( event )
    -- dodaje paletkę gracza 
    player = paddle.new()
    scene.player = player
-   player.img.x, player.img.y = player.img.width + offset, _CY
+   player.x, player.y = player.width + offset, _CY
 
    -- dodaje paletkę komputerowego przeciwnika
    computer = paddle.new()
    scene.computer = computer
-   computer.img.x, computer.img.y = _W - offset, _CY  
+   computer.x, computer.y = _W - offset, _CY  
    
    -- dodanie piłeczki
-   squareBall = ball.new( {update=update} )
+   squareBall = ball.new()
+   scene.squareBall = squareBall
    squareBall:serve()
 
    -- dodaje efekt cząsteczkowy

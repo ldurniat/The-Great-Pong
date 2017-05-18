@@ -47,91 +47,84 @@ function M.new( options )
 	local rotationSpeed = options.rotationSpeed or 5
 	local bounds = { width=options.width or _W, height=options.height or _H }
 	
-	local instance = display.newGroup()
-	instance.img = display.newRect( instance, 0, 0, side, side )
-	instance.img:setFillColor( unpack( colors.white ) )	
-	instance.img.side = side
-	instance.img.speed = speed
-	instance.img.lastX = bounds.width * 0.5
-	instance.img.lastY = bounds.height * 0.5
-	instance.img.bounds = bounds
+	local instance = display.newRect( 0, 0, side, side )
+	instance:setFillColor( unpack( colors.white ) )	
+	instance.side = side
+	instance.speed = speed
+	instance.lastX = bounds.width * 0.5
+	instance.lastY = bounds.height * 0.5
+	instance.bounds = bounds
 
 	-- definicja funkcji piłeczki do aktualizacji jej ruchów 
     function instance:update( dt ) 
-      local img = self.img
-      img.x, img.y = img.x + img.velX * dt, img.y + img.velY * dt
+      self.x, self.y = self.x + self.velX * dt, self.y + self.velY * dt
 
       self:rotate( dt )
       -- wykrywanie kolizji z krawędziami ekranu
       self:collision()
       
-      local pdle = img.x < img.bounds.width * 0.5 and scene.player.img or scene.computer.img
+      local pdle = self.x < self.bounds.width * 0.5 and scene.player or scene.computer
       
       -- wykrywanie kolizji między piłeczką i paletkami
-      if ( AABBIntersect( pdle, img ) ) then
+      if ( AABBIntersect( pdle, self ) ) then
          app.playSound(scene.sounds.hit)
 
-         img.x = pdle.x + ( img.velX > 0 and -1 or 1 ) * pdle.width * 0.5
+         self.x = pdle.x + ( self.velX > 0 and -1 or 1 ) * pdle.width * 0.5
         
          local mSign = math.sign        
          local i = pdle == scene.player and -1 or 1
-         local x1 = 0.5 * ( pdle.height + img.side )
-         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - img.y ) + ( x1 / ( 2 * x1 ) )
+         local x1 = 0.5 * ( pdle.height + self.side )
+         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - self.y ) + ( x1 / ( 2 * x1 ) )
          local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
          local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
         
-         img.velX = - mSign( img.velX ) * smash  * img.speed * mCos( phi )
-         img.velY = smash * mSign( img.velY ) * img.speed * mAbs( mSin( phi ) )
+         self.velX = - mSign( self.velX ) * smash  * self.speed * mCos( phi )
+         self.velY = smash * mSign( self.velY ) * self.speed * mAbs( mSin( phi ) )
       end
    end 
 
 	-- Wykrywanie kolizji z krawędziami
-	function instance:collision()
-		local img = self.img
-		
+	function instance:collision()	
 		-- górna krawędź
-		if ( img.y < 0 ) then 
-			img.velY = mAbs( img.velY )
-			img.y = 0
+		if ( self.y < 0 ) then 
+			self.velY = mAbs( self.velY )
+			self.y = 0
 
-			app.post( 'touchEdge', {edge='up', x=img.x, y=0} )
+			app.post( 'touchEdge', {edge='up', x=self.x, y=0} )
 		-- dolna krawędź	
-		elseif ( img.y > bounds.height ) then 
-			img.velY = -mAbs( img.velY )
-			img.y = bounds.height
+		elseif ( self.y > bounds.height ) then 
+			self.velY = -mAbs( self.velY )
+			self.y = bounds.height
 
-			app.post( 'touchEdge', {edge='down', x=img.x, y=bounds.height} )
+			app.post( 'touchEdge', {edge='down', x=self.x, y=bounds.height} )
 		end
 
 		-- lewa krawędź
-		if ( img.x < 0 ) then 
-			img.velX = mAbs( img.velX )
-			img.x = 0
+		if ( self.x < 0 ) then 
+			self.velX = mAbs( self.velX )
+			self.x = 0
 
-			app.post( 'touchEdge', {edge='left', x=0, y=img.y} )
+			app.post( 'touchEdge', {edge='left', x=0, y=self.y} )
 		-- prawa krawędź	
-		elseif ( img.x > bounds.width ) then 
-			img.velX = -mAbs( img.velX )
-			img.x = bounds.width
+		elseif ( self.x > bounds.width ) then 
+			self.velX = -mAbs( self.velX )
+			self.x = bounds.width
 			
-			app.post( 'touchEdge', {edge='right', x=bounds.width, y=img.y} )
+			app.post( 'touchEdge', {edge='right', x=bounds.width, y=self.y} )
 		end
 	end	
 
 	function instance:serve()
-		local img = self.img
-		local r = mRandom()
 		-- calculate out-angle, higher/lower on the y-axis =>
 		-- steeper angle
-		local phi = 0.2 * mPi * ( 1 - 2 * r ) 
+		local phi = 0.2 * mPi * ( 1 - 2 * mRandom() ) 
 		-- set velocity direction and magnitude
-		img.velX, img.velY = img.speed * mCos( phi ), img.speed * mSin( phi )
-		img.x, img.y = bounds.width * 0.5, bounds.height * 0.5
+		self.velX, self.velY = self.speed * mCos( phi ), self.speed * mSin( phi )
+		self.x, self.y = bounds.width * 0.5, bounds.height * 0.5
 	end	
 
 	function instance:rotate( dt )
-		local img = self.img
-		img.rotation = ( img.rotation % 360 ) + rotationSpeed * dt
+		self.rotation = ( self.rotation % 360 ) + rotationSpeed * dt
 	end
 
 	return instance
