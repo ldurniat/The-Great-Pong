@@ -28,16 +28,20 @@ function M:load()
 	local settings = loadsave.loadTable( 'settings.json' )
 	
 	if ( settings == nil ) then
+		-- informacje o dostępnych piłeczkach
+		-- muszą odpowiadać miniaturkom na mapie
+		local balls = {
+			{ name='Tony', points=0 , params={}, buy=true },
+			{ name='Bob', points=20 , params={}, buy=false },
+			{ name='Jim', points=40 , params={}, buy=false },
+		} 
 		-- Ustawienia domyślne
 		self:set( 'highScoreMatchMode', 0 )
 		self:set( 'music', true )
 		self:set( 'sound', true )
-		self:set( 'ballInUse', 1 )
-		-- Zlicza wszystkie zdobyte punkty 
-		-- minus punkty wydane na zakup piłeczek
-		self:set( 'totalPoints', 0 )
-		-- Pierwsza piłeczka jest darmowa
-		self:set( 'buyBallIndex', { true, false, false, false, false, false } ) 
+		self:set( 'ballInUse', 1 ) 
+		self:set( 'totalPoints', 70 )
+		self:set( 'balls', balls ) 
 
 		loadsave.saveTable( self.settings, 'settings.json' )
 	else

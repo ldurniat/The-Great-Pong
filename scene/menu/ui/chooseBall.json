@@ -88,6 +88,42 @@
                  "width":67,
                  "x":296,
                  "y":312
+                }, 
+                {
+                 "gid":6,
+                 "height":219,
+                 "id":22,
+                 "name":"ball1",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":222,
+                 "x":216,
+                 "y":360
+                }, 
+                {
+                 "gid":7,
+                 "height":219,
+                 "id":23,
+                 "name":"ball2",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":222,
+                 "x":216,
+                 "y":360
+                }, 
+                {
+                 "gid":8,
+                 "height":219,
+                 "id":24,
+                 "name":"ball3",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":222,
+                 "x":216,
+                 "y":360
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -183,7 +219,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":21,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -194,7 +230,7 @@
          "margin":0,
          "name":"ui",
          "spacing":0,
-         "tilecount":5,
+         "tilecount":8,
          "tileheight":593,
          "tiles":
             {
@@ -217,6 +253,18 @@
              "4":
                 {
                  "image":"questionMark.png"
+                },
+             "5":
+                {
+                 "image":"ball1.png"
+                },
+             "6":
+                {
+                 "image":"ball2.png"
+                },
+             "7":
+                {
+                 "image":"ball3.png"
                 }
             },
          "tilewidth":593
