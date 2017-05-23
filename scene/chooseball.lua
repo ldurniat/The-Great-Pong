@@ -22,11 +22,10 @@ local mSin    = math.sin
 -- Lokalne zmienne
 local scene = composer.newScene()
 local menu, ui
-local selected = index
-local index = preference:get( 'ballInUse' ) 
+local index       = preference:get( 'ballInUse' ) 
 local totalPoints = preference:get( 'totalPoints' )
-local balls = preference:get( 'balls' )
-local widgets, last = { images={} }, #balls 
+local balls       = preference:get( 'balls' )
+local widgets, last, selected = { images={} }, #balls, index 
 
 local function hide( object )
     object.alpha = 0
