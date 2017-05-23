@@ -5,6 +5,7 @@
 local app      = require( 'lib.app' )
 local colors   = require( 'lib.colors' ) 
 local composer = require( 'composer' )
+local fx       = require( 'com.ponywolf.ponyfx' )
 
 -- Deklaracja modułu
 local M = {}
@@ -54,6 +55,9 @@ function M.new( options )
 	instance.lastX = bounds.width * 0.5
 	instance.lastY = bounds.height * 0.5
 	instance.bounds = bounds
+
+	local trail = fx.newTrail( instance )
+	scene.view:insert( trail )
 
 	-- definicja funkcji piłeczki do aktualizacji jej ruchów 
     function instance:update( dt ) 

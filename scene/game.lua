@@ -20,7 +20,7 @@ local mClamp  = math.clamp
 
 -- Lokalne zmienne
 local squareBall, player, computer 
-local spark, playerScore, computerScore, trail
+local spark, playerScore, computerScore
 local maxScore = 1
 local message = {
    win = 'You WIN.',
@@ -66,7 +66,6 @@ local function gameOver()
    -- oknie dialogowym nie reagowały  
    drag( { phase='ended'} )
    --transition.pause( )
-   display.remove( trail ) 
    local screen = display.getCurrentStage()
    fx.shake( screen )
    timer.performWithDelay( 500, function() 
@@ -150,10 +149,7 @@ function scene:create( event )
    computerScore.x, computerScore.y = _CX + 100, _T + 100
    app.setRP( computerScore, 'CenterLeft')
 
-   trail = fx.newTrail( squareBall )
-
    -- dodanie obiekty do sceny we właściwej kolejności
-   scene.view:insert( trail )
    sceneGroup:insert( spark )
    sceneGroup:insert( board )
    sceneGroup:insert( squareBall )
