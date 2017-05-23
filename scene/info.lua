@@ -15,16 +15,16 @@ local info, ui
 local resumeGame = false  
 
 function scene:create( event )
-  local sceneGroup = self.view  
+    local sceneGroup = self.view  
 
-  -- Wczytanie mapy
-  local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/info.json', system.ResourceDirectory ) )
-  info = tiled.new( uiData, 'scene/menu/ui' )
-  info.x, info.y = _CX - info.designedWidth * 0.5, _CY - info.designedHeight * 0.5
-  
-  -- Obsługa przycisków
-  info.extensions = 'scene.menu.lib.'
-  info:extend( 'button', 'label' )
+    -- Wczytanie mapy
+    local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/info.json', system.ResourceDirectory ) )
+    info = tiled.new( uiData, 'scene/menu/ui' )
+    info.x, info.y = _CX - info.designedWidth * 0.5, _CY - info.designedHeight * 0.5
+
+    -- Obsługa przycisków
+    info.extensions = 'scene.menu.lib.'
+    info:extend( 'button', 'label' )
 
     function ui( event )
         local phase = event.phase
@@ -37,17 +37,15 @@ function scene:create( event )
                 resumeGame = true	   
                 composer.hideOverlay( 'slideUp' )
             elseif ( name == 'chooseball' ) then
-                timer.performWithDelay( 100, function() 
-                    composer.showOverlay('scene.chooseball', { isModal=true,
+                  composer.showOverlay('scene.chooseball', { isModal=true,
                     effect='fromTop', params={} } )
-                    end ) 
             end
         end
         
         return true	
     end
 
-  sceneGroup:insert( info )
+    sceneGroup:insert( info )
 end
 
 function scene:show( event )

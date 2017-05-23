@@ -95,9 +95,7 @@ function scene:create( event )
             elseif ( name == 'right' ) then
                 nextBall()
             elseif ( name == 'ok' ) then 
-                timer.performWithDelay( 100, function() 
-                    composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
-                    end ) 
+                composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
             elseif ( name == 'ballFrame' ) then
                 pickBall()
             end
