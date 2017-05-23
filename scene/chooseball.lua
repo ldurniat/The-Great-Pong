@@ -21,58 +21,77 @@ local mSin    = math.sin
 
 -- Lokalne zmienne
 local scene = composer.newScene()
-local menu, ui, balls, numOfBalls
-local indexBall = 1 
-local ballFrame, ballInUse, ballName, questionMark
-local ballImages = {}   
+local menu, ui
+local selected = index
+local index = preference:get( 'ballInUse' ) 
+local totalPoints = preference:get( 'totalPoints' )
+local balls = preference:get( 'balls' )
+local widgets, last = { images={} }, #balls 
+
+local function hide( object )
+    object.alpha = 0
+end  
+
+local function show( object )
+    object.alpha = 1
+end
+
+local function markBall()
+    widgets.frame:setFillColor( 0.2, 0.3, 0.4 )
+end 
+
+local function unMarkBall()
+    widgets.frame:setFillColor( 1 )
+end 
 
 local function showBall()
-    local points = preference:get( 'totalPoints' )
     -- ukrywanie miniaturek
-    for i=1, #ballImages do ballImages[i].alpha = 0 end 
+    for i=1, #widgets.images do hide( widgets.images[i] ) end 
 
-    -- nazwy piłeczki
-    print( indexBall )
-    ballName.text = balls[indexBall].name
+    -- zmiana nazwy piłeczki
+    widgets.title.text = balls[index].name
 
-    -- liczba punktów
-    if balls[indexBall].buy then
-        pointsLabel.text = ''
-        ballImages[indexBall].alpha = 1
-        questionMark.alpha = 0
-        ballFrame:setFillColor( 0.2, 0.3, 0.4 ) 
+    -- (nie) wyświetlenie liczby punktów
+    if balls[index].buy then
+        widgets.points.text = ''
+        show( widgets.images[index] )
+        hide( widgets.noBuyImage )
     else
-        pointsLabel.text = points .. '/' .. balls[indexBall].points
-        questionMark.alpha = 1
-        ballFrame:setFillColor( 1 )    
-    end   
-end    
+        widgets.points.text = totalPoints .. '/' .. balls[index].points
+        show( widgets.noBuyImage )    
+    end 
+
+    -- (nie) dodanie wyróźnienia
+    if ( index == selected ) then
+        markBall()
+    else
+        unMarkBall()    
+    end  
+end      
 
 local function pickBall()
-    local points = preference:get( 'totalPoints' )
     -- zaznaczam piłeczkę jako zakupioną
-    balls[indexBall].buy = true    
+    balls[index].buy = true    
+    selected = index
+    totalPoints = totalPoints - balls[index].points
 
-    points = points - balls[indexBall].points
-    preference:set( 'totalPoints', points )
-
+    markBall()
     showBall()
 end 
 
 local function prevBall()
-    indexBall = indexBall - 1 < 1 and numOfBalls or (indexBall - 1)
+    index = index - 1 < 1 and last or (index - 1)
     showBall()
 end   
 
 local function nextBall()
-    indexBall = indexBall + 1 > numOfBalls and 1 or (indexBall + 1)
+    index = index + 1 > last and 1 or (index + 1)
     showBall()
 end   
 
 function scene:create( event )
     local sceneGroup = self.view
-
-    balls = preference:get( 'balls' )
+    local names = { 'frame', 'title', 'points', 'noBuyImage' }
 
     -- Wczytanie mapy
     local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/chooseBall.json', system.ResourceDirectory ) )
@@ -96,7 +115,7 @@ function scene:create( event )
                 nextBall()
             elseif ( name == 'ok' ) then 
                 composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
-            elseif ( name == 'ballFrame' ) then
+            elseif ( name == 'frame' ) then
                 pickBall()
             end
         end
@@ -104,14 +123,8 @@ function scene:create( event )
         return true 
     end
 
-    numOfBalls = #balls
-
-    for i=1, numOfBalls do ballImages[i] = menu:findObject( 'ball' .. i ) end
-
-    ballFrame = menu:findObject( 'ballFrame' )   
-    ballName = menu:findObject( 'ballName' )
-    pointsLabel = menu:findObject( 'points' )
-    questionMark = menu:findObject( 'questionMark' ) 
+    for i=1, last do widgets.images[i] = menu:findObject( 'ball' .. i ) end
+    for i=1, #names do widgets[ names[i] ] = menu:findObject( names[i] ) end
 
     sceneGroup:insert( menu )  
 end
@@ -121,7 +134,7 @@ function scene:show( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-      prevBall()  
+      showBall()  
       app.addRuntimeEvents( {'ui', ui} )
     elseif ( phase == "did" ) then     
     end
@@ -132,7 +145,8 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         app.removeAllRuntimeEvents() 
-        preference:set( 'ballInUse', indexBall )
+        preference:set( 'ballInUse', selected )
+        preference:set( 'totalPoints', totalPoints )
     elseif ( phase == "did" ) then
       
     end

@@ -57,7 +57,7 @@
                  "gid":3,
                  "height":247,
                  "id":5,
-                 "name":"ballFrame",
+                 "name":"frame",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -81,7 +81,7 @@
                  "gid":5,
                  "height":128,
                  "id":20,
-                 "name":"questionMark",
+                 "name":"noBuyImage",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -165,7 +165,7 @@
                 {
                  "height":40,
                  "id":17,
-                 "name":"ballName",
+                 "name":"title",
                  "properties":
                     {
                      "font":"",
