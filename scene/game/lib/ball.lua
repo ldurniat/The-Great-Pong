@@ -46,15 +46,13 @@ function M.new( options )
 	local side = options.side or 20
 	local speed = options.speed or 20
 	local rotationSpeed = options.rotationSpeed or 5
-	local bounds = { width=options.width or _W, height=options.height or _H }
 	
 	local instance = display.newRect( 0, 0, side, side )
 	instance:setFillColor( unpack( colors.white ) )	
 	instance.side = side
 	instance.speed = speed
-	instance.lastX = bounds.width * 0.5
-	instance.lastY = bounds.height * 0.5
-	instance.bounds = bounds
+	instance.lastX = _W * 0.5
+	instance.lastY = _H * 0.5
 
 	local trail = fx.newTrail( instance )
 	scene.view:insert( trail )
@@ -67,7 +65,7 @@ function M.new( options )
       -- wykrywanie kolizji z krawędziami ekranu
       self:collision()
       
-      local pdle = self.x < self.bounds.width * 0.5 and scene.player or scene.computer
+      local pdle = self.x < _W * 0.5 and scene.player or scene.computer
       
       -- wykrywanie kolizji między piłeczką i paletkami
       if ( AABBIntersect( pdle, self ) ) then
@@ -96,11 +94,11 @@ function M.new( options )
 
 			app.post( 'touchEdge', {edge='up', x=self.x, y=0} )
 		-- dolna krawędź	
-		elseif ( self.y > bounds.height ) then 
+		elseif ( self.y > _H ) then 
 			self.velY = -mAbs( self.velY )
-			self.y = bounds.height
+			self.y = _H
 
-			app.post( 'touchEdge', {edge='down', x=self.x, y=bounds.height} )
+			app.post( 'touchEdge', {edge='down', x=self.x, y=_H} )
 		end
 
 		-- lewa krawędź
@@ -110,11 +108,11 @@ function M.new( options )
 
 			app.post( 'touchEdge', {edge='left', x=0, y=self.y} )
 		-- prawa krawędź	
-		elseif ( self.x > bounds.width ) then 
+		elseif ( self.x > _W ) then 
 			self.velX = -mAbs( self.velX )
-			self.x = bounds.width
+			self.x = _W
 			
-			app.post( 'touchEdge', {edge='right', x=bounds.width, y=self.y} )
+			app.post( 'touchEdge', {edge='right', x=_W, y=self.y} )
 		end
 	end	
 
@@ -124,7 +122,7 @@ function M.new( options )
 		local phi = 0.2 * mPi * ( 1 - 2 * mRandom() ) 
 		-- set velocity direction and magnitude
 		self.velX, self.velY = self.speed * mCos( phi ), self.speed * mSin( phi )
-		self.x, self.y = bounds.width * 0.5, bounds.height * 0.5
+		self.x, self.y = _W * 0.5, _H * 0.5
 	end	
 
 	function instance:rotate( dt )
