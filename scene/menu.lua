@@ -29,7 +29,7 @@ function scene:create( event )
 
    -- Obsługa przycisków
    menu.extensions = 'scene.menu.lib.'
-   menu:extend('button')
+   menu:extend('button', 'label')
 
    function ui(event)
       local phase = event.phase
@@ -60,7 +60,9 @@ function scene:show( event )
    local phase = event.phase
  
    if ( phase == 'will' ) then
-      
+      local totalPoints = preference:get( 'totalPoints' )
+      local labelPoints = menu:findObject( 'totalpoints' )
+      labelPoints.text = 'Total Points: ' .. totalPoints
    elseif ( phase == 'did' ) then
       app.addRuntimeEvents( {'ui', ui} )
    end

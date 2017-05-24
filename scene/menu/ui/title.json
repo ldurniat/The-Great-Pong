@@ -16,6 +16,31 @@
                  "width":326,
                  "x":472,
                  "y":240
+                }, 
+                {
+                 "height":56,
+                 "id":8,
+                 "name":"totalpoints",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":25,
+                     "strokeColor":"#ffffffff",
+                     "text":""
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":256,
+                 "x":480,
+                 "y":280
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -108,7 +133,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":8,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
