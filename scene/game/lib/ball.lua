@@ -6,6 +6,7 @@ local app      = require( 'lib.app' )
 local colors   = require( 'lib.colors' ) 
 local composer = require( 'composer' )
 local fx       = require( 'com.ponywolf.ponyfx' )
+local sparks   = require( 'lib.sparks' )
 
 -- Deklaracja modułu
 local M = {}
@@ -40,87 +41,112 @@ end
 
 function M.new( options )
 	local scene = composer.getScene( composer.getSceneName('current') )
+	local sceneGroup = scene.view
+	local spark, trail
 
 	-- Domyślne opcje
 	options = options or {}
 	local side = options.side or 20
 	local speed = options.speed or 20
 	local rotationSpeed = options.rotationSpeed or 5
+	local enableSparks = options.enableSparks or false
+	local enableTrail = options.enableTrail or false
+	local trailColor = options.trailColor or colors.white
+	local trailImage = options.trailImage
+	local ballColor = options.ballColor or colors.white
 	
 	local instance = display.newRect( 0, 0, side, side )
-	instance:setFillColor( unpack( colors.white ) )	
+	instance:setFillColor( unpack( ballColor ) )	
 	instance.side = side
 	instance.speed = speed
 	instance.lastX = _W * 0.5
 	instance.lastY = _H * 0.5
 
-	local trail = fx.newTrail( instance )
-	scene.view:insert( trail )
+	if enableSparks then
+		-- dodaje efekt cząsteczkowy
+   		spark = sparks.new()
+   		sceneGroup:insert( spark )
+   	end	
 
-	-- definicja funkcji piłeczki do aktualizacji jej ruchów 
+   	if enableTrail then
+		-- dodaje efekt śladu
+   		trail = fx.newTrail( instance, {image=trailImage, color=trailColor} )
+		sceneGroup:insert( trail )
+   	end
+
+	-- aktualizacja ruchów 
     function instance:update( dt ) 
-      self.x, self.y = self.x + self.velX * dt, self.y + self.velY * dt
+		self.x = self.x + self.velX * dt 
+		self.y = self.y + self.velY * dt
 
-      self:rotate( dt )
-      -- wykrywanie kolizji z krawędziami ekranu
-      self:collision()
-      
-      local pdle = self.x < _W * 0.5 and scene.player or scene.computer
-      
-      -- wykrywanie kolizji między piłeczką i paletkami
-      if ( AABBIntersect( pdle, self ) ) then
-         app.playSound(scene.sounds.hit)
+		self:rotate( dt )
+		-- wykrywanie kolizji z krawędziami ekranu
+		self:collision()
 
-         self.x = pdle.x + ( self.velX > 0 and -1 or 1 ) * pdle.width * 0.5
-        
-         local mSign = math.sign        
-         local i = pdle == scene.player and -1 or 1
-         local x1 = 0.5 * ( pdle.height + self.side )
-         local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - self.y ) + ( x1 / ( 2 * x1 ) )
-         local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
-         local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
-        
-         self.velX = - mSign( self.velX ) * smash  * self.speed * mCos( phi )
-         self.velY = smash * mSign( self.velY ) * self.speed * mAbs( mSin( phi ) )
-      end
+		local pdle = self.x < _W * 0.5 and scene.player or scene.computer
+
+		-- wykrywanie kolizji między piłeczką i paletkami
+		if ( AABBIntersect( pdle, self ) ) then
+			app.playSound(scene.sounds.hit)
+
+			self.x = pdle.x + ( self.velX > 0 and -1 or 1 ) * pdle.width * 0.5
+
+			local mSign = math.sign        
+			local i = pdle == scene.player and -1 or 1
+			local x1 = 0.5 * ( pdle.height + self.side )
+			local n = ( 1 / ( 2 * x1 ) ) * ( pdle.y - self.y ) + ( x1 / ( 2 * x1 ) )
+			local phi = 0.25 * mPi * (2 * n - 1) -- pi/4 = 45
+			local smash = mAbs( phi ) > 0.2 * mPi and 1.5 or 1
+
+			self.velX = - mSign( self.velX ) * smash  * self.speed * mCos( phi )
+			self.velY = smash * mSign( self.velY ) * self.speed * mAbs( mSin( phi ) )
+		end
    end 
 
 	-- Wykrywanie kolizji z krawędziami
-	function instance:collision()	
+	function instance:collision()
+		local edge, x, y	
 		-- górna krawędź
 		if ( self.y < 0 ) then 
 			self.velY = mAbs( self.velY )
 			self.y = 0
-
-			app.post( 'touchEdge', {edge='up', x=self.x, y=0} )
+			x = self.x
+			y = 0
+			edge = 'up'
 		-- dolna krawędź	
 		elseif ( self.y > _H ) then 
 			self.velY = -mAbs( self.velY )
 			self.y = _H
-
-			app.post( 'touchEdge', {edge='down', x=self.x, y=_H} )
+			x = self.x
+			y = _H
+			edge = 'down'
 		end
-
 		-- lewa krawędź
 		if ( self.x < 0 ) then 
 			self.velX = mAbs( self.velX )
 			self.x = 0
-
-			app.post( 'touchEdge', {edge='left', x=0, y=self.y} )
+			x = 0
+			y = self.y
+			edge = 'left'
 		-- prawa krawędź	
 		elseif ( self.x > _W ) then 
 			self.velX = -mAbs( self.velX )
 			self.x = _W
-			
-			app.post( 'touchEdge', {edge='right', x=_W, y=self.y} )
+			x = _W
+			y = self.y
+			edge = 'right'
 		end
+
+		if edge then
+			app.post( 'touchEdge', {edge=edge, x=x, y=y} )
+			if enableSparks then
+				spark:startAt( edge, x, y )
+			end	
+		end	
 	end	
 
 	function instance:serve()
-		-- calculate out-angle, higher/lower on the y-axis =>
-		-- steeper angle
 		local phi = 0.2 * mPi * ( 1 - 2 * mRandom() ) 
-		-- set velocity direction and magnitude
 		self.velX, self.velY = self.speed * mCos( phi ), self.speed * mSin( phi )
 		self.x, self.y = _W * 0.5, _H * 0.5
 	end	
@@ -129,6 +155,18 @@ function M.new( options )
 		self.rotation = ( self.rotation % 360 ) + rotationSpeed * dt
 	end
 
+	function instance:finalize()
+		if spark then
+	    	spark:destroy()
+   			spark = nil
+   		end
+   		if trail then
+	    	display.remove( trail )
+   			trail = nil
+   		end	  
+  	end
+
+  	instance:addEventListener( 'finalize' )
 	return instance
 end	
 

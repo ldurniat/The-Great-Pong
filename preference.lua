@@ -4,6 +4,7 @@
 -- Wymagane moduły
 local loadsave = require( 'lib.loadsave' )
 local app      = require( 'lib.app' )
+local colors   = require( 'lib.colors' ) 
 
 -- Deklaracja modułu
 local M = {}
@@ -32,8 +33,8 @@ function M:load()
 		-- muszą odpowiadać miniaturkom na mapie
 		local balls = {
 			{ name='Tony', points=0 , params={}, buy=true },
-			{ name='Bob', points=20 , params={}, buy=false },
-			{ name='Jim', points=40 , params={}, buy=false },
+			{ name='Bob', points=20 , params={enableSparks=true, enableTrail=false}, buy=false },
+			{ name='Jim', points=40 , params={ballColor=colors.firebrick, trailColor=colors.firebrick, enableSparks=true, enableTrail=true}, buy=false },
 		} 
 		-- Ustawienia domyślne
 		self:set( 'highScoreMatchMode', 0 )

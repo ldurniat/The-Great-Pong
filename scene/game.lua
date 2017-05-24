@@ -10,7 +10,6 @@ local deltatime  = require( 'lib.deltatime' )
 local ball       = require( 'scene.game.lib.ball' )
 local paddle     = require( 'scene.game.lib.paddle' )
 local background = require( 'scene.game.lib.background' )
-local sparks     = require( 'lib.sparks' )
 local scoring    = require( 'scene.game.lib.score' )
 
 math.randomseed( os.time() )  
@@ -20,7 +19,7 @@ local mClamp  = math.clamp
 
 -- Lokalne zmienne
 local squareBall, player, computer 
-local spark, playerScore, computerScore
+local playerScore, computerScore
 local maxScore = 1
 local message = {
    win = 'You WIN.',
@@ -80,7 +79,6 @@ local function touchEdge( event )
    local y = event.y
 
    app.playSound(scene.sounds.wall)
-   spark:startAt( edge, x, y )
 
    if ( edge == 'right' ) then
       playerScore:add( 1 )   
@@ -98,7 +96,15 @@ end
 function scene:resumeGame()
    -- ustawia wybraną piłeczke
    local ballInUse = preference:get( 'ballInUse' )
+   local balls = preference:get( 'balls' )
    tailName = tailNames[ballInUse]
+
+   -- dodanie piłeczki
+   squareBall = ball.new( balls[ballInUse].params )
+   scene.squareBall = squareBall
+   squareBall:serve()
+
+   scene.view:insert( squareBall )
 
    deltatime.restart()
    app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
@@ -132,14 +138,6 @@ function scene:create( event )
    scene.computer = computer
    computer.x, computer.y = _W - offset, _CY  
    
-   -- dodanie piłeczki
-   squareBall = ball.new()
-   scene.squareBall = squareBall
-   squareBall:serve()
-
-   -- dodaje efekt cząsteczkowy
-   spark = sparks.new()
-   
    -- dodanie obiektu przechowującego wynik dla obu graczy
    playerScore = scoring.new()
    playerScore.x, playerScore.y = _CX - 100, _T + 100
@@ -150,9 +148,7 @@ function scene:create( event )
    app.setRP( computerScore, 'CenterLeft')
 
    -- dodanie obiekty do sceny we właściwej kolejności
-   sceneGroup:insert( spark )
    sceneGroup:insert( board )
-   sceneGroup:insert( squareBall )
    sceneGroup:insert( computer )
    sceneGroup:insert( player )
    sceneGroup:insert( playerScore )
@@ -189,9 +185,6 @@ function scene:destroy( event )
       audio.dispose( v )
       self.sounds[s] = nil
    end
-
-   spark:destroy()
-   spark = nil
 end
  
 scene:addEventListener( 'create', scene )
