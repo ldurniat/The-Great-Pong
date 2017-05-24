@@ -37,7 +37,6 @@ function M:load()
 			{ name='Jim', points=40 , params={ballColor=colors.firebrick, trailColor=colors.firebrick, enableSparks=true, enableTrail=true}, buy=false },
 		} 
 		-- Ustawienia domyślne
-		self:set( 'highScoreMatchMode', 0 )
 		self:set( 'music', true )
 		self:set( 'sound', true )
 		self:set( 'ballInUse', 1 ) 

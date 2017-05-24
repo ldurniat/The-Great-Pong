@@ -25,8 +25,6 @@ local message = {
    win = 'You WIN.',
    lost = 'You lost.'
 }
-local tailNames = {'lines', 'rects', 'circles', 'rectsRandomColors',
-    'circlesRandomColors', 'linesRandomColors' }
 local scene = composer.newScene()   
 
 -- Główna pętla gry 
@@ -97,7 +95,6 @@ function scene:resumeGame()
    -- ustawia wybraną piłeczke
    local ballInUse = preference:get( 'ballInUse' )
    local balls = preference:get( 'balls' )
-   tailName = tailNames[ballInUse]
 
    -- dodanie piłeczki
    squareBall = ball.new( balls[ballInUse].params )
