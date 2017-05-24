@@ -21,10 +21,7 @@ local mClamp  = math.clamp
 local squareBall, player, computer 
 local playerScore, computerScore
 local maxScore = 1
-local message = {
-   win = 'You WIN.',
-   lost = 'You lost.'
-}
+
 local scene = composer.newScene()   
 
 -- Główna pętla gry 
@@ -57,7 +54,7 @@ end
 
 local function gameOver()
    app.playSound( scene.sounds.lost )
-   local message = playerScore:get() == maxScore and message.win or message.lost
+   local textId = playerScore:get() == maxScore and 'win' or 'lost'
    app.removeAllRuntimeEvents()
    -- Resetowanie fokusa. Bez tego polecenia pzyciski w 
    -- oknie dialogowym nie reagowały  
@@ -67,7 +64,7 @@ local function gameOver()
    fx.shake( screen )
    timer.performWithDelay( 500, function() 
       composer.showOverlay("scene.result", { isModal=true,
-         effect="fromTop", params={message=message, newScore=playerScore:get()} } )
+         effect="fromTop", params={textId=textId, newScore=playerScore:get()} } )
       end ) 
 end   
 
