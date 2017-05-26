@@ -69,13 +69,15 @@ local function showBall()
 end      
 
 local function pickBall()
-    -- zaznaczam piłeczkę jako zakupioną
-    balls[index].buy = true    
-    selected = index
-    totalPoints = totalPoints - balls[index].points
+    if ( balls[index].buy == false and balls[index].points <= totalPoints ) then
+        -- zaznaczam piłeczkę jako zakupioną
+        balls[index].buy = true    
+        selected = index
+        totalPoints = totalPoints - balls[index].points
 
-    markBall()
-    showBall()
+        markBall()
+        showBall()
+    end
 end 
 
 local function prevBall()

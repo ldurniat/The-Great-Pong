@@ -32,15 +32,15 @@ function M:load()
 		-- informacje o dostępnych piłeczkach
 		-- muszą odpowiadać miniaturkom na mapie
 		local balls = {
-			{ name='Tony', points=0 , params={}, buy=true },
-			{ name='Bob', points=20 , params={enableSparks=true, enableTrail=false}, buy=false },
-			{ name='Jim', points=40 , params={ballColor=colors.firebrick, trailColor=colors.firebrick, enableSparks=true, enableTrail=true}, buy=false },
+			{ name='Simple Ball', points=0 , params={}, buy=true },
+			{ name='Fast Ball', points=20 , params={enableSparks=true, enableTrail=false}, buy=false },
+			{ name='Furoius Ball', points=40 , params={ballColor=colors.firebrick, trailColor=colors.firebrick, enableSparks=true, enableTrail=true}, buy=false },
 		} 
 		-- Ustawienia domyślne
 		self:set( 'music', true )
 		self:set( 'sound', true )
 		self:set( 'ballInUse', 1 ) 
-		self:set( 'totalPoints', 170 )
+		self:set( 'totalPoints', 0 )
 		self:set( 'balls', balls ) 
 
 		loadsave.saveTable( self.settings, 'settings.json' )
