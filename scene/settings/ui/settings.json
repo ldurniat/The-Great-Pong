@@ -127,6 +127,81 @@
                  "width":272,
                  "x":56,
                  "y":232
+                }, 
+                {
+                 "height":40,
+                 "id":18,
+                 "name":"language",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":40,
+                     "strokeColor":"#ffffffff",
+                     "text":"Languages"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":272,
+                 "x":56,
+                 "y":368
+                }, 
+                {
+                 "height":40,
+                 "id":19,
+                 "name":"english",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":40,
+                     "strokeColor":"#ffffffff",
+                     "text":"English"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":208,
+                 "x":376,
+                 "y":344
+                }, 
+                {
+                 "height":40,
+                 "id":20,
+                 "name":"polski",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":40,
+                     "strokeColor":"#ffffffff",
+                     "text":"Polski"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":208,
+                 "x":376,
+                 "y":416
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -171,7 +246,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":18,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
