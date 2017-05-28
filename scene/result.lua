@@ -16,8 +16,7 @@ local info, ui
 
 function scene:create( event )
     local sceneGroup = self.view  
-    local buttonSound = audio.loadSound( 'scene/game/sfx/select.wav' ) 
-
+    
     -- Wczytanie mapy
     local uiData = json.decodeFile( system.pathForFile( 'scene/menu/ui/result.json', system.ResourceDirectory ) )
     info = tiled.new( uiData, 'scene/menu/ui' )
@@ -31,7 +30,7 @@ function scene:create( event )
         local phase = event.phase
         local name = event.buttonName
         if phase == 'released' then 
-            app.playSound( buttonSound )
+            app.playSound( 'button' )
             
             if ( name == 'restart' ) then
                 fx.fadeOut( function()
