@@ -42,6 +42,7 @@ function M:load()
 		self:set( 'ballInUse', 1 ) 
 		self:set( 'totalPoints', 0 )
 		self:set( 'balls', balls ) 
+		self:set( 'language', 'english' ) 		
 
 		loadsave.saveTable( self.settings, 'settings.json' )
 	else

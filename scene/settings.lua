@@ -24,6 +24,20 @@ local function toggleCheckbox( name )
    preference:set( name, isEnabled )
 end  
 
+local function markLanguage( name )
+   -- Odznaczam wszystkie przyciski
+   local langNames = { 'english', 'polski' }
+   for i=1, #langNames do
+      local languageButton = menu:findObject( langNames[i] )
+      languageButton:setFillColor( 1 )
+   end   
+   -- Zaznaczam wybrany przycisk z nazwą języka
+   local languageButton = menu:findObject( name )
+   languageButton:setFillColor( 0, 170 / 255, 212 / 255 )
+   -- Zapisuje wybrany język
+   preference:set( 'language', name )
+end   
+
 function scene:create( event )
    local sceneGroup = self.view
 
@@ -53,7 +67,11 @@ function scene:create( event )
             fx.fadeOut( function()
                composer.hideOverlay()
                composer.gotoScene( 'scene.menu', { params = {} } )
-             end ) 
+             end )
+         elseif ( name == 'english' ) then
+            markLanguage( name )
+         elseif ( name == 'polski' ) then
+            markLanguage( name )
          end
       end
 
@@ -77,6 +95,9 @@ function scene:show( event )
             checkbox.isVisible = app[ checkboxNames[i] ] 
             checkbox.isHitTestable = true  
       end 
+      -- konfiguruję przyciski z językami
+      local name = preference:get( 'language' )
+      markLanguage( name )
    elseif ( phase == "did" ) then
       app.addRuntimeEvents( {'ui', ui} )
    end
