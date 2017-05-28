@@ -2,17 +2,17 @@
 -- Ekran wyświetlający komunikat.
 --
 -- Wymagane moduły
-local app        = require( 'lib.app' )
-local preference = require( 'preference' )
-local composer   = require( 'composer' )
-local fx         = require( 'com.ponywolf.ponyfx' ) 
-local tiled      = require( 'com.ponywolf.ponytiled' )
-local json       = require( 'json' ) 
+local app          = require( 'lib.app' )
+local preference   = require( 'preference' )
+local composer     = require( 'composer' )
+local fx           = require( 'com.ponywolf.ponyfx' ) 
+local tiled        = require( 'com.ponywolf.ponytiled' )
+local json         = require( 'json' ) 
 
 -- Lokalne zmienne
 local scene = composer.newScene()
 local info, ui 
-local resumeGame = false  
+local resumeGame = false      
 
 function scene:create( event )
     local sceneGroup = self.view  

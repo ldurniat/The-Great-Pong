@@ -2,12 +2,13 @@
 -- Ekran wyświetlający wyniki.
 --
 -- Wymagane moduły
-local app        = require( 'lib.app' )
-local preference = require( 'preference' )
-local composer   = require( 'composer' )
-local fx         = require( 'com.ponywolf.ponyfx' ) 
-local tiled      = require( 'com.ponywolf.ponytiled' )
-local json       = require( 'json' ) 
+local app          = require( 'lib.app' )
+local preference   = require( 'preference' )
+local composer     = require( 'composer' )
+local fx           = require( 'com.ponywolf.ponyfx' ) 
+local tiled        = require( 'com.ponywolf.ponytiled' )
+local json         = require( 'json' ) 
+local translations = require( 'translations' )
 
 -- Lokalne zmienne
 local scene = composer.newScene()
@@ -56,13 +57,14 @@ function scene:show( event )
     local textId = event.params.textId
     local newScore = event.params.newScore
     local totalPoints = preference:get( 'totalPoints' )
+    local lang = preference:get( 'language' )
 
     if ( phase == 'will' ) then
             print( totalPoints )
             totalPoints = totalPoints + newScore
             local message = {
-                win = 'You WIN. Your Total Points: ' .. totalPoints,
-                lost = 'You lost. Your Total Points: ' .. totalPoints,
+                win = translations[lang]['winMessage'] .. totalPoints,
+                lost = translations[lang]['loseMessage'] .. totalPoints,
             }
 
             info:findObject('message').text = message[textId]

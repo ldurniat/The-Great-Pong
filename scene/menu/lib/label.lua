@@ -2,6 +2,9 @@
 
 -- Use this as a template to extend a tiled object with functionality
 
+local translations = require( 'translations' )
+local preference   = require( 'preference' )
+
 local M = {}
 
 local function decodeTiledColor(hex)
@@ -24,7 +27,13 @@ function M.new(instance)
   local tiledObject = instance
 
   -- set defaults
-  local text = tiledObject.text or " "
+  local lang = preference:get( 'language' )
+  
+  if tiledObject.translationId then
+    tiledObject.text = translations[lang][tiledObject.translationId]
+  end
+
+  local text = tiledObject.text or ' ' 
   local font = tiledObject.font or native.systemFont
   local size = tonumber(tiledObject.size or "20")
   local stroked = tiledObject.stroked
@@ -34,7 +43,7 @@ function M.new(instance)
   local params = { parent = tiledObject.parent,
     x = tiledObject.x, y = tiledObject.y,
     text = text, font = font, fontSize = size,
-    align = align, width = tiledObject.width } 
+    align = align, width = tiledObject.width }    
 
   if stroked then
     local newStrokeColor = {

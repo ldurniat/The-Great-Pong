@@ -74,14 +74,16 @@
                      "font":"",
                      "size":36,
                      "strokeColor":"#ffffffff",
-                     "text":"Restart"
+                     "text":"Restart",
+                     "translationId":"restart"
                     },
                  "propertytypes":
                     {
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
-                     "text":"string"
+                     "text":"string",
+                     "translationId":"string"
                     },
                  "rotation":0,
                  "type":"label",
@@ -124,14 +126,16 @@
                      "font":"",
                      "size":36,
                      "strokeColor":"#ffffffff",
-                     "text":"Menu"
+                     "text":"Menu",
+                     "translationId":"menu"
                     },
                  "propertytypes":
                     {
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
-                     "text":"string"
+                     "text":"string",
+                     "translationId":"string"
                     },
                  "rotation":0,
                  "type":"label",

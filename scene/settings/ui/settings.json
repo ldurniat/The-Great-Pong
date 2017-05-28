@@ -86,14 +86,16 @@
                      "font":"",
                      "size":40,
                      "strokeColor":"#ffffffff",
-                     "text":"Back"
+                     "text":"Back",
+                     "translationId":"back"
                     },
                  "propertytypes":
                     {
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
-                     "text":"string"
+                     "text":"string",
+                     "translationId":"string"
                     },
                  "rotation":0,
                  "type":"label",
@@ -136,14 +138,16 @@
                      "font":"",
                      "size":40,
                      "strokeColor":"#ffffffff",
-                     "text":"Music"
+                     "text":"Music",
+                     "translationId":"music"
                     },
                  "propertytypes":
                     {
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
-                     "text":"string"
+                     "text":"string",
+                     "translationId":"string"
                     },
                  "rotation":0,
                  "type":"label",
@@ -161,14 +165,16 @@
                      "font":"",
                      "size":40,
                      "strokeColor":"#ffffffff",
-                     "text":"Languages"
+                     "text":"Languages",
+                     "translationId":"languages"
                     },
                  "propertytypes":
                     {
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
-                     "text":"string"
+                     "text":"string",
+                     "translationId":"string"
                     },
                  "rotation":0,
                  "type":"label",
@@ -283,6 +289,20 @@
          "spacing":0,
          "tilecount":3,
          "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "translationId":"sounds"
+                }
+            },
+         "tilepropertytypes":
+            {
+             "0":
+                {
+                 "translationId":"string"
+                }
+            },
          "tiles":
             {
              "0":

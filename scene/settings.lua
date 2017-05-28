@@ -2,12 +2,12 @@
 -- Scena z ustawieniami
 --
 -- Wymagane moduły
-local composer   = require( "composer" )
-local tiled      = require( 'com.ponywolf.ponytiled' )
-local json       = require( 'json' )
-local app        = require( 'lib.app' )
-local preference = require( 'preference' ) 
-local fx         = require( 'com.ponywolf.ponyfx' ) 
+local composer     = require( "composer" )
+local tiled        = require( 'com.ponywolf.ponytiled' )
+local json         = require( 'json' )
+local app          = require( 'lib.app' )
+local preference   = require( 'preference' ) 
+local fx           = require( 'com.ponywolf.ponyfx' ) 
 
 -- Lokalne zmienne
 local scene = composer.newScene()

@@ -2,12 +2,13 @@
 -- Scena z głównym menu
 --
 -- Wymagane moduły
-local composer   = require( 'composer' )
-local tiled      = require( 'com.ponywolf.ponytiled' )
-local json       = require( 'json' )
-local app        = require( 'lib.app' )
-local preference = require( 'preference' )
-local fx         = require( 'com.ponywolf.ponyfx' )
+local composer     = require( 'composer' )
+local tiled        = require( 'com.ponywolf.ponytiled' )
+local json         = require( 'json' )
+local app          = require( 'lib.app' )
+local preference   = require( 'preference' )
+local fx           = require( 'com.ponywolf.ponyfx' )
+local translations = require( 'translations' )
 
 -- Lokalne zmienne
 local scene = composer.newScene() 
@@ -62,7 +63,8 @@ function scene:show( event )
    if ( phase == 'will' ) then
       local totalPoints = preference:get( 'totalPoints' )
       local labelPoints = menu:findObject( 'totalpoints' )
-      labelPoints.text = 'Total Points: ' .. totalPoints
+      local lang = preference:get( 'language' )
+      labelPoints.text = translations[lang]['totalPoints'] .. ' '.. totalPoints
    elseif ( phase == 'did' ) then
       app.addRuntimeEvents( {'ui', ui} )
    end
