@@ -2,9 +2,10 @@
 --
 -- Plik uruchomieniowy gry
 --
-local composer   = require( 'composer' )
-local app        = require( 'lib.app' )
-local preference = require( 'preference' ) 
+local composer     = require( 'composer' )
+local app          = require( 'lib.app' )
+local preference   = require( 'preference' ) 
+local translations = require( 'translations' )
 
 -- Dodaje nowe funkcje do standardowych modułów 
 require( 'lib.utils' ) 
@@ -20,10 +21,10 @@ _CX = display.contentCenterX
 _CY = display.contentCenterY
 
 -- Usunięcie paska navigacyjnego z dołu
-if system.getInfo( "androidApiLevel" ) and system.getInfo( "androidApiLevel" ) < 19 then
- 	native.setProperty( "androidSystemUiVisibility", "lowProfile" )
+if system.getInfo( 'androidApiLevel' ) and system.getInfo( 'androidApiLevel' ) < 19 then
+ 	native.setProperty( 'androidSystemUiVisibility', 'lowProfile' )
 else
- 	native.setProperty( "androidSystemUiVisibility", "immersiveSticky" ) 
+ 	native.setProperty( 'androidSystemUiVisibility', 'immersiveSticky' ) 
 end
 
 -- czy uruchomiony w simulatorze ?
@@ -34,7 +35,7 @@ local isMobile = app.isAndroid or app.isiOS
 -- przycisk 'P' wyświetla fizykę w trybie debug 
 if isSimulator then 
 	-- show FPS
-	local visualMonitor = require( "com.ponywolf.visualMonitor" )
+	local visualMonitor = require( 'com.ponywolf.visualMonitor' )
 	local visMon = visualMonitor:new()
 	visMon.isVisible = false
 
@@ -42,41 +43,53 @@ if isSimulator then
 	local function debugKeys( event )
 		local phase = event.phase
 		local key = event.keyName
-		if phase == "up" then
-			if ( key == "p" ) then
+		if phase == 'up' then
+			if ( key == 'p' ) then
 				physics.show = not physics.show
 				if physics.show then 
-				 	physics.setDrawMode( "hybrid" ) 
+				 	physics.setDrawMode( 'hybrid' ) 
 				else
-				 	physics.setDrawMode( "normal" )  
+				 	physics.setDrawMode( 'normal' )  
 				end
-			elseif ( key == "f" ) then
+			elseif ( key == 'f' ) then
 				visMon.isVisible = not visMon.isVisible 
 			end
 		end
 	end
-	Runtime:addEventListener( "key", debugKeys )
+	Runtime:addEventListener( 'key', debugKeys )
 end
 
 local function onSystemEvent( event )    
-	if (event.type == "applicationStart") then
+	if (event.type == 'applicationStart') then
 
-	elseif (event.type == "applicationExit") then 
+	elseif (event.type == 'applicationExit') then 
 		-- Zapis ustawień przed zamknięciem aplikacji
 		preference:save()
 		-- Usunięcie 
 		app.disposeSounds()
-	elseif ( event.type == "applicationSuspend" ) then
+	elseif ( event.type == 'applicationSuspend' ) then
 	  
-	elseif event.type == "applicationResume" then
+	elseif event.type == 'applicationResume' then
 		
 	end
 end
 
-Runtime:addEventListener( "system", onSystemEvent )
+Runtime:addEventListener( 'system', onSystemEvent )
 
 -- Ładowanie ustawień z pliku settings.json
 preference:load()
+
+-- ustawienie języka
+if not preference:get( 'language' ) then
+	-- detekcja systemowego języka
+	local languageCode = system.getPreference( 'locale', 'language' ):lower()
+	if not translations[languageCode] then
+		-- domyślny język
+		languageCode = 'en' 
+	end	
+	-- ustawia język dla aplikacji
+	preference:set( 'language', languageCode )
+end	
 
 app.sound = preference:get( 'sound' )
 app.music = preference:get( 'music' )

@@ -33,8 +33,8 @@ local polski = {
 }
 
 M = {
-	['english'] = english,
-	['polski']  = polski
+	['en'] = english,
+	['pl'] = polski
 }
 
 return M
