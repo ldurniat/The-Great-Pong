@@ -15,6 +15,10 @@ local english = {
 	['totalPoints'] = 'Total Points',
 	['menu']        = 'Menu',
 	['restart']     = 'Restart',
+	['play']        = 'Play',
+	['settings']    = 'Settings',
+	['donate']      = 'Donate',
+
 }
 
 local polski = {
@@ -30,6 +34,9 @@ local polski = {
 	['totalPoints'] = 'Twój wynik',
 	['menu']        = 'Menu',
 	['restart']     = 'Nowa gra',
+	['play']        = 'Nowa gra',
+	['settings']    = 'Ustawienia',
+	['donate']      = 'Wesprzyj',
 }
 
 M = {

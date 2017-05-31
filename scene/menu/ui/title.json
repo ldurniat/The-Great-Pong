@@ -41,6 +41,42 @@
                  "width":256,
                  "x":480,
                  "y":280
+                }, 
+                {
+                 "gid":9,
+                 "height":69,
+                 "id":10,
+                 "name":"play",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":472,
+                 "y":432
+                }, 
+                {
+                 "gid":9,
+                 "height":69,
+                 "id":13,
+                 "name":"settings",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":472,
+                 "y":528
+                }, 
+                {
+                 "gid":9,
+                 "height":69,
+                 "id":15,
+                 "name":"donate",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":267,
+                 "x":472,
+                 "y":624
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -54,18 +90,6 @@
          "height":26,
          "name":"buttons",
          "objects":[
-                {
-                 "gid":2,
-                 "height":69,
-                 "id":1,
-                 "name":"donate",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":267,
-                 "x":472,
-                 "y":616
-                }, 
                 {
                  "gid":7,
                  "height":69,
@@ -91,18 +115,6 @@
                  "y":744
                 }, 
                 {
-                 "gid":4,
-                 "height":69,
-                 "id":4,
-                 "name":"play",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":267,
-                 "x":472,
-                 "y":448
-                }, 
-                {
                  "gid":5,
                  "height":69,
                  "id":5,
@@ -115,16 +127,85 @@
                  "y":744
                 }, 
                 {
-                 "gid":6,
-                 "height":69,
-                 "id":6,
-                 "name":"settings",
+                 "height":40,
+                 "id":11,
+                 "name":"",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":35,
+                     "strokeColor":"#ffffffff",
+                     "text":"Play",
+                     "translationId":"play"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string",
+                     "translationId":"string"
+                    },
                  "rotation":0,
-                 "type":"button",
+                 "type":"label",
                  "visible":true,
-                 "width":267,
-                 "x":472,
-                 "y":528
+                 "width":232,
+                 "x":488,
+                 "y":376
+                }, 
+                {
+                 "height":40,
+                 "id":14,
+                 "name":"",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":35,
+                     "strokeColor":"#ffffffff",
+                     "text":"Settings",
+                     "translationId":"settings"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string",
+                     "translationId":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":232,
+                 "x":488,
+                 "y":472
+                }, 
+                {
+                 "height":40,
+                 "id":16,
+                 "name":"",
+                 "properties":
+                    {
+                     "font":"",
+                     "size":35,
+                     "strokeColor":"#ffffffff",
+                     "text":"Donate",
+                     "translationId":"donate"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string",
+                     "translationId":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":232,
+                 "x":488,
+                 "y":568
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -133,7 +214,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":10,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -144,7 +225,7 @@
          "margin":0,
          "name":"ui",
          "spacing":0,
-         "tilecount":7,
+         "tilecount":8,
          "tileheight":158,
          "tiles":
             {
@@ -175,6 +256,10 @@
              "7":
                 {
                  "image":"title.png"
+                },
+             "8":
+                {
+                 "image":"button.png"
                 }
             },
          "tilewidth":326
