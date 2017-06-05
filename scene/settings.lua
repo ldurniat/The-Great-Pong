@@ -26,7 +26,7 @@ end
 
 local function markLanguage( name )
    -- Odznaczam wszystkie przyciski
-   local langNames = { 'english', 'polski' }
+   local langNames = { 'en', 'pl' }
    for i=1, #langNames do
       local languageButton = menu:findObject( langNames[i] )
       languageButton:setFillColor( 1 )
