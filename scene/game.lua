@@ -42,7 +42,6 @@ end
 -- Obsługa ruchu paletki gracza
 local function drag( event )
    if ( event.phase == 'began' ) then
-      --display.getCurrentStage():setFocus( player )
       player.isFocus = true
       player.markY = player.y
    elseif ( player.isFocus ) then
@@ -51,7 +50,6 @@ local function drag( event )
             player.height * player.yScale * player.anchorY, 
             _H - player.height * ( 1 - player.anchorY ) * player.yScale )
       elseif ( event.phase == 'ended' or event.phase == 'cancelled' ) then
-        --display.getCurrentStage():setFocus( nil )
         player.isFocus = false
       end
    end
@@ -63,10 +61,6 @@ local function gameOver()
    app.playSound( scene.sounds.lost )
    local textId = playerScore:get() == maxScore and 'win' or 'lost'
    app.removeAllRuntimeEvents()
-   -- Resetowanie fokusa. Bez tego polecenia pzyciski w 
-   -- oknie dialogowym nie reagowały  
-   --drag( { phase='ended'} )
-   --transition.pause( )
    local screen = display.getCurrentStage()
    fx.shake( screen )
    timer.performWithDelay( 500, function() 

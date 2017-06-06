@@ -59,7 +59,6 @@ function scene:show( event )
     local lang = preference:get( 'language' )
 
     if ( phase == 'will' ) then
-            print( totalPoints )
             totalPoints = totalPoints + newScore
             local message = {
                 win = translations[lang]['winMessage'] .. totalPoints,
