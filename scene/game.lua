@@ -118,7 +118,6 @@ end
 
 function scene:create( event ) 
    local sceneGroup = self.view
-   --local offset = 120
 
    local sndDir = 'scene/game/sfx/'
    scene.sounds = {
@@ -139,22 +138,20 @@ function scene:create( event )
    -- dodaje paletkę gracza 
    player = paddle.new()
    scene.player = player
-   --player.x, player.y = player.width + offset, _CY
    player.x, player.y = _L - player.width, _CY
 
    -- dodaje paletkę komputerowego przeciwnika
    computer = paddle.new()
-   scene.computer = computer
-   --computer.x, computer.y = _W - offset, _CY  
+   scene.computer = computer 
    computer.x, computer.y = _R + _W + player.width, _CY 
    
    -- dodanie obiektu przechowującego wynik dla obu graczy
    playerScore = scoring.new()
-   playerScore.x, playerScore.y = _CX - 100, -_T - player.height 
+   playerScore.x, playerScore.y = _CX - 100, _T - player.height 
    app.setRP( playerScore, 'CenterRight')
 
    computerScore = scoring.new( {align='left'} )
-   computerScore.x, computerScore.y = _CX + 100, -_T - player.height 
+   computerScore.x, computerScore.y = _CX + 100, _T - player.height 
    app.setRP( computerScore, 'CenterLeft')
 
    -- dodanie obiekty do sceny we właściwej kolejności
