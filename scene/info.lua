@@ -45,10 +45,6 @@ function scene:create( event )
         return true	
     end
 
-    local fadeBackground = display.newRect( sceneGroup, _CX, _CY, _W - 2 * _L, _H - 2 * _T )
-    fadeBackground:setFillColor( 0 )
-    fadeBackground.alpha = 0.9
-
     sceneGroup:insert( info )
 end
 
