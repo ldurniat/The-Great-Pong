@@ -16,7 +16,7 @@ local mRandom = math.random
 local mPi     = math.pi
 local mSin    = math.sin
 local mCos    = math.cos
-local mAbs    = math.abs
+local mAbs    = math.abs 
 
 -- Funkcja sprawdza czy dwa prostokąty nachodzą na siebie. 
 local function AABBIntersect( rectA, rectB )
@@ -88,6 +88,8 @@ function M.new( options )
 		-- wykrywanie kolizji między piłeczką i paletkami
 		if ( AABBIntersect( pdle, self ) ) then
 			app.playSound(scene.sounds.hit)
+			transition.chain( pdle, {time=150, alpha=0.9, transition=easing.inCubic},
+				{time=150, alpha=1})
 
 			self.x = pdle.x + ( self.velX > 0 and -1 or 1 ) * pdle.width * 0.5
 
@@ -138,6 +140,17 @@ function M.new( options )
 		end
 
 		if edge then
+			-- wyświeltenie brzegów pola gry
+			local coords = {
+				{0, _H * 0.5, 2, _H},
+				{_W, _H * 0.5, 2, _H},
+				{_W * 0.5, 0, _W, 2},
+				{_W * 0.5, _H, _W, 2 }
+			}
+			for i=1, 4 do
+				local rect = display.newRect( unpack( coords[i] ) )
+				transition.to( rect, {time=500, alpha=0, onComplete=display.remove})
+			end	
 			app.post( 'touchEdge', {edge=edge, x=x, y=y} )
 			if enableSparks then
 				spark:startAt( edge, x, y )

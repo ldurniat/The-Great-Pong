@@ -34,12 +34,12 @@ function scene:create( event )
             
             if ( name == 'restart' ) then
                 fx.fadeOut( function()
-                    composer.hideOverlay()
+                    composer.hideOverlay( 'crossFade' )
                     composer.gotoScene( 'scene.refresh', { params = {} } )
                     end )
             elseif ( name == 'menu' ) then
                 fx.fadeOut( function()
-                    composer.hideOverlay()
+                    composer.hideOverlay( 'crossFade' )
                     composer.gotoScene( 'scene.menu', { params = {} } )
                     end )
             end

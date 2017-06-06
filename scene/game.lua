@@ -24,6 +24,13 @@ local maxScore = 1
 
 local scene = composer.newScene()   
 
+local function stretch( object )
+   transition.chain( object, {time=100, xScale=0.8, yScale=1.2},
+      {time=100, xScale=1.1, yScale=0.9},
+      {time=100, xScale=0.95, yScale=1.05},
+      {time=100, xScale=1, yScale=1} )   
+end   
+
 -- Główna pętla gry 
 local function loop()
    local dt = deltatime.getTime()
@@ -64,7 +71,7 @@ local function gameOver()
    fx.shake( screen )
    timer.performWithDelay( 500, function() 
       composer.showOverlay("scene.result", { isModal=true,
-         effect="fromTop", params={textId=textId, newScore=playerScore:get()} } )
+         effect="crossFade", params={textId=textId, newScore=playerScore:get()} } )
       end ) 
 end   
 
@@ -77,8 +84,10 @@ local function touchEdge( event )
 
    if ( edge == 'right' ) then
       playerScore:add( 1 )   
+      stretch( playerScore )
    elseif ( edge == 'left' ) then
-      computerScore:add( 1 )   
+      computerScore:add( 1 ) 
+      stretch( computerScore )
    end   
 
    -- sprawdza czy mecz dobiegł końca
@@ -92,6 +101,7 @@ function scene:resumeGame()
    -- ustawia wybraną piłeczke
    local ballInUse = preference:get( 'ballInUse' )
    local balls = preference:get( 'balls' )
+   local offset = 120
 
    -- dodanie piłeczki
    squareBall = ball.new( balls[ballInUse].params )
@@ -100,13 +110,21 @@ function scene:resumeGame()
 
    scene.view:insert( squareBall )
 
-   deltatime.restart()
-   app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
+   transition.to( scene.board, {transition=easing.outBack, delay=200, time=500, yScale=1} )
+   transition.to( playerScore, {transition=easing.outBack, time=500, y=_T + 100} )
+   transition.to( computerScore, {transition=easing.outBack, time=500, y=_T + 100} )
+
+   transition.to( player, {transition=easing.outBack, time=500, x=player.width + offset} )
+   transition.to( computer, {transition=easing.outBack, time=500, x= _W - offset, 
+      onComplete=function() 
+            deltatime.restart()
+            app.addRuntimeEvents( {'enterFrame', loop, 'touch', drag, 'touchEdge', touchEdge} )
+         end  } )
 end   
 
 function scene:create( event ) 
    local sceneGroup = self.view
-   local offset = 120
+   --local offset = 120
 
    local sndDir = 'scene/game/sfx/'
    scene.sounds = {
@@ -121,24 +139,28 @@ function scene:create( event )
 
    -- dodaje planszę
    local board = background.new()
+   board.yScale = 0.001
+   scene.board = board
 
    -- dodaje paletkę gracza 
    player = paddle.new()
    scene.player = player
-   player.x, player.y = player.width + offset, _CY
+   --player.x, player.y = player.width + offset, _CY
+   player.x, player.y = _L - player.width, _CY
 
    -- dodaje paletkę komputerowego przeciwnika
    computer = paddle.new()
    scene.computer = computer
-   computer.x, computer.y = _W - offset, _CY  
+   --computer.x, computer.y = _W - offset, _CY  
+   computer.x, computer.y = _R + _W + player.width, _CY 
    
    -- dodanie obiektu przechowującego wynik dla obu graczy
    playerScore = scoring.new()
-   playerScore.x, playerScore.y = _CX - 100, _T + 100
+   playerScore.x, playerScore.y = _CX - 100, -_T - player.height 
    app.setRP( playerScore, 'CenterRight')
 
    computerScore = scoring.new( {align='left'} )
-   computerScore.x, computerScore.y = _CX + 100, _T + 100
+   computerScore.x, computerScore.y = _CX + 100, -_T - player.height 
    app.setRP( computerScore, 'CenterLeft')
 
    -- dodanie obiekty do sceny we właściwej kolejności
@@ -156,7 +178,7 @@ function scene:show( event )
    if ( phase == 'will' ) then
       
    elseif ( phase == 'did' ) then
-      composer.showOverlay( "scene.info", { isModal=true, effect="fromTop",  params={} } )
+      composer.showOverlay( "scene.info", { isModal=true, effect="crossFade",  params={} } )
    end
 end
  
