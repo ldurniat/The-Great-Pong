@@ -4,7 +4,7 @@
 
 ![Game play from game](http://i.imgur.com/Qxq3Y0c.gif)
 
-Work in progress:) (about 35%) So far I done
+Work in progress:) (about 75%) So far I done
 
 - [x] Add main menu, both mode, popup and settings scenes
 - [x] Add module to save/load settings
@@ -12,6 +12,7 @@ Work in progress:) (about 35%) So far I done
 - [x] Add match mode (you can play)
 - [x] Add a simple sounds
 - [x] Add buy new balls for points
+- [x] Add simple special effects (simple animation, fade and scale objects)
 
 Used modules or code
 
@@ -27,7 +28,7 @@ My blog: [Mój #gamedev blog](https://ldurniat.wordpress.com)
 
 *My-Pong-Game* to klon gry [Pong](https://pl.wikipedia.org/wiki/Pong) stworzony przy użyciu [Corona SDK](https://coronalabs.com/corona-sdk/) oraz języka Lua.
 
-Praca w toku:) Wykonane do tej pory
+Praca w toku:) (ok. 75%) Wykonane do tej pory
 
 - [x] Dodanie scen z menu głównym, dwoma trybami, przejściowymi oraz ustawieniami
 - [x] Dodanie modułu do zapisywania/odczytywania ustawień
@@ -35,6 +36,7 @@ Praca w toku:) Wykonane do tej pory
 - [x] Dodanie trybu match (grywalne)
 - [x] Dodanie prostych dzwięków
 - [x] Dodanie zakupu nowych piłeczek za punkty
+- [x] Dodanie prostych efektów specialnych (proste animacje, blednięcie i skalowanie obiektów)
 
 Skorzystałem z modułów lub kodu
 
