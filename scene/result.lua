@@ -12,7 +12,7 @@ local translations = require( 'translations' )
 
 -- Lokalne zmienne
 local scene = composer.newScene()
-local info, ui 
+local info, ui  
 
 function scene:create( event )
     local sceneGroup = self.view  
@@ -33,13 +33,13 @@ function scene:create( event )
             app.playSound( 'button' )
             
             if ( name == 'restart' ) then
-                fx.fadeOut( function()
-                    composer.hideOverlay( 'crossFade' )
+                fx.fadeOut( function() 
+                    composer.hideOverlay()
                     composer.gotoScene( 'scene.refresh', { params = {} } )
                     end )
             elseif ( name == 'menu' ) then
                 fx.fadeOut( function()
-                    composer.hideOverlay( 'crossFade' )
+                    composer.hideOverlay()
                     composer.gotoScene( 'scene.menu', { params = {} } )
                     end )
             end
@@ -76,11 +76,9 @@ end
 
 function scene:hide( event )
     local phase = event.phase
-    local previousScene = event.parent
 
     if ( phase == 'will' ) then
         app.removeAllRuntimeEvents()
-        previousScene:resumeGame()
     elseif ( phase == 'did' ) then
 
     end
