@@ -113,14 +113,16 @@
                      "font":"",
                      "size":40,
                      "strokeColor":"#ffffffff",
-                     "text":"Sounds"
+                     "text":"Sounds",
+                     "translationId":"sounds"
                     },
                  "propertytypes":
                     {
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
-                     "text":"string"
+                     "text":"string",
+                     "translationId":"string"
                     },
                  "rotation":0,
                  "type":"label",

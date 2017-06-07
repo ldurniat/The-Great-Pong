@@ -27,7 +27,7 @@ end
 local function markLanguage( name )
    -- Odznaczam wszystkie przyciski
    local langNames = { 'en', 'pl' }
-   for i=1, #langNames do
+   for i=1, #langNames do   
       local languageButton = menu:findObject( langNames[i] )
       languageButton:setFillColor( 1 )
    end   
@@ -40,6 +40,8 @@ end
 
 function scene:create( event )
    local sceneGroup = self.view
+
+   composer.removeScene( 'scene.menu' )
 
    -- Wczytanie mapy
    local uiData = json.decodeFile( system.pathForFile( 
@@ -68,9 +70,9 @@ function scene:create( event )
                composer.hideOverlay()
                composer.gotoScene( 'scene.menu', { params = {} } )
              end )
-         elseif ( name == 'english' ) then
+         elseif ( name == 'en' ) then
             markLanguage( name )
-         elseif ( name == 'polski' ) then
+         elseif ( name == 'pl' ) then
             markLanguage( name )
          end
       end
@@ -95,10 +97,10 @@ function scene:show( event )
             checkbox.isVisible = app[ checkboxNames[i] ] 
             checkbox.isHitTestable = true  
       end 
+   elseif ( phase == "did" ) then
       -- konfiguruję przyciski z językami
       local name = preference:get( 'language' )
       markLanguage( name )
-   elseif ( phase == "did" ) then
       app.addRuntimeEvents( {'ui', ui} )
    end
 end
