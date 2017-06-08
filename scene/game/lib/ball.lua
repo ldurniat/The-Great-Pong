@@ -46,7 +46,7 @@ function M.new( options )
 
 	-- Domyślne opcje
 	options = options or {}
-	local side = options.side or 20
+	local side = options.side or 15
 	local speed = options.speed or 20
 	local rotationSpeed = options.rotationSpeed or 5
 	local enableSparks = options.enableSparks or false
