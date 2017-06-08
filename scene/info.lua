@@ -37,8 +37,7 @@ function scene:create( event )
                 resumeGame = true	   
                 composer.hideOverlay( 'crossFade' )
             elseif ( name == 'chooseball' ) then
-                  composer.showOverlay('scene.chooseball', { isModal=true,
-                    effect='fromTop', params={} } )
+                  composer.showOverlay('scene.chooseball', { isModal=true, params={} } )
             end
         end
         

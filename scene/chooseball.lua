@@ -115,7 +115,7 @@ function scene:create( event )
             elseif ( name == 'right' ) then
                 nextBall()
             elseif ( name == 'ok' ) then 
-                composer.showOverlay( 'scene.info', { isModal=true, effect='fromTop',  params={} } )
+                composer.showOverlay( 'scene.info', { isModal=true,  params={} } )
             elseif ( name == 'frame' ) then
                 pickBall()
             end
