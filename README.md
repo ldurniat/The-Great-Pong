@@ -13,6 +13,7 @@ Work in progress:) (about 75%) So far I done
 - [x] Add a simple sounds
 - [x] Add buy new balls for points
 - [x] Add simple special effects (simple animation, fade and scale objects)
+- [x] Use Zekton font
 
 Used modules or code
 
@@ -37,6 +38,7 @@ Praca w toku:) (ok. 75%) Wykonane do tej pory
 - [x] Dodanie prostych dzwięków
 - [x] Dodanie zakupu nowych piłeczek za punkty
 - [x] Dodanie prostych efektów specialnych (proste animacje, blednięcie i skalowanie obiektów)
+- [x] Wykorzystanie czcionki Zekton
 
 Skorzystałem z modułów lub kodu
 
