@@ -143,7 +143,7 @@
                  "name":"",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"OK"
@@ -168,7 +168,7 @@
                  "name":"title",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"OK"
@@ -193,7 +193,7 @@
                  "name":"points",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"OK"

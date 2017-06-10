@@ -95,4 +95,6 @@ app.sound = preference:get( 'sound' )
 app.music = preference:get( 'music' )
 app.loadSounds()
 
+app.font = 'scene/menu/font/zektonfree.ttf'
+
 composer.gotoScene( 'scene.menu' )

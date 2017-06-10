@@ -71,7 +71,7 @@
                  "name":"restart",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":36,
                      "strokeColor":"#ffffffff",
                      "text":"Restart",
@@ -98,7 +98,7 @@
                  "name":"message",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"You are on the left side. Drag paddle to start moving."
@@ -123,7 +123,7 @@
                  "name":"menu",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":36,
                      "strokeColor":"#ffffffff",
                      "text":"Menu",

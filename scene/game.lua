@@ -146,11 +146,11 @@ function scene:create( event )
    computer.x, computer.y = _R + _W + player.width, _CY 
    
    -- dodanie obiektu przechowującego wynik dla obu graczy
-   playerScore = scoring.new()
+   playerScore = scoring.new({font=app.font})
    playerScore.x, playerScore.y = _CX - 100, _T - player.height 
    app.setRP( playerScore, 'CenterRight')
 
-   computerScore = scoring.new( {align='left'} )
+   computerScore = scoring.new( {align='left', font=app.font} )
    computerScore.x, computerScore.y = _CX + 100, _T - player.height 
    app.setRP( computerScore, 'CenterLeft')
 

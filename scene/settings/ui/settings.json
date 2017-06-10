@@ -83,7 +83,7 @@
                  "name":"back",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"Back",
@@ -110,7 +110,7 @@
                  "name":"sounds",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"Sounds",
@@ -137,7 +137,7 @@
                  "name":"music",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"Music",
@@ -164,7 +164,7 @@
                  "name":"language",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"Languages",
@@ -191,7 +191,7 @@
                  "name":"",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"English"
@@ -216,7 +216,7 @@
                  "name":"",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
                      "text":"Polski"

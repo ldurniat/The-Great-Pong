@@ -23,7 +23,7 @@
                  "name":"totalpoints",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":25,
                      "strokeColor":"#ffffffff",
                      "text":""
@@ -132,7 +132,7 @@
                  "name":"",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":35,
                      "strokeColor":"#ffffffff",
                      "text":"Play",
@@ -159,7 +159,7 @@
                  "name":"",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":35,
                      "strokeColor":"#ffffffff",
                      "text":"Settings",
@@ -186,7 +186,7 @@
                  "name":"",
                  "properties":
                     {
-                     "font":"",
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":35,
                      "strokeColor":"#ffffffff",
                      "text":"Donate",
