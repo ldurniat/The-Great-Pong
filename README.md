@@ -1,10 +1,12 @@
-# My-Pong-Game
+# My-Pong-Game v1.0.18
 
 *My-Pong-Game* is a clone of [Pong](https://en.wikipedia.org/wiki/Pong) game developed by Atari. A game is created in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
 
-![Game play from game](http://i.imgur.com/Qxq3Y0c.gif)
+![Game play from game](http://i.imgur.com/vz2OpFJ.gif)
 
-Work in progress:) (about 75%) So far I done
+[Prevoius gif](http://i.imgur.com/Qxq3Y0c.gif)
+
+Work in progress:) (about 85%) So far I done
 
 - [x] Add main menu, both mode, popup and settings scenes
 - [x] Add module to save/load settings
@@ -14,6 +16,7 @@ Work in progress:) (about 75%) So far I done
 - [x] Add buy new balls for points
 - [x] Add simple special effects (simple animation, fade and scale objects)
 - [x] Use Zekton font
+- [x] New look
 
 Used modules or code
 
@@ -29,7 +32,7 @@ My blog: [Mój #gamedev blog](https://ldurniat.wordpress.com)
 
 *My-Pong-Game* to klon gry [Pong](https://pl.wikipedia.org/wiki/Pong) stworzony przy użyciu [Corona SDK](https://coronalabs.com/corona-sdk/) oraz języka Lua.
 
-Praca w toku:) (ok. 75%) Wykonane do tej pory
+Praca w toku:) (ok. 85%) Wykonane do tej pory
 
 - [x] Dodanie scen z menu głównym, dwoma trybami, przejściowymi oraz ustawieniami
 - [x] Dodanie modułu do zapisywania/odczytywania ustawień
@@ -39,6 +42,7 @@ Praca w toku:) (ok. 75%) Wykonane do tej pory
 - [x] Dodanie zakupu nowych piłeczek za punkty
 - [x] Dodanie prostych efektów specialnych (proste animacje, blednięcie i skalowanie obiektów)
 - [x] Wykorzystanie czcionki Zekton
+- [x] Nowy wygląd
 
 Skorzystałem z modułów lub kodu
 
