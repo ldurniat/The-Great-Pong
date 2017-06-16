@@ -7,7 +7,8 @@ local tiled        = require( 'com.ponywolf.ponytiled' )
 local json         = require( 'json' )
 local app          = require( 'lib.app' )
 local preference   = require( 'preference' ) 
-local fx           = require( 'com.ponywolf.ponyfx' ) 
+local fx           = require( 'com.ponywolf.ponyfx' )
+local widget       = require( 'widget' ) 
 
 -- Lokalne zmienne
 local scene = composer.newScene()
@@ -29,11 +30,11 @@ local function markLanguage( name )
    local langNames = { 'en', 'pl' }
    for i=1, #langNames do   
       local languageButton = menu:findObject( langNames[i] )
-      languageButton:setFillColor( 1 )
+      languageButton:setFillColor( 0 )
    end   
    -- Zaznaczam wybrany przycisk z nazwą języka
    local languageButton = menu:findObject( name )
-   languageButton:setFillColor( 0, 170 / 255, 212 / 255 )
+   languageButton:setFillColor( 1 )
    -- Zapisuje wybrany język
    preference:set( 'language', name )
 end   
@@ -80,7 +81,23 @@ function scene:create( event )
       return true 
    end
 
-   sceneGroup:insert( menu )
+   -- Create the widget
+   local scrollView = widget.newScrollView(
+       {
+           top = 0,
+           left = 0,
+           width = 1280,
+           height = 800,
+           scrollWidth = 600,
+           scrollHeight = 800,
+           hideBackground = true,
+           horizontalScrollDisabled = true,
+           listener = scrollListener
+       }
+   )
+   scrollView:insert( menu )
+
+   sceneGroup:insert( scrollView )
 end
  
 function scene:show( event )

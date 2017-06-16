@@ -6,25 +6,13 @@
          "name":"title",
          "objects":[
                 {
-                 "gid":8,
-                 "height":158,
-                 "id":7,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":326,
-                 "x":472,
-                 "y":240
-                }, 
-                {
                  "height":56,
                  "id":8,
                  "name":"totalpoints",
                  "properties":
                     {
                      "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":25,
+                     "size":45,
                      "strokeColor":"#ffffffff",
                      "text":""
                     },
@@ -38,45 +26,9 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":256,
+                 "width":272,
                  "x":480,
-                 "y":280
-                }, 
-                {
-                 "gid":9,
-                 "height":69,
-                 "id":10,
-                 "name":"play",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":267,
-                 "x":472,
-                 "y":432
-                }, 
-                {
-                 "gid":9,
-                 "height":69,
-                 "id":13,
-                 "name":"settings",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":267,
-                 "x":472,
-                 "y":528
-                }, 
-                {
-                 "gid":9,
-                 "height":69,
-                 "id":15,
-                 "name":"donate",
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":267,
-                 "x":472,
-                 "y":624
+                 "y":688
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -91,121 +43,100 @@
          "name":"buttons",
          "objects":[
                 {
-                 "gid":7,
-                 "height":69,
-                 "id":2,
-                 "name":"achievements",
+                 "gid":10,
+                 "height":188,
+                 "id":17,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":395,
+                 "x":424,
+                 "y":272
+                }, 
+                {
+                 "gid":11,
+                 "height":343,
+                 "id":19,
+                 "name":"play",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":79,
-                 "x":432,
-                 "y":744
+                 "width":327,
+                 "x":456,
+                 "y":648
                 }, 
                 {
-                 "gid":3,
-                 "height":69,
-                 "id":3,
-                 "name":"gpgs",
+                 "gid":12,
+                 "height":98,
+                 "id":20,
+                 "name":"settings",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":79,
-                 "x":544,
-                 "y":744
+                 "width":98,
+                 "x":288,
+                 "y":384
                 }, 
                 {
-                 "gid":5,
-                 "height":69,
-                 "id":5,
+                 "gid":16,
+                 "height":98,
+                 "id":21,
+                 "name":"ranking",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":98,
+                 "x":864,
+                 "y":384
+                }, 
+                {
+                 "gid":17,
+                 "height":98,
+                 "id":22,
                  "name":"rate",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":79,
-                 "x":672,
-                 "y":744
+                 "width":98,
+                 "x":864,
+                 "y":704
                 }, 
                 {
-                 "height":40,
-                 "id":11,
-                 "name":"",
-                 "properties":
-                    {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":35,
-                     "strokeColor":"#ffffffff",
-                     "text":"Play",
-                     "translationId":"play"
-                    },
-                 "propertytypes":
-                    {
-                     "font":"string",
-                     "size":"int",
-                     "strokeColor":"color",
-                     "text":"string",
-                     "translationId":"string"
-                    },
+                 "gid":13,
+                 "height":98,
+                 "id":23,
+                 "name":"archievements",
                  "rotation":0,
-                 "type":"label",
+                 "type":"button",
                  "visible":true,
-                 "width":232,
-                 "x":488,
-                 "y":376
+                 "width":98,
+                 "x":864,
+                 "y":544
                 }, 
                 {
-                 "height":40,
-                 "id":14,
-                 "name":"",
-                 "properties":
-                    {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":35,
-                     "strokeColor":"#ffffffff",
-                     "text":"Settings",
-                     "translationId":"settings"
-                    },
-                 "propertytypes":
-                    {
-                     "font":"string",
-                     "size":"int",
-                     "strokeColor":"color",
-                     "text":"string",
-                     "translationId":"string"
-                    },
+                 "gid":14,
+                 "height":98,
+                 "id":24,
+                 "name":"donate",
                  "rotation":0,
-                 "type":"label",
+                 "type":"button",
                  "visible":true,
-                 "width":232,
-                 "x":488,
-                 "y":472
+                 "width":98,
+                 "x":288,
+                 "y":544
                 }, 
                 {
-                 "height":40,
-                 "id":16,
-                 "name":"",
-                 "properties":
-                    {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":35,
-                     "strokeColor":"#ffffffff",
-                     "text":"Donate",
-                     "translationId":"donate"
-                    },
-                 "propertytypes":
-                    {
-                     "font":"string",
-                     "size":"int",
-                     "strokeColor":"color",
-                     "text":"string",
-                     "translationId":"string"
-                    },
+                 "gid":15,
+                 "height":98,
+                 "id":25,
+                 "name":"help",
                  "rotation":0,
-                 "type":"label",
+                 "type":"button",
                  "visible":true,
-                 "width":232,
-                 "x":488,
-                 "y":568
+                 "width":98,
+                 "x":288,
+                 "y":704
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -214,7 +145,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":17,
+ "nextobjectid":27,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -225,44 +156,48 @@
          "margin":0,
          "name":"ui",
          "spacing":0,
-         "tilecount":8,
-         "tileheight":158,
+         "tilecount":9,
+         "tileheight":343,
          "tiles":
             {
-             "1":
-                {
-                 "image":"donateButton.png"
-                },
-             "2":
-                {
-                 "image":"gpgsButton.png"
-                },
-             "3":
+             "10":
                 {
                  "image":"playButton.png"
                 },
-             "4":
-                {
-                 "image":"rateButton.png"
-                },
-             "5":
+             "11":
                 {
                  "image":"settingsButton.png"
                 },
-             "6":
+             "12":
                 {
-                 "image":"achievementsButton.png"
+                 "image":"archievementsButton.png"
                 },
-             "7":
+             "13":
                 {
-                 "image":"title.png"
+                 "image":"donateButton.png"
+                },
+             "14":
+                {
+                 "image":"helpButton.png"
+                },
+             "15":
+                {
+                 "image":"rankingButton.png"
+                },
+             "16":
+                {
+                 "image":"rateButton.png"
                 },
              "8":
                 {
                  "image":"button.png"
+                },
+             "9":
+                {
+                 "image":"title.png"
                 }
             },
-         "tilewidth":326
+         "tilewidth":395
         }],
  "tilewidth":32,
  "version":1,

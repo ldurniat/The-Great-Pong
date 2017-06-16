@@ -14,32 +14,8 @@
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":192,
-                 "y":584
-                }, 
-                {
-                 "gid":2,
-                 "height":72,
-                 "id":10,
-                 "name":"musicOff",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":83,
-                 "x":432,
-                 "y":296
-                }, 
-                {
-                 "gid":2,
-                 "height":72,
-                 "id":7,
-                 "name":"soundOff",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":83,
-                 "x":432,
-                 "y":176
+                 "x":184,
+                 "y":600
                 }, 
                 {
                  "gid":1,
@@ -51,7 +27,7 @@
                  "visible":true,
                  "width":267,
                  "x":352,
-                 "y":392
+                 "y":408
                 }, 
                 {
                  "gid":1,
@@ -63,7 +39,31 @@
                  "visible":true,
                  "width":267,
                  "x":352,
-                 "y":480
+                 "y":496
+                }, 
+                {
+                 "gid":5,
+                 "height":89,
+                 "id":23,
+                 "name":"soundOff",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":89,
+                 "x":448,
+                 "y":144
+                }, 
+                {
+                 "gid":4,
+                 "height":89,
+                 "id":26,
+                 "name":"music",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":89,
+                 "x":448,
+                 "y":296
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -101,8 +101,8 @@
                  "type":"label",
                  "visible":true,
                  "width":232,
-                 "x":208,
-                 "y":528
+                 "x":200,
+                 "y":544
                 }, 
                 {
                  "height":40,
@@ -110,6 +110,7 @@
                  "name":"sounds",
                  "properties":
                     {
+                     "align":"left",
                      "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
@@ -118,6 +119,7 @@
                     },
                  "propertytypes":
                     {
+                     "align":"string",
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
@@ -127,16 +129,17 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":272,
-                 "x":56,
-                 "y":128
+                 "width":280,
+                 "x":32,
+                 "y":80
                 }, 
                 {
                  "height":40,
                  "id":6,
-                 "name":"music",
+                 "name":"musicLabel",
                  "properties":
                     {
+                     "align":"left",
                      "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
@@ -145,6 +148,7 @@
                     },
                  "propertytypes":
                     {
+                     "align":"string",
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
@@ -154,8 +158,8 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":272,
-                 "x":56,
+                 "width":280,
+                 "x":32,
                  "y":232
                 }, 
                 {
@@ -164,6 +168,7 @@
                  "name":"language",
                  "properties":
                     {
+                     "align":"left",
                      "font":"scene\/menu\/font\/zektonfree.ttf",
                      "size":40,
                      "strokeColor":"#ffffffff",
@@ -172,6 +177,7 @@
                     },
                  "propertytypes":
                     {
+                     "align":"string",
                      "font":"string",
                      "size":"int",
                      "strokeColor":"color",
@@ -181,8 +187,8 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":272,
-                 "x":56,
+                 "width":280,
+                 "x":32,
                  "y":368
                 }, 
                 {
@@ -192,7 +198,7 @@
                  "properties":
                     {
                      "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":40,
+                     "size":30,
                      "strokeColor":"#ffffffff",
                      "text":"English"
                     },
@@ -208,7 +214,7 @@
                  "visible":true,
                  "width":208,
                  "x":384,
-                 "y":336
+                 "y":352
                 }, 
                 {
                  "height":40,
@@ -217,7 +223,7 @@
                  "properties":
                     {
                      "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":40,
+                     "size":30,
                      "strokeColor":"#ffffffff",
                      "text":"Polski"
                     },
@@ -233,7 +239,7 @@
                  "visible":true,
                  "width":208,
                  "x":376,
-                 "y":424
+                 "y":440
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -248,27 +254,27 @@
          "name":"checkButtons",
          "objects":[
                 {
-                 "gid":3,
-                 "height":72,
-                 "id":11,
+                 "gid":4,
+                 "height":89,
+                 "id":24,
                  "name":"sound",
                  "rotation":0,
                  "type":"button",
                  "visible":true,
-                 "width":83,
-                 "x":432,
-                 "y":176
+                 "width":89,
+                 "x":448,
+                 "y":144
                 }, 
                 {
-                 "gid":3,
-                 "height":72,
-                 "id":14,
-                 "name":"music",
+                 "gid":5,
+                 "height":89,
+                 "id":27,
+                 "name":"musicOff",
                  "rotation":0,
-                 "type":"button",
+                 "type":"",
                  "visible":true,
-                 "width":83,
-                 "x":432,
+                 "width":89,
+                 "x":448,
                  "y":296
                 }],
          "opacity":1,
@@ -278,7 +284,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":23,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -289,8 +295,8 @@
          "margin":0,
          "name":"ui",
          "spacing":0,
-         "tilecount":3,
-         "tileheight":72,
+         "tilecount":5,
+         "tileheight":89,
          "tileproperties":
             {
              "0":
@@ -318,6 +324,14 @@
              "2":
                 {
                  "image":"okCheckButton.png"
+                },
+             "3":
+                {
+                 "image":"checkboxButtonSelected.png"
+                },
+             "4":
+                {
+                 "image":"checkboxButtonUnSelected.png"
                 }
             },
          "tilewidth":267

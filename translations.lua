@@ -8,17 +8,13 @@ local english = {
 	['chooseBall']  = 'Choose Ball',
 	['winMessage']  = 'You WIN. Your Total Points: ',
 	['loseMessage'] = 'You lost. Your Total Points: ',
-	['sounds'] 		= 'Sounds',
-	['music'] 		= 'Music',
-	['languages']   = 'Select language', 
+	['sounds'] 		= 'Sounds:',
+	['music'] 		= 'Music:',
+	['languages']   = 'Select language:', 
 	['back'] 		= 'Back',
-	['totalPoints'] = 'Total Points',
+	['totalPoints'] = "Total Points\n",
 	['menu']        = 'Menu',
 	['restart']     = 'Restart',
-	['play']        = 'Play',
-	['settings']    = 'Settings',
-	['donate']      = 'Donate',
-
 }
 
 local polski = {
@@ -27,16 +23,13 @@ local polski = {
 	['chooseBall']  = 'Wybór piłki',
 	['winMessage']  = 'Wygrałeś. Twój wynik: ',
 	['loseMessage'] = 'Przegrałeś. Twój wynik: ',
-	['sounds'] 		= 'Dzwięki',
-	['music'] 		= 'Muzyka',
-	['languages']   = 'Wybór języka', 
+	['sounds'] 		= 'Dzwięki:',
+	['music'] 		= 'Muzyka:',
+	['languages']   = 'Wybór języka:', 
 	['back'] 		= 'Wróć',
-	['totalPoints'] = 'Twój wynik',
+	['totalPoints'] = "Wynik:\n",
 	['menu']        = 'Menu',
 	['restart']     = 'Nowa gra',
-	['play']        = 'Nowa gra',
-	['settings']    = 'Ustawienia',
-	['donate']      = 'Wesprzyj',
 }
 
 M = {
