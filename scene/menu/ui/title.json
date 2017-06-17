@@ -26,9 +26,9 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":272,
-                 "x":480,
-                 "y":688
+                 "width":416,
+                 "x":408,
+                 "y":704
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -75,7 +75,7 @@
                  "type":"button",
                  "visible":true,
                  "width":98,
-                 "x":288,
+                 "x":224,
                  "y":384
                 }, 
                 {
@@ -87,7 +87,7 @@
                  "type":"button",
                  "visible":true,
                  "width":98,
-                 "x":864,
+                 "x":928,
                  "y":384
                 }, 
                 {
@@ -99,7 +99,7 @@
                  "type":"button",
                  "visible":true,
                  "width":98,
-                 "x":864,
+                 "x":928,
                  "y":704
                 }, 
                 {
@@ -111,7 +111,7 @@
                  "type":"button",
                  "visible":true,
                  "width":98,
-                 "x":864,
+                 "x":928,
                  "y":544
                 }, 
                 {
@@ -123,7 +123,7 @@
                  "type":"button",
                  "visible":true,
                  "width":98,
-                 "x":288,
+                 "x":224,
                  "y":544
                 }, 
                 {
@@ -135,7 +135,7 @@
                  "type":"button",
                  "visible":true,
                  "width":98,
-                 "x":288,
+                 "x":224,
                  "y":704
                 }],
          "opacity":1,

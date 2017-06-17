@@ -12,7 +12,7 @@ local english = {
 	['music'] 		= 'Music:',
 	['languages']   = 'Select language:', 
 	['back'] 		= 'Back',
-	['totalPoints'] = "Total Points\n",
+	['totalPoints'] = "Total Points : ",
 	['menu']        = 'Menu',
 	['restart']     = 'Restart',
 }
@@ -27,7 +27,7 @@ local polski = {
 	['music'] 		= 'Muzyka:',
 	['languages']   = 'Wybór języka:', 
 	['back'] 		= 'Wróć',
-	['totalPoints'] = "Wynik:\n",
+	['totalPoints'] = "Wynik : ",
 	['menu']        = 'Menu',
 	['restart']     = 'Nowa gra',
 }
