@@ -119,6 +119,7 @@ function scene:resumeGame()
 end   
 
 function scene:create( event ) 
+   composer.returnTo = 'scene.menu'
    local sceneGroup = self.view
 
    local sndDir = 'scene/game/sfx/'

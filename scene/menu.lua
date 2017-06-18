@@ -15,7 +15,6 @@ local scene = composer.newScene()
 local menu, ui
 
 function scene:create( event )
-
    local sceneGroup = self.view
    local prevScene = composer.getSceneName( 'previous' ) 
    

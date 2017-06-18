@@ -44,6 +44,7 @@ local function markLanguage( name )
 end   
 
 function scene:create( event )
+   composer.returnTo = 'scene.menu'
    local sceneGroup = self.view
 
    composer.removeScene( 'scene.menu' )

@@ -74,7 +74,22 @@ local function onSystemEvent( event )
 	end
 end
 
-Runtime:addEventListener( 'system', onSystemEvent )
+-- Obsługa przycisku BACK
+local function onKeyEvent( event )
+   local phase = event.phase
+   local keyName = event.keyName
+ 
+	if ( 'back' == keyName and phase == 'up' ) then
+		local lastScene = composer.returnTo
+		if lastScene then
+			composer.gotoScene( lastScene, { effect='crossFade', time=500 } )
+		else
+			native.requestExit()
+		end
+		return true
+   	end
+ 	return false  
+end
 
 -- Ładowanie ustawień z pliku settings.json
 preference:load()
@@ -96,5 +111,8 @@ app.music = preference:get( 'music' )
 app.loadSounds()
 
 app.font = 'scene/menu/font/zektonfree.ttf'
+
+Runtime:addEventListener( 'key', onKeyEvent )   
+Runtime:addEventListener( 'system', onSystemEvent )
 
 composer.gotoScene( 'scene.menu' )
