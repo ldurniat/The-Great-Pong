@@ -17,6 +17,7 @@ Work in progress:) (about 85%) So far I done
 - [x] Add simple special effects (simple animation, fade and scale objects)
 - [x] Use Zekton font
 - [x] New look
+- [x] Add function to handle BACK button
 
 Used modules or code
 
@@ -43,6 +44,7 @@ Praca w toku:) (ok. 85%) Wykonane do tej pory
 - [x] Dodanie prostych efektów specialnych (proste animacje, blednięcie i skalowanie obiektów)
 - [x] Wykorzystanie czcionki Zekton
 - [x] Nowy wygląd
+- [x] Dodanie obsługi przycisku BACK 
 
 Skorzystałem z modułów lub kodu
 
