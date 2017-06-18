@@ -1,6 +1,6 @@
-# My-Pong-Game v1.0.18
+# The Great Pong v1.0.18
 
-*My-Pong-Game* is a clone of [Pong](https://en.wikipedia.org/wiki/Pong) game developed by Atari. A game is created in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
+*The Great Pong* is a clone of [Pong](https://en.wikipedia.org/wiki/Pong) game developed by Atari. A game is created in [Corona SDK](https://coronalabs.com/corona-sdk/) and Lua. 
 
 ![Game play from game](http://i.imgur.com/5mzGbeF.gif)
 
@@ -28,9 +28,9 @@ Used modules or code
 
 My blog: [Mój #gamedev blog](https://ldurniat.wordpress.com)
 
-# My-Pong-Game 
+# The Great Pong 
 
-*My-Pong-Game* to klon gry [Pong](https://pl.wikipedia.org/wiki/Pong) stworzony przy użyciu [Corona SDK](https://coronalabs.com/corona-sdk/) oraz języka Lua.
+*The Great Pong* to klon gry [Pong](https://pl.wikipedia.org/wiki/Pong) stworzony przy użyciu [Corona SDK](https://coronalabs.com/corona-sdk/) oraz języka Lua.
 
 Praca w toku:) (ok. 85%) Wykonane do tej pory
 
