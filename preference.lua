@@ -41,7 +41,8 @@ function M:load()
 		self:set( 'sound', true )
 		self:set( 'ballInUse', 1 ) 
 		self:set( 'totalPoints', 0 )
-		self:set( 'balls', balls )  		
+		self:set( 'balls', balls )  	
+		self:set( 'gamesPlayed', 0 )	
 
 		loadsave.saveTable( self.settings, 'settings.json' )
 	else

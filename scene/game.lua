@@ -59,6 +59,8 @@ end
 
 local function gameOver()
    app.playSound( scene.sounds.lost )
+   local gamesPlayed = preference:get( 'gamesPlayed' )
+   preference:set( 'gamesPlayed', gamesPlayed + 1 )
    local textId = playerScore:get() == maxScore and 'win' or 'lost'
    app.removeAllRuntimeEvents()
    local screen = display.getCurrentStage()

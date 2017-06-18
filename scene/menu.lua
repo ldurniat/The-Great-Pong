@@ -64,7 +64,11 @@ function scene:show( event )
       local totalPoints = preference:get( 'totalPoints' )
       local labelPoints = menu:findObject( 'totalpoints' )
       local lang = preference:get( 'language' )
-      labelPoints.text = translations[lang]['totalPoints'] .. ' '.. totalPoints
+      labelPoints.text = translations[lang]['totalPoints'] .. totalPoints
+
+      local gamesPlayed = preference:get( 'gamesPlayed' )
+      local labelGamesPlayed = menu:findObject( 'gamesPlayed' )
+      labelGamesPlayed.text = translations[lang]['gamesPlayed'] .. gamesPlayed
    elseif ( phase == 'did' ) then
       app.addRuntimeEvents( {'ui', ui} )
    end

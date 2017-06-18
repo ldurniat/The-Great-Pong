@@ -15,6 +15,7 @@ local english = {
 	['totalPoints'] = "Total Points : ",
 	['menu']        = 'Menu',
 	['restart']     = 'Restart',
+	['gamesPlayed'] = 'Games Played : ',
 }
 
 local polski = {
@@ -30,6 +31,7 @@ local polski = {
 	['totalPoints'] = "Wynik : ",
 	['menu']        = 'Menu',
 	['restart']     = 'Nowa gra',
+	['gamesPlayed'] = 'Liczba meczy : ',
 }
 
 M = {

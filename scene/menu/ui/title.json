@@ -28,7 +28,32 @@
                  "visible":true,
                  "width":416,
                  "x":408,
-                 "y":704
+                 "y":656
+                }, 
+                {
+                 "height":56,
+                 "id":28,
+                 "name":"gamesPlayed",
+                 "properties":
+                    {
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "size":45,
+                     "strokeColor":"#ffffffff",
+                     "text":""
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":416,
+                 "x":408,
+                 "y":728
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -52,7 +77,7 @@
                  "visible":true,
                  "width":395,
                  "x":424,
-                 "y":272
+                 "y":224
                 }, 
                 {
                  "gid":11,
@@ -64,7 +89,7 @@
                  "visible":true,
                  "width":327,
                  "x":456,
-                 "y":648
+                 "y":600
                 }, 
                 {
                  "gid":12,
@@ -76,7 +101,7 @@
                  "visible":true,
                  "width":98,
                  "x":224,
-                 "y":384
+                 "y":336
                 }, 
                 {
                  "gid":16,
@@ -88,7 +113,7 @@
                  "visible":true,
                  "width":98,
                  "x":928,
-                 "y":384
+                 "y":336
                 }, 
                 {
                  "gid":17,
@@ -100,7 +125,7 @@
                  "visible":true,
                  "width":98,
                  "x":928,
-                 "y":704
+                 "y":656
                 }, 
                 {
                  "gid":13,
@@ -112,7 +137,7 @@
                  "visible":true,
                  "width":98,
                  "x":928,
-                 "y":544
+                 "y":496
                 }, 
                 {
                  "gid":14,
@@ -124,7 +149,7 @@
                  "visible":true,
                  "width":98,
                  "x":224,
-                 "y":544
+                 "y":496
                 }, 
                 {
                  "gid":15,
@@ -136,7 +161,7 @@
                  "visible":true,
                  "width":98,
                  "x":224,
-                 "y":704
+                 "y":656
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -145,7 +170,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":27,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
