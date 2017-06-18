@@ -30,11 +30,15 @@ local function markLanguage( name )
    local langNames = { 'en', 'pl' }
    for i=1, #langNames do   
       local languageButton = menu:findObject( langNames[i] )
-      languageButton:setFillColor( 0 )
+      languageButton.xScale = 1
+      languageButton.yScale = 1
+      languageButton.alpha = 1
    end   
    -- Zaznaczam wybrany przycisk z nazwą języka
    local languageButton = menu:findObject( name )
-   languageButton:setFillColor( 1 )
+      languageButton.xScale = 0.9
+      languageButton.yScale = 0.9
+      languageButton.alpha = 0.7
    -- Zapisuje wybrany język
    preference:set( 'language', name )
 end   
