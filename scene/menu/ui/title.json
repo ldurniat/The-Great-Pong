@@ -54,6 +54,18 @@
                  "width":416,
                  "x":408,
                  "y":728
+                }, 
+                {
+                 "gid":18,
+                 "height":97,
+                 "id":29,
+                 "name":"buyBalls",
+                 "rotation":0,
+                 "type":"button",
+                 "visible":true,
+                 "width":97,
+                 "x":224,
+                 "y":592
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -125,7 +137,7 @@
                  "visible":true,
                  "width":98,
                  "x":928,
-                 "y":656
+                 "y":592
                 }, 
                 {
                  "gid":13,
@@ -137,7 +149,7 @@
                  "visible":true,
                  "width":98,
                  "x":928,
-                 "y":496
+                 "y":464
                 }, 
                 {
                  "gid":14,
@@ -149,7 +161,7 @@
                  "visible":true,
                  "width":98,
                  "x":224,
-                 "y":496
+                 "y":464
                 }, 
                 {
                  "gid":15,
@@ -161,7 +173,7 @@
                  "visible":true,
                  "width":98,
                  "x":224,
-                 "y":656
+                 "y":720
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -170,7 +182,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":29,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -181,7 +193,7 @@
          "margin":0,
          "name":"ui",
          "spacing":0,
-         "tilecount":9,
+         "tilecount":10,
          "tileheight":343,
          "tiles":
             {
@@ -212,6 +224,10 @@
              "16":
                 {
                  "image":"rateButton.png"
+                },
+             "17":
+                {
+                 "image":"buyBallsButton.png"
                 },
              "8":
                 {
