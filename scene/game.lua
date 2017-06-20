@@ -172,7 +172,8 @@ function scene:show( event )
    if ( phase == 'will' ) then
       
    elseif ( phase == 'did' ) then
-      composer.showOverlay( "scene.info", { isModal=true, effect="crossFade",  params={} } )
+      --composer.showOverlay( "scene.info", { isModal=true, effect="crossFade",  params={} } )
+      self:resumeGame()
    end
 end
  
