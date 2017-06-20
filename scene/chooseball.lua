@@ -2,8 +2,8 @@
 -- Okno z wyborem piłeczki 
 --
 -- Wymagane moduły
-local composer   = require( "composer" )
-local app        = require( "lib.app" )
+local composer   = require( 'composer' )
+local app        = require( 'lib.app' )
 local tiled      = require( 'com.ponywolf.ponytiled' )
 local json       = require( 'json' )
 local fx         = require( 'com.ponywolf.ponyfx' ) 
@@ -115,7 +115,7 @@ function scene:create( event )
             elseif ( name == 'right' ) then
                 nextBall()
             elseif ( name == 'ok' ) then 
-                composer.showOverlay( 'scene.info', { isModal=true,  params={} } )
+                composer.hideOverlay( 'crossFade',  500 )
             elseif ( name == 'frame' ) then
                 pickBall()
             end
@@ -127,6 +127,11 @@ function scene:create( event )
     for i=1, last do widgets.images[i] = menu:findObject( 'ball' .. i ) end
     for i=1, #names do widgets[ names[i] ] = menu:findObject( names[i] ) end
 
+    local background = display.newRect( _CX, _CY, _W - 2 * _L, _H - 2 * _T )
+    background:setFillColor( 0 )
+    background.alpha = 0.9
+
+    sceneGroup:insert( background )
     sceneGroup:insert( menu )  
 end
  
@@ -134,21 +139,21 @@ function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
 
-    if ( phase == "will" ) then
+    if ( phase == 'will' ) then
       showBall()  
       app.addRuntimeEvents( {'ui', ui} )
-    elseif ( phase == "did" ) then     
+    elseif ( phase == 'did' ) then     
     end
 end
  
 function scene:hide( event )
     local phase = event.phase
 
-    if ( phase == "will" ) then
-        app.removeAllRuntimeEvents() 
+    if ( phase == 'will' ) then
+        app.removeRuntimeEvents( {'ui', ui} )
         preference:set( 'ballInUse', selected )
         preference:set( 'totalPoints', totalPoints )
-    elseif ( phase == "did" ) then
+    elseif ( phase == 'did' ) then
       
     end
 end
@@ -157,9 +162,9 @@ function scene:destroy( event )
 
 end
  
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
+scene:addEventListener( 'create', scene )
+scene:addEventListener( 'show', scene )
+scene:addEventListener( 'hide', scene )
+scene:addEventListener( 'destroy', scene )
  
 return scene
