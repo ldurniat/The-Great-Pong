@@ -115,7 +115,7 @@ function scene:create( event )
             elseif ( name == 'right' ) then
                 nextBall()
             elseif ( name == 'ok' ) then 
-                composer.hideOverlay( 'crossFade',  500 )
+                composer.hideOverlay( 'fade',  200 )
             elseif ( name == 'frame' ) then
                 pickBall()
             end

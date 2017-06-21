@@ -34,7 +34,7 @@ function scene:create( event )
    function ui( event )
       local phase = event.phase
       local name = event.buttonName
-      print( 'Touch in ui phase=', phase, 'name=', name )
+
       if phase == 'released' then
          app.playSound( 'button' )
          
@@ -47,9 +47,9 @@ function scene:create( event )
                   composer.gotoScene( 'scene.settings', { params = {} } )
                end )
          elseif ( name == 'buyBalls' ) then  
-            fx.fadeOut( function()
-               composer.showOverlay( 'scene.chooseball', { isModal=true,  params={} } )   
-            end )
+            --fx.fadeOut( function()
+               composer.showOverlay( 'scene.chooseball', { effect='fade', time=200, isModal=true,  params={} } )   
+            --end )
          end
       end
       return true 
@@ -73,7 +73,7 @@ function scene:show( event )
       local labelGamesPlayed = menu:findObject( 'gamesPlayed' )
       labelGamesPlayed.text = translations[lang]['gamesPlayed'] .. gamesPlayed
    elseif ( phase == 'did' ) then
-      print( "Dodanie app.addRuntimeEvents( {'ui', ui} )",  ui )
+  
       app.addRuntimeEvents( {'ui', ui} )
    end
 end
@@ -84,7 +84,6 @@ function scene:hide( event )
    local phase = event.phase
  
    if ( phase == 'will' ) then
-      print( "Dodanie app.removeAllRuntimeEvents()" )
       app.removeAllRuntimeEvents()
    elseif ( phase == 'did' ) then
    end

@@ -48,6 +48,11 @@ function scene:create( event )
         return true	
     end
 
+    local background = display.newRect( _CX, _CY, _W - 2 * _L, _H - 2 * _T )
+    background:setFillColor( 0 )
+    background.alpha = 0.9
+
+    sceneGroup:insert( background )
     sceneGroup:insert( info )
 end
 
