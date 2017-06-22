@@ -50,6 +50,10 @@ function scene:create( event )
             --fx.fadeOut( function()
                composer.showOverlay( 'scene.chooseball', { effect='fade', time=200, isModal=true,  params={} } )   
             --end )
+         elseif ( name == 'help' ) then  
+            --fx.fadeOut( function()
+               composer.showOverlay( 'scene.help', { effect='fade', time=200, isModal=true,  params={} } )   
+            --end )   
          end
       end
       return true 

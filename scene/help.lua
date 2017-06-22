@@ -11,8 +11,7 @@ local json         = require( 'json' )
 
 -- Lokalne zmienne
 local scene = composer.newScene()
-local info, ui 
-local resumeGame = false      
+local info, ui    
 
 function scene:create( event )
     local sceneGroup = self.view  
@@ -34,16 +33,18 @@ function scene:create( event )
           app.playSound( 'button' )
            
             if ( name == 'ok' ) then	
-                resumeGame = true	   
                 composer.hideOverlay( 'crossFade' )
-            elseif ( name == 'chooseball' ) then
-                  composer.showOverlay('scene.chooseball', { isModal=true, params={} } )
             end
         end
         
         return true	
     end
 
+    local background = display.newRect( _CX, _CY, _W - 2 * _L, _H - 2 * _T )
+    background:setFillColor( 0 )
+    background.alpha = 0.9
+
+    sceneGroup:insert( background )
     sceneGroup:insert( info )
 end
 
@@ -59,14 +60,11 @@ end
 
 function scene:hide( event )
     local phase = event.phase
-    local previousScene = event.parent
 
     if ( phase == 'will' ) then
-        app.removeAllRuntimeEvents()
+        app.removeRuntimeEvents( {'ui', ui} )
     elseif ( phase == 'did' ) then
-        if resumeGame then
-            previousScene:resumeGame()
-        end  
+        
     end
 end
 

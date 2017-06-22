@@ -6,16 +6,16 @@
          "name":"background",
          "objects":[
                 {
-                 "gid":1,
-                 "height":302,
-                 "id":1,
+                 "gid":3,
+                 "height":593,
+                 "id":13,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":598,
+                 "width":593,
                  "x":24,
-                 "y":312
+                 "y":464
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -38,28 +38,8 @@
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":48,
-                 "y":280
-                }, 
-                {
-                 "gid":2,
-                 "height":69,
-                 "id":11,
-                 "name":"chooseball",
-                 "properties":
-                    {
-                     "text":"Choose Ball"
-                    },
-                 "propertytypes":
-                    {
-                     "text":"string"
-                    },
-                 "rotation":0,
-                 "type":"button",
-                 "visible":true,
-                 "width":267,
-                 "x":328,
-                 "y":280
+                 "x":176,
+                 "y":432
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -97,11 +77,11 @@
                  "type":"label",
                  "visible":true,
                  "width":232,
-                 "x":64,
-                 "y":224
+                 "x":192,
+                 "y":376
                 }, 
                 {
-                 "height":128,
+                 "height":440,
                  "id":4,
                  "name":"message",
                  "properties":
@@ -125,34 +105,7 @@
                  "visible":true,
                  "width":528,
                  "x":56,
-                 "y":48
-                }, 
-                {
-                 "height":40,
-                 "id":12,
-                 "name":"chooseball",
-                 "properties":
-                    {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":36,
-                     "strokeColor":"#ffffffff",
-                     "text":"Choose Ball",
-                     "translationId":"chooseBall"
-                    },
-                 "propertytypes":
-                    {
-                     "font":"string",
-                     "size":"int",
-                     "strokeColor":"color",
-                     "text":"string",
-                     "translationId":"string"
-                    },
-                 "rotation":0,
-                 "type":"label",
-                 "visible":true,
-                 "width":232,
-                 "x":344,
-                 "y":224
+                 "y":-96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -161,7 +114,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":13,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -173,19 +126,19 @@
          "name":"ui",
          "spacing":0,
          "tilecount":2,
-         "tileheight":302,
+         "tileheight":593,
          "tiles":
             {
-             "0":
-                {
-                 "image":"backgroundNewGame.png"
-                },
              "1":
                 {
                  "image":"button.png"
+                },
+             "2":
+                {
+                 "image":"background.png"
                 }
             },
-         "tilewidth":598
+         "tilewidth":593
         }],
  "tilewidth":32,
  "version":1,

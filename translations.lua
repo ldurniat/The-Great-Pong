@@ -3,7 +3,7 @@
 local M = {}
 
 local english = {
-	['help'] 		= 'You are on the left side. Drag paddle to start moving.',
+	['help'] 		= "You start on the left side of the screen. Drag paddle to start moving it.\n\nCollect points from each match and buy new balls.",
 	['ok'] 			= 'OK',
 	['chooseBall']  = 'Choose Ball',
 	['winMessage']  = 'You WIN. Your Total Points: ',
@@ -19,7 +19,7 @@ local english = {
 }
 
 local polski = {
-	['help'] 		= 'Znajdujesz się po lewej stronie. Naciśnij i poruszaj aby kierować.',
+	['help'] 		= 'Rozpoczynasz grę po lewej stronie ekranu. Naciśnij i poruszaj aby kierować paletką.\n\nZbieraj punkt z meczy aby móc kupować nowe piłki.',
 	['ok'] 			= 'OK',
 	['chooseBall']  = 'Wybór piłki',
 	['winMessage']  = 'Wygrałeś. Twój wynik: ',
