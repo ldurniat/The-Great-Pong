@@ -26,8 +26,8 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":416,
-                 "x":408,
+                 "width":520,
+                 "x":368,
                  "y":656
                 }, 
                 {
@@ -51,8 +51,8 @@
                  "rotation":0,
                  "type":"label",
                  "visible":true,
-                 "width":416,
-                 "x":408,
+                 "width":528,
+                 "x":368,
                  "y":728
                 }, 
                 {
@@ -60,6 +60,14 @@
                  "height":97,
                  "id":29,
                  "name":"buyBalls",
+                 "properties":
+                    {
+                     "alpha":0.8
+                    },
+                 "propertytypes":
+                    {
+                     "alpha":"float"
+                    },
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -108,6 +116,14 @@
                  "height":98,
                  "id":20,
                  "name":"settings",
+                 "properties":
+                    {
+                     "alpha":0.8
+                    },
+                 "propertytypes":
+                    {
+                     "alpha":"float"
+                    },
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -120,6 +136,14 @@
                  "height":98,
                  "id":21,
                  "name":"ranking",
+                 "properties":
+                    {
+                     "alpha":0.8
+                    },
+                 "propertytypes":
+                    {
+                     "alpha":"float"
+                    },
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -132,6 +156,14 @@
                  "height":98,
                  "id":22,
                  "name":"rate",
+                 "properties":
+                    {
+                     "alpha":0.8
+                    },
+                 "propertytypes":
+                    {
+                     "alpha":"float"
+                    },
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -144,6 +176,14 @@
                  "height":98,
                  "id":23,
                  "name":"archievements",
+                 "properties":
+                    {
+                     "alpha":0.8
+                    },
+                 "propertytypes":
+                    {
+                     "alpha":"float"
+                    },
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -156,6 +196,14 @@
                  "height":98,
                  "id":24,
                  "name":"donate",
+                 "properties":
+                    {
+                     "alpha":0.8
+                    },
+                 "propertytypes":
+                    {
+                     "alpha":"float"
+                    },
                  "rotation":0,
                  "type":"button",
                  "visible":true,
@@ -168,6 +216,14 @@
                  "height":98,
                  "id":25,
                  "name":"help",
+                 "properties":
+                    {
+                     "alpha":0.8
+                    },
+                 "propertytypes":
+                    {
+                     "alpha":"float"
+                    },
                  "rotation":0,
                  "type":"button",
                  "visible":true,

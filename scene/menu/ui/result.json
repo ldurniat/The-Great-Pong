@@ -6,16 +6,16 @@
          "name":"background",
          "objects":[
                 {
-                 "gid":1,
-                 "height":302,
-                 "id":1,
+                 "gid":3,
+                 "height":593,
+                 "id":11,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":598,
-                 "x":24,
-                 "y":312
+                 "width":593,
+                 "x":32,
+                 "y":424
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -38,8 +38,8 @@
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":48,
-                 "y":288
+                 "x":64,
+                 "y":392
                 }, 
                 {
                  "gid":2,
@@ -50,8 +50,8 @@
                  "type":"button",
                  "visible":true,
                  "width":267,
-                 "x":328,
-                 "y":288
+                 "x":336,
+                 "y":392
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -89,8 +89,8 @@
                  "type":"label",
                  "visible":true,
                  "width":232,
-                 "x":64,
-                 "y":232
+                 "x":80,
+                 "y":336
                 }, 
                 {
                  "height":128,
@@ -99,9 +99,9 @@
                  "properties":
                     {
                      "font":"scene\/menu\/font\/zektonfree.ttf",
-                     "size":40,
+                     "size":70,
                      "strokeColor":"#ffffffff",
-                     "text":"You are on the left side. Drag paddle to start moving."
+                     "text":"You WIN!"
                     },
                  "propertytypes":
                     {
@@ -114,8 +114,8 @@
                  "type":"label",
                  "visible":true,
                  "width":528,
-                 "x":56,
-                 "y":48
+                 "x":64,
+                 "y":-128
                 }, 
                 {
                  "height":40,
@@ -141,8 +141,60 @@
                  "type":"label",
                  "visible":true,
                  "width":232,
-                 "x":344,
-                 "y":232
+                 "x":352,
+                 "y":336
+                }, 
+                {
+                 "height":80,
+                 "id":12,
+                 "name":"totalPointsText",
+                 "properties":
+                    {
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "size":30,
+                     "strokeColor":"#ffffffff",
+                     "text":"Your Total Points :",
+                     "translationId":"pointsText"
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string",
+                     "translationId":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":528,
+                 "x":64,
+                 "y":32
+                }, 
+                {
+                 "height":128,
+                 "id":13,
+                 "name":"totalPoints",
+                 "properties":
+                    {
+                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "size":90,
+                     "strokeColor":"#ffffffff",
+                     "text":""
+                    },
+                 "propertytypes":
+                    {
+                     "font":"string",
+                     "size":"int",
+                     "strokeColor":"color",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"label",
+                 "visible":true,
+                 "width":528,
+                 "x":64,
+                 "y":136
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -151,7 +203,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":11,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -163,19 +215,19 @@
          "name":"ui",
          "spacing":0,
          "tilecount":2,
-         "tileheight":302,
+         "tileheight":593,
          "tiles":
             {
-             "0":
-                {
-                 "image":"backgroundNewGame.png"
-                },
              "1":
                 {
                  "image":"button.png"
+                },
+             "2":
+                {
+                 "image":"background.png"
                 }
             },
-         "tilewidth":598
+         "tilewidth":593
         }],
  "tilewidth":32,
  "version":1,
