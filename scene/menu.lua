@@ -39,6 +39,7 @@ function scene:create( event )
          app.playSound( 'button' )
          
          if ( name == 'play' ) then
+            transition.cancel()
             fx.fadeOut( function()
                   composer.gotoScene( 'scene.game', { params = {} } )
                end )
@@ -59,6 +60,15 @@ function scene:create( event )
       return true 
    end
 
+   local playerButton = menu:findObject( 'play' )
+   playerButton.transitionUp = function() 
+      transition.to( playerButton, { transition=easing.outSine, y=(playerButton.y+20), onComplete=playerButton.transitionBottom, time=1000} )
+   end   
+
+   playerButton.transitionBottom = function()  
+      transition.to( playerButton, { transition=easing.outSine, y=(playerButton.y-20), onComplete=playerButton.transitionUp, time=1000} )
+   end
+
    sceneGroup:insert( menu )
 end
  
@@ -77,7 +87,8 @@ function scene:show( event )
       local labelGamesPlayed = menu:findObject( 'gamesPlayed' )
       labelGamesPlayed.text = translations[lang]['gamesPlayed'] .. gamesPlayed
    elseif ( phase == 'did' ) then
-  
+      local playerButton = menu:findObject( 'play' )
+      playerButton.transitionUp()
       app.addRuntimeEvents( {'ui', ui} )
    end
 end
@@ -90,6 +101,7 @@ function scene:hide( event )
    if ( phase == 'will' ) then
       app.removeAllRuntimeEvents()
    elseif ( phase == 'did' ) then
+      transition.cancel()
    end
 end
  

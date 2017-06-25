@@ -66,11 +66,12 @@ function scene:show( event )
     if ( phase == 'will' ) then
             totalPoints = totalPoints + newScore
             local message = {
-                win = translations[lang]['winMessage'] .. totalPoints,
-                lost = translations[lang]['loseMessage'] .. totalPoints,
+                win = translations[lang]['winMessage'],
+                lost = translations[lang]['loseMessage'],
             }
 
             info:findObject('message').text = message[textId]
+            info:findObject('totalPoints').text = totalPoints
             -- zlicza wszystkie zdobyte punkty
             preference:set('totalPoints', totalPoints ) 
     elseif ( phase == 'did' ) then
