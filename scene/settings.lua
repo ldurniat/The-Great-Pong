@@ -70,7 +70,12 @@ function scene:create( event )
          if ( name == 'sound' ) then
             toggleCheckbox( 'sound' )
          elseif ( name == 'music' ) then
-            toggleCheckbox( 'music' )  
+            toggleCheckbox( 'music' ) 
+            if app.music then
+               app.playMusic( 'music' ) 
+            else
+               app.stopMusic( 'music' )
+            end 
          elseif ( name == 'back' ) then
             fx.fadeOut( function()
                composer.hideOverlay()

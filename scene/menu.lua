@@ -87,6 +87,8 @@ function scene:show( event )
       local labelGamesPlayed = menu:findObject( 'gamesPlayed' )
       labelGamesPlayed.text = translations[lang]['gamesPlayed'] .. gamesPlayed
    elseif ( phase == 'did' ) then
+      app.playMusic( 'music' )
+
       local playerButton = menu:findObject( 'play' )
       playerButton.transitionUp()
       app.addRuntimeEvents( {'ui', ui} )

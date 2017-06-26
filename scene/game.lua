@@ -183,8 +183,6 @@ end
  
 function scene:destroy( event )
    app.removeAllRuntimeEvents()
-
-   audio.stop()
 end
  
 scene:addEventListener( 'create', scene )

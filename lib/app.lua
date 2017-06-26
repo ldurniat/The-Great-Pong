@@ -41,7 +41,7 @@ local sounds = {
     button = dir .. 'select.wav',
     wall = dir .. 'wall.wav',
     hit  = dir .. 'hit.wav',
-    lost = dir .. 'lost.wav',  
+    lost = dir .. 'lost.wav', 
 }
 local loadedSounds = {}
 
@@ -94,11 +94,20 @@ end
 
 function M.loadSounds()
     for name in pairs(sounds) do loadSound( name ) end
+    loadedSounds.music = audio.loadStream( 'scene/menu/music/automation.mp3' )
 end
 
 function M.playSound( name )
     if M.sound then audio.play( loadedSounds[name] or name ) end    
 end 
+
+function M.stopMusic( name )
+    audio.stop( 2 )   
+end 
+
+function M.playMusic( name )
+    if M.music then audio.play( loadedSounds[name] or name, { loops = -1, channel = 2 } ) end    
+end
 
 function M.disposeSounds()
     audio.stop()
