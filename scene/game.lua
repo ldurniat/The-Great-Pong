@@ -58,7 +58,7 @@ local function drag( event )
 end   
 
 local function gameOver()
-   app.playSound( scene.sounds.lost )
+   app.playSound( 'lost' )
    local gamesPlayed = preference:get( 'gamesPlayed' )
    preference:set( 'gamesPlayed', gamesPlayed + 1 )
    local textId = playerScore:get() == maxScore and 'win' or 'lost'
@@ -76,7 +76,7 @@ local function touchEdge( event )
    local x = event.x
    local y = event.y
 
-   app.playSound(scene.sounds.wall)
+   app.playSound( 'wall' )
 
    if ( edge == 'right' ) then
       playerScore:add( 1 )   
@@ -121,13 +121,6 @@ end
 function scene:create( event ) 
    composer.returnTo = 'scene.menu'
    local sceneGroup = self.view
-
-   local sndDir = 'scene/game/sfx/'
-   scene.sounds = {
-      wall = audio.loadSound( sndDir .. 'wall.wav' ),
-      hit  = audio.loadSound( sndDir .. 'hit.wav' ),
-      lost = audio.loadSound( sndDir .. 'lost.wav' )    
-   }
 
    -- usuwa poprzednią scene
    local prevScene = composer.getSceneName( 'previous' ) 
@@ -192,10 +185,6 @@ function scene:destroy( event )
    app.removeAllRuntimeEvents()
 
    audio.stop()
-   for s,v in pairs( self.sounds ) do
-      audio.dispose( v )
-      self.sounds[s] = nil
-   end
 end
  
 scene:addEventListener( 'create', scene )

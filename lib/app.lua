@@ -39,6 +39,9 @@ colors['res_red'] = {0.7, 0, 0}
 local dir = 'scene/game/sfx/'
 local sounds = {
     button = dir .. 'select.wav',
+    wall = dir .. 'wall.wav',
+    hit  = dir .. 'hit.wav',
+    lost = dir .. 'lost.wav',  
 }
 local loadedSounds = {}
 

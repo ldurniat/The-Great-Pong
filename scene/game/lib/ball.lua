@@ -87,7 +87,7 @@ function M.new( options )
 
 		-- wykrywanie kolizji między piłeczką i paletkami
 		if ( AABBIntersect( pdle, self ) ) then
-			app.playSound(scene.sounds.hit)
+			app.playSound( 'hit' )
 			transition.chain( pdle, {time=150, alpha=0.9, transition=easing.inCubic},
 				{time=150, alpha=1})
 

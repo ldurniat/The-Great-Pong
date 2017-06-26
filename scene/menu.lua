@@ -62,11 +62,11 @@ function scene:create( event )
 
    local playerButton = menu:findObject( 'play' )
    playerButton.transitionUp = function() 
-      transition.to( playerButton, { transition=easing.outSine, y=(playerButton.y+20), onComplete=playerButton.transitionBottom, time=1000} )
+      transition.to( playerButton, { transition=easing.outSine, y=(playerButton.y+10), onComplete=playerButton.transitionBottom, time=1200} )
    end   
 
    playerButton.transitionBottom = function()  
-      transition.to( playerButton, { transition=easing.outSine, y=(playerButton.y-20), onComplete=playerButton.transitionUp, time=1000} )
+      transition.to( playerButton, { transition=easing.outSine, y=(playerButton.y-10), onComplete=playerButton.transitionUp, time=1200} )
    end
 
    sceneGroup:insert( menu )
