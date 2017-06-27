@@ -20,7 +20,7 @@ local mClamp  = math.clamp
 -- Lokalne zmienne
 local squareBall, player, computer 
 local playerScore, computerScore
-local maxScore = 1
+local maxScore = 11
 
 local scene = composer.newScene()   
 

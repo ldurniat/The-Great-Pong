@@ -40,7 +40,7 @@ function M:load()
 		self:set( 'music', true )
 		self:set( 'sound', true )
 		self:set( 'ballInUse', 1 ) 
-		self:set( 'totalPoints', 0 )
+		self:set( 'totalPoints', 100 )
 		self:set( 'balls', balls )  	
 		self:set( 'gamesPlayed', 0 )	
 
