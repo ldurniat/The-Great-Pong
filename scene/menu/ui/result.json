@@ -71,7 +71,7 @@
                  "name":"restart",
                  "properties":
                     {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "font":"scene\/menu\/font\/neuropol.ttf",
                      "size":36,
                      "strokeColor":"#ffffffff",
                      "text":"Restart",
@@ -98,7 +98,7 @@
                  "name":"message",
                  "properties":
                     {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "font":"scene\/menu\/font\/neuropol.ttf",
                      "size":70,
                      "strokeColor":"#ffffffff",
                      "text":"You WIN!"
@@ -123,7 +123,7 @@
                  "name":"menu",
                  "properties":
                     {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "font":"scene\/menu\/font\/neuropol.ttf",
                      "size":36,
                      "strokeColor":"#ffffffff",
                      "text":"Menu",
@@ -150,7 +150,7 @@
                  "name":"totalPointsText",
                  "properties":
                     {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "font":"scene\/menu\/font\/neuropol.ttf",
                      "size":30,
                      "strokeColor":"#ffffffff",
                      "text":"Your Total Points :",
@@ -177,7 +177,7 @@
                  "name":"totalPoints",
                  "properties":
                     {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "font":"scene\/menu\/font\/neuropol.ttf",
                      "size":90,
                      "strokeColor":"#ffffffff",
                      "text":""

@@ -11,7 +11,7 @@
                  "name":"totalpoints",
                  "properties":
                     {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "font":"scene\/menu\/font\/neuropol.ttf",
                      "size":45,
                      "strokeColor":"#ffffffff",
                      "text":""
@@ -36,7 +36,7 @@
                  "name":"gamesPlayed",
                  "properties":
                     {
-                     "font":"scene\/menu\/font\/zektonfree.ttf",
+                     "font":"scene\/menu\/font\/neuropol.ttf",
                      "size":45,
                      "strokeColor":"#ffffffff",
                      "text":""

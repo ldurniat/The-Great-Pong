@@ -110,7 +110,7 @@ app.sound = preference:get( 'sound' )
 app.music = preference:get( 'music' )
 app.loadSounds()
 
-app.font = 'scene/menu/font/zektonfree.ttf'
+app.font = 'scene/menu/font/neuropol.ttf'
 
 Runtime:addEventListener( 'key', onKeyEvent )   
 Runtime:addEventListener( 'system', onSystemEvent )
