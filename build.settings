@@ -4,4 +4,15 @@ settings = {
 		default = "landscapeRight",
 		supported = { "landscapeRight", "landscapeLeft" },
 	},
+	plugins =
+    {
+        ["plugin.gpgs"] =
+        {
+            publisherId = "com.coronalabs"
+        },
+    },
+    android =
+    {
+        googlePlayGamesAppId = "YOUR_APPLICATION_ID",
+    },
 }

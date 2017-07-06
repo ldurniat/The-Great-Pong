@@ -1,0 +1,84 @@
+4.
+
+native.showPopup( "appStore", {supportedAndroidStores="google"} )
+
+1.
+
+******************** main.lua ********************************
+
+line:26
+
+local gpgs = require("plugin.gpgs")
+
+local function gpgsLoginListener(event)
+     if not event.isError then
+        settings["gpgs"] = true
+        print( "Login event:", json.prettify(event) )
+    else    
+        settings["gpgs"] = false
+        print("********************************************")
+        print("Login error message: " .. event.errorMessage)
+        --native.showAlert("Information", "Failed to log in. Please check your network connection and try again.", {"OK"})
+    end
+end
+
+local function gpgsInitListener(event)
+    if not event.isError then
+        -- Try to automatically log in the user without displaying the login screen
+        gpgs.login({listener=gpgsLoginListener, userInitiated=true})
+    else
+        settings["gpgs"] = false    
+        print("********************************************")
+        print("Init error message: " .. event.errorMessage)
+        --native.showAlert("Information", "Failed to sign in. Please check your network connection and try again.", { "OK"})
+    end
+end
+
+
+******************** menu.lua ********************************
+
+gpgs.leaderboards.show({ leaderboardId = "CgkIj5qk6d0ZEAIQAg"})
+
+
+******************** config.lua ********************************
+
+license =
+    {
+        google =
+        {
+            key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu9xU9hesUzUUQLaIs6yvKzmKbh5R6izTzAY1WvCCFWtgo+2XubfkAE2X9xTmDuv2OQwT/su87bsd4haRVsG7POSFpHN/fLjlCvMIGzp7tOqe0o+Qs6yAARLQeHlRplqhN6svwrY+bfx8os3ymxDaCeQs5Y/50LSbkF/4Z9rjXtiJmkJn8oeMSzMsdcyRNzE6uouGfuXPe6LwFMpg0dAR3SeWXJGhFma+EU+HGwqTJixlMMAeUPqzZQNyhkhY2xvtVauw/uD4PTbhdfnsFwxNaT3D7xMx0z2Cpx0fitABFDoQbBLCp9e0dsQnkd1mG0XGnNoxEsh2dha0Qmup/zAPrwIDAQAB",
+        },
+    },
+
+
+
+******************** build.settings ********************************
+
+android =
+    {
+        supportsScreens =
+        {
+            smallScreens  = true,
+            normalScreens = true,
+            largeScreens  = true,
+            xlargeScreens = true,
+        },
+        minSdkVersion = "10",
+        googlePlayGamesAppId = "884178750735",
+        --usesPermissions = 
+        --{ 
+        --	"com.android.vending.CHECK_LICENSE",
+        --},
+    },
+    build =
+    {
+        neverStripDebugInfo = true
+    },
+    plugins =
+    {
+        ["plugin.gpgs"] =
+        {
+            publisherId = "com.coronalabs",
+            supportedPlatforms = {  iphone=false, android=true }
+        },
+    },

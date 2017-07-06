@@ -51,6 +51,8 @@ function scene:create( event )
             --fx.fadeOut( function()
                composer.showOverlay( 'scene.chooseball', { effect='fade', time=200, isModal=true,  params={} } )   
             --end )
+        elseif ( name == 'donate' ) then  
+            system.openURL( "https://www.paypal.me/ldurniat" )
          elseif ( name == 'help' ) then  
             --fx.fadeOut( function()
                composer.showOverlay( 'scene.help', { effect='fade', time=200, isModal=true,  params={} } )   
